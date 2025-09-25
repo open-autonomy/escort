@@ -4,5 +4,5 @@ Policy escorts shared between the Fleet Management System (FMS) and the Autonomo
 To update a escort, the Fleet Management System (FMS) shall delete the existing escort, and create a new escort with the new updated information.
 
 Refer:
-- [Escort Activation](PolicyEscortActivation.md)
-- [Escort Deletion](PolicyEscortDeletion.md)
+- [Escort Activation](EscortActivation.md)
+- [Escort Deletion](EscortDeletion.md)
