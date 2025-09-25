@@ -1,6 +1,6 @@
 # FleetDefinitionV2
 
-The `FleetDefinitionV2` message is used in to inform the FMS of the set of AVs managed by the AHS to allow the FMS to correctly manage policy escort synchronization with the AVs in the fleet. This message is sent by the AHS to the FMS when the AHS connects to the FMS and whenever an AV is commissioned or decommissioned from the fleet.
+The `FleetDefinitionV2` message is used in to inform the FMS of the set of AVs managed by the AHS to allow the FMS to correctly manage escort synchronization with the AVs in the fleet. This message is sent by the AHS to the FMS when the AHS connects to the FMS and whenever an AV is commissioned or decommissioned from the fleet.
 
 > [!IMPORTANT]
 > The `FleetDefinitionV2` message is part of the ISO 23725 standard for the exchange of fleet definition information between AHS and FMS. For more information on the ISO 23725 standard, see the [ISO 23725 documentation](https://www.iso.org/standard/73766.html).

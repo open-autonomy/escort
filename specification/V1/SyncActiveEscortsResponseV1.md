@@ -14,7 +14,7 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
 | `"ResponseId"` | ResponseId | UUID | True | A unique identifier for the response. This is used to match the response message with the `SyncActiveEscortsRequestV1` message. |
-| `"Status"` | [`Activated`, `Rejected`] | String | True | Indicates whether the AV has successfully activated received the policy escorts. <br/> - `Activated`: The AV has activated all escorts and is adhering to their associated policies. <br/> - `Rejected`: The AV cannot adhere to one or more of the policies. In this case, the AV must not operate as it cannot guarantee safety. |
+| `"Status"` | [`Activated`, `Rejected`] | String | True | Indicates whether the AV has successfully activated received the escorts. <br/> - `Activated`: The AV has activated all escorts and is adhering to their associated policies. <br/> - `Rejected`: The AV cannot adhere to one or more of the policies. In this case, the AV must not operate as it cannot guarantee safety. |
 | `"ActivatedEscorts"` | Array[`EscortIdObject`] | Array[] | True | A list of `EscortIdObject` that indicates the escorts that have been activated by the AV |
 
 >[!NOTE]
@@ -23,7 +23,7 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
 ### EscortIdObject
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | The policy escort id |
+| `"EscortId"` | EscortId | UUID | True | The escort id |
 
 
 ## Examples

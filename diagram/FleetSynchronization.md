@@ -1,6 +1,6 @@
 # Fleet Synchronization
 
-This document describes the fleet synchronization process between the Autonomous Haulage System (AHS) and the Fleet Management System (FMS) using the ISO 23725 `FleetDefinitionV2` message. This message is used to inform the FMS of the set of Autonomous Vehicles (AVs) managed by the AHS, allowing the FMS to correctly manage policy escort synchronization with the AVs in the fleet.
+This document describes the fleet synchronization process between the Autonomous Haulage System (AHS) and the Fleet Management System (FMS) using the ISO 23725 `FleetDefinitionV2` message. This message is used to inform the FMS of the set of Autonomous Vehicles (AVs) managed by the AHS, allowing the FMS to correctly manage escort synchronization with the AVs in the fleet.
 
 ## On Connect
 The Autonomous Haulage System (AHS) will send an ISO 23725 `FleetDefinitionV2` message to the Fleet Management System (FMS) of the Autonomous Vehicles(AV) in the fleet when the connection is established.

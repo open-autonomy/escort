@@ -1,10 +1,10 @@
 # Policies
 
-This document describes the policies that can be applied to policy escorts created by the Fleet Management System (FMS) and adhered to by the Autonomous Haulage System's (AHS) Autonomous Vehicles (AV). Each policy defines specific behaviors that AVs must follow while operating within the defined escorts.
+This document describes the policies that can be applied to escorts created by the Fleet Management System (FMS) and adhered to by the Autonomous Haulage System's (AHS) Autonomous Vehicles (AV). Each policy defines specific behaviors that AVs must follow while operating within the defined escorts.
 
 > [!IMPORTANT]
 > - When an AV activates a policy, it shall adhere prior to entering and while inside the specified geometry.
-> - A policy escort may contain multiple policies. When an AV activates a policy escort, it shall adhere to <ins>all</ins> policies specified in the escort.
+> - A escort may contain multiple policies. When an AV activates a escort, it shall adhere to <ins>all</ins> policies specified in the escort.
 
 
 ### Policies

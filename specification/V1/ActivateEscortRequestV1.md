@@ -1,10 +1,10 @@
 # ActivateEscortRequestV1
 
-This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) to indicate a policy escort has been created in the FMS which the Autonomous Vehicles (AV) are expected to adhere to. Each AV should then respond with an `ActivateEscortResponseV1` message indicating whether it has accepted, activated or rejected the policy escort request (see `ActivateEscortResponseV1` for a description of response types).
+This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) to indicate a escort has been created in the FMS which the Autonomous Vehicles (AV) are expected to adhere to. Each AV should then respond with an `ActivateEscortResponseV1` message indicating whether it has accepted, activated or rejected the escort request (see `ActivateEscortResponseV1` for a description of response types).
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `FMS`  | Policy Escort creation or updates | The AV to start accepting and adher to the policy escorts, and fire off `ActivateEscortResponseV1` messages |
+| `FMS`  | Escort creation or updates | The AV to start accepting and adher to the escorts, and fire off `ActivateEscortResponseV1` messages |
 
 ## Message Attributes
 
@@ -18,10 +18,10 @@ The `ActivateEscortResponseV1` message consists of the following properties.
 > The top-level message headers should contain the `EquipmentId`, indicating which AV the `ActivateEscortRequestV1` message is for.
 
 ### Escort Object
-The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/rfc7946) compatible feature object that describes the policy escort. It contains the following properties:
+The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/rfc7946) compatible feature object that describes the escort. It contains the following properties:
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"id"` | EscortId | String | True | A unique identifier for the policy escort |
+| `"id"` | EscortId | String | True | A unique identifier for the escort |
 | `"type"` | `Feature` | String | True | The GeoJSON compatible feature type |
 | `"geometry"` | Geometry | Object | True | A GeoJSON compatible geometry object |
 | `"properties"` | Properties | Object | True | A GeoJSON compatible properties object |
@@ -36,9 +36,9 @@ The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/r
 ### Properties Object
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"id"` | EscortId | String | True | The policy escort id |
-| `"name"` |  | String | True | The name of the policy escort |
-| `"activateDeadline"` | DateTime | ISO8601 UTC | False | Indicates when AV the latest time by which AV that has accepted a policy escort should transition to activating it. <br/> **NOTE** This is a soft deadline, AV should aim to adhere to the policy by this time but it is not strictly required to do so if it is not possible or safe to do so. |
+| `"id"` | EscortId | String | True | The escort id |
+| `"name"` |  | String | True | The name of the escort |
+| `"activateDeadline"` | DateTime | ISO8601 UTC | False | Indicates when AV the latest time by which AV that has accepted a escort should transition to activating it. <br/> **NOTE** This is a soft deadline, AV should aim to adhere to the policy by this time but it is not strictly required to do so if it is not possible or safe to do so. |
 | `"policies"` | Policies | Object | True | A set of policies that the AV shall adhere to within the escort. <br/><br/> See [policies](policies.md) for the possible policies and their properties. |
 
 

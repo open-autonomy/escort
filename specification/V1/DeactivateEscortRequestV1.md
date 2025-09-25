@@ -1,10 +1,10 @@
 # DeactivateEscortRequestV1
 
-This message is sent by the Fleet Management System (FMS) to Autonomous Haulage System (AHS) to indicate a policy escort has been flagged for deletion, and each Autonomous Vehicle (AV) should remove it from its own internal set of active policy escorts.
+This message is sent by the Fleet Management System (FMS) to Autonomous Haulage System (AHS) to indicate a escort has been flagged for deletion, and each Autonomous Vehicle (AV) should remove it from its own internal set of active escorts.
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `FMS`  | Deletion of policy escort | AV to internally deactivate the escort, and response with `DeactivateEscortResponseV1` message |
+| `FMS`  | Deletion of escort | AV to internally deactivate the escort, and response with `DeactivateEscortResponseV1` message |
 
 ## Message Attributes
 
@@ -12,7 +12,7 @@ The `DeactivateEscortRequestV1` message consists of the following properties.
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | The policy escort id in which the AV is responding to |
+| `"EscortId"` | EscortId | UUID | True | The escort id in which the AV is responding to |
 
 >[!NOTE]
 > The top-level message headers should contain the `EquipmentId`, indicating which AV the `deactivateEscortsRequestV1` message is for.

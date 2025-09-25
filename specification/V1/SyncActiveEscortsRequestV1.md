@@ -8,7 +8,7 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `FMS`  | `OutOfSyncV1` | The AV to adhere to the existing activated policy escorts, and fire off `SyncAllActiveEscortsResponseV1` messages |
+| `FMS`  | `OutOfSyncV1` | The AV to adhere to the existing activated escorts, and fire off `SyncAllActiveEscortsResponseV1` messages |
 
 ## Message Attributes
 
@@ -23,10 +23,10 @@ The `SyncAllActiveEscortsRequestV1` is
 > The top-level message headers should contain the `EquipmentId`, indicating which AV the `SyncAllActiveEscortsRequestV1` message is for.
 
 ### Escort Object
-The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/rfc7946) compatible feature object that describes the policy escort. It contains the following properties:
+The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/rfc7946) compatible feature object that describes the escort. It contains the following properties:
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"id"` | EscortId | String | True | A unique identifier for the policy escort |
+| `"id"` | EscortId | String | True | A unique identifier for the escort |
 | `"type"` | `Feature` | String | True | The GeoJSON compatible feature type |
 | `"geometry"` | Geometry | Object | True | A GeoJSON compatible geometry object |
 | `"properties"` | Properties | Object | True | A GeoJSON compatible properties object |
@@ -41,8 +41,8 @@ The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/r
 ### Properties Object
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"id"` | EscortId | String | True | The policy escort id |
-| `"name"` |  | String | True | The name of the policy escort |
+| `"id"` | EscortId | String | True | The escort id |
+| `"name"` |  | String | True | The name of the escort |
 | `"policies"` | Policies | Object | True | A set of policies that the AV should adhere to within the escort. <br/><br/> See [policies](policies.md) for the possible policies and their properties. |
 
 

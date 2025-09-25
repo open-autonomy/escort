@@ -1,6 +1,6 @@
 # DeactivateEscortResponseV1
 
-This message is sent by the Autonomous Haulage System (AHS) in response to the `DeactivateEscortRequestV1` message from the Fleet Management System (FMS), indicating whether the Autonomous Vehicle (AV) was successful in removing the escort from its internal set of active policy escorts.
+This message is sent by the Autonomous Haulage System (AHS) in response to the `DeactivateEscortRequestV1` message from the Fleet Management System (FMS), indicating whether the Autonomous Vehicle (AV) was successful in removing the escort from its internal set of active escorts.
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
@@ -12,7 +12,7 @@ The `DeactivateEscortResponseV1` message consists of the following properties.
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | The policy escort id in which the truck is responding to |
+| `"EscortId"` | EscortId | UUID | True | The escort id in which the truck is responding to |
 | `"Status"` | [`Accepted`] | String | True |  |
 
 >[!NOTE]
