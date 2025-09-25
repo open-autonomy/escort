@@ -36,7 +36,8 @@ Policy escorts have a lifecycle that is managed by the FMS. This lifecycle inclu
 
 The following state machine describes the lifecycle of a policy escort as it transitions between these states:
 
-![Policy Escort State Machine](diagram/PolicyEscortStateMachine.svg)
+> [!NOTE]
+> The Policy Escort State Machine diagram is not included in this repository.
 
 > [!NOTE]
 > Policy escorts that are rejected are still considered pending and can be re-sent to the truck for activation at a later time.
