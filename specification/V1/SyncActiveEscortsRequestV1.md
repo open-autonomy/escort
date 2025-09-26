@@ -43,7 +43,6 @@ The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/r
 | --- | :---: | :---: | :---: | --- |
 | `"id"` | EscortId | String | True | The escort id |
 | `"name"` |  | String | True | The name of the escort |
-| `"policies"` | Policies | Object | True | A set of policies that the AV should adhere to within the escort. <br/><br/> See [policies](policies.md) for the possible policies and their properties. |
 
 
 ## Examples
@@ -58,120 +57,10 @@ The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/r
   "SyncActiveEscortsRequestV1": {
     "RequestId": "00000000-0000-0000-0000-000000000001",
     "Escorts": [
-        {
-        "type": "Feature",
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-            [
-            [
-                59.154612700275194,
-                17.62123606784992
-            ],
-            [
-                59.15444657134832,
-                17.621361182777765
-            ],
-            [
-                59.154458381940245,
-                17.62176503107635
-            ],
-            [
-                59.154774479447724,
-                17.621645401146836
-            ],
-            [
-                59.154612700275194,
-                17.62123606784992
-            ]
-            ]
-            ]
-        },
+        { },
         "id": "00000000-0000-0000-0000-000000000001",
         "properties": {
             "name": "grading 1",
-            "policies": {
-                "exclusion": { }
-            },
-        }
-        },
-        {
-        "type": "Feature",
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-            [
-            [
-                59.154244958079,
-                17.620554410746
-            ],
-            [
-                59.154391048629,
-                17.620733999199
-            ],
-            [
-                59.154275508018,
-                17.621266018812
-            ],
-            [
-                59.154121113519,
-                17.621085793262
-            ],
-            [
-                59.154244958079,
-                17.620554410746
-            ]
-            ]
-            ]
-        },
-        "id": "00000000-0000-0000-0000-000000000002",
-        "properties": {
-            "name": "grading 2",
-            "policies": {
-                "exclusion": { }
-            },
-        }
-        },
-        {
-        "type": "Feature",
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-            [
-            [
-                59.154998915988,
-                17.621767651459
-            ],
-            [
-                59.154835229909,
-                17.621800464999
-            ],
-            [
-                59.154847165895,
-                17.622115535915
-            ],
-            [
-                59.155000821112,
-                17.622085194746
-            ],
-            [
-                59.15499725505,
-                17.621767524328
-            ],
-            [
-                59.154998915988,
-                17.621767651459
-            ]
-            ]
-            ]
-        },
-        "id": "00000000-0000-0000-0000-000000000003",
-        "properties": {
-            "name": "grading on-road",
-            "policies": {
-                "exclusion": { }
-            },
-        }
         }
     ]
   }

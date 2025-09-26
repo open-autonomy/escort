@@ -60,7 +60,7 @@ sequenceDiagram
     FMS->>AHS: Send ActivateEscortRequestV1 to AV 1
 
     AHS->>AV 1: Activate Escort
-    Note over AV 1: Unable to immediately adhere to policy
+    Note over AV 1: Unable to immediately adhere to request
     AV 1->>AHS: Accepted
     AHS->>FMS: ActivateEscortResponseV1: Status "Accepted"
 
@@ -84,14 +84,14 @@ sequenceDiagram
         loop
             FMS->>AHS: Send ActivateEscortRequestV1 to AV N
             AHS->>AV N: Activate Escort
-            AV N->>AV N: Adheres to Policy
+            AV N->>AV N: Adheres to request
             AV N->>AHS: Activated
             AHS->>FMS: ActivateEscortResponseV1: Status "Activated"
         end
     end
 
-    Note Over AV 1: Adhering to policy
-    AV 1->>AV 1: Adheres to Policy
+    Note Over AV 1: Adhering to request
+    AV 1->>AV 1: Adheres to request
     AV 1->>AHS: Activated
      AHS->>FMS: AV 1 <br/> ActivateEscortResponseV1: Status "Activated"
 

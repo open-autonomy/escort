@@ -38,8 +38,8 @@ The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/r
 | --- | :---: | :---: | :---: | --- |
 | `"id"` | EscortId | String | True | The escort id |
 | `"name"` |  | String | True | The name of the escort |
-| `"activateDeadline"` | DateTime | ISO8601 UTC | False | Indicates when AV the latest time by which AV that has accepted a escort should transition to activating it. <br/> **NOTE** This is a soft deadline, AV should aim to adhere to the policy by this time but it is not strictly required to do so if it is not possible or safe to do so. |
-| `"policies"` | Policies | Object | True | A set of policies that the AV shall adhere to within the escort. <br/><br/> See [policies](policies.md) for the possible policies and their properties. |
+| `"activateDeadline"` | DateTime | ISO8601 UTC | False | Indicates when AV the latest time by which AV that has accepted a escort should transition to activating it. <br/> **NOTE** This is a soft deadline, AV should aim to adhere to the request by this time but it is not strictly required to do so if it is not possible or safe to do so. |
+
 
 
 ## Examples
@@ -52,47 +52,10 @@ The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/r
     "EscorterId": "11111111-2222-3333-4444-555555555555",
     "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
     "ActivateEscortRequestV1": {
-        "Escort": {
-            "type": "Feature",
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                [
-                    [
-                        59.154612700275194,
-                        17.62123606784992,
-                        0
-                    ],
-                    [
-                        59.15444657134832,
-                        17.621361182777765,
-                        0
-                    ],
-                    [
-                        59.154458381940245,
-                        17.62176503107635,
-                        0
-                    ],
-                    [
-                        59.154774479447724,
-                        17.621645401146836,
-                        0
-                    ],
-                    [
-                        59.154612700275194,
-                        17.62123606784992,
-                        0
-                    ]
-                ]
-                ]
-            },
+        "Escort": {},
             "id": "00000000-0000-0000-0000-000000000001",
             "properties": {
                 "name": "grading 1",
-                "policies": {
-                    "exclusion": { }
-                },
-                "activationDeadline": "2024-04-04T06:05:47Z"
             }
         }
     }

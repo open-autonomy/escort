@@ -9,7 +9,7 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 > [!IMPORTANT]
 > FMS SHALL begin sending `EscortPositionV1` messages immediately after transmitting an `ActivateEscortRequestV1` (shall NOT wait for any `ActivateEscortResponseV1`).
 >
-> If more than 2 consecutive `EscortPositionV1` messages are missed (configurable), AVs MAY expand protection margins or fail-safe according to site policy.
+> If more than 2 consecutive `EscortPositionV1` messages are missed (configurable), AVs MAY expand protection margins or fail-safe according to site request.
 
 > [!IMPORTANT]
 > `EquipmentIds` is an array (rather than the single `EquipmentId` used in the standard header) because this message is broadcast at 1 Hz to all active AVs. By listing all intended recipients in one payload the FMS avoids transmitting an identical position update separately to each AV, reducing bandwidth and processing overhead. This is a deliberate, message-specific deviation from the standard header pattern to support high‑frequency distribution efficiency.

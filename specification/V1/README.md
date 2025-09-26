@@ -5,20 +5,9 @@ This specification defines the messages and protocols used for managing escorts 
 
 # Message definition
 Find below the Specification for the Version 1 protocol of escorts for Open-Autonomy
-- [Policies](#policies)
 - [Fleet Synchronization](#fleet-synchronization)
 - [Escort Messages](#escort-messages)
 
-# Policies
-
-The following policies are defined in this specification.
-- [Exclusion](policies.md#exclusion)	
-- [Speed Limit](policies.md#speed-limit)
-- [Low Traction](policies.md#low-traction)
-- [Rough Road](policies.md#rough-road)
-
-> [!WARNING]
-> This list is not exhaustive and more policies can be added in the future.
 
 # Fleet Synchronization
 To facilitate escort state synchronization between the FMS and the fleet of AVs managed by the AHS, The AHS must inform the FMS of the current configuration of the fleet. This specification uses the [FleetDefinitionV2](FleetDefinitionV2.md) message from ISO 23725 to exchange fleet definition information between the AHS and FMS.
