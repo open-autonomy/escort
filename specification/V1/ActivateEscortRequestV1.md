@@ -1,0 +1,100 @@
+# ActivateEscortRequestV1
+
+This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) to indicate a escort has been created in the FMS which the Autonomous Vehicles (AV) are expected to adhere to. Each AV should then respond with an `ActivateEscortResponseV1` message indicating whether it has accepted, activated or rejected the escort request (see `ActivateEscortResponseV1` for a description of response types).
+
+| Sender | Triggered by | Triggers |
+| --- | --- | --- |
+| `FMS`  | Escort creation or updates | The AV to start accepting and adher to the escorts, and fire off `ActivateEscortResponseV1` messages |
+
+## Message Attributes
+
+The `ActivateEscortResponseV1` message consists of the following properties.
+
+| Key | Value | Format | Required | Description |
+| --- | :---: | :---: | :---: | --- |
+| `"Escorts"` | | Array[Escort] | True | A single [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) object consist of the following properties. |
+
+>[!NOTE]
+> The top-level message headers should contain the `EquipmentId`, indicating which AV the `ActivateEscortRequestV1` message is for.
+
+### Escort Object
+The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/rfc7946) compatible feature object that describes the escort. It contains the following properties:
+| Key | Value | Format | Required | Description |
+| --- | :---: | :---: | :---: | --- |
+| `"id"` | EscortId | String | True | A unique identifier for the escort |
+| `"type"` | `Feature` | String | True | The GeoJSON compatible feature type |
+| `"geometry"` | Geometry | Object | True | A GeoJSON compatible geometry object |
+| `"properties"` | Properties | Object | True | A GeoJSON compatible properties object |
+
+### Geometry Object
+| Key | Value | Format | Required | Description |
+| --- | :---: | :---: | :---: | --- |
+| `"type"` | `Polygon` | String | True | The geometry type that conforms with GeoJSON geometry `Polygon` |
+| `"coordinates"` |  | Array[Array[Array[Number, Number, Number]]] | True | A GeoJSON compatible polygon geometry coordinates. <br/> **NOTE** each coordinate must consist of 3 number, [longitude, latitude, elevation]. See [GeoJSON Geometry Object](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1) |
+
+
+### Properties Object
+| Key | Value | Format | Required | Description |
+| --- | :---: | :---: | :---: | --- |
+| `"id"` | EscortId | String | True | The escort id |
+| `"name"` |  | String | True | The name of the escort |
+| `"activateDeadline"` | DateTime | ISO8601 UTC | False | Indicates when AV the latest time by which AV that has accepted a escort should transition to activating it. <br/> **NOTE** This is a soft deadline, AV should aim to adhere to the policy by this time but it is not strictly required to do so if it is not possible or safe to do so. |
+| `"policies"` | Policies | Object | True | A set of policies that the AV shall adhere to within the escort. <br/><br/> See [policies](policies.md) for the possible policies and their properties. |
+
+
+## Examples
+### Typical Message
+```JSON
+{
+    "Protocol": "Open-Autonomy",
+    "Version": 1,
+    "Timestamp": "2021-09-01T12:00:00Z",
+    "EscorterId": "11111111-2222-3333-4444-555555555555",
+    "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
+    "ActivateEscortRequestV1": {
+        "Escort": {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                [
+                    [
+                        59.154612700275194,
+                        17.62123606784992,
+                        0
+                    ],
+                    [
+                        59.15444657134832,
+                        17.621361182777765,
+                        0
+                    ],
+                    [
+                        59.154458381940245,
+                        17.62176503107635,
+                        0
+                    ],
+                    [
+                        59.154774479447724,
+                        17.621645401146836,
+                        0
+                    ],
+                    [
+                        59.154612700275194,
+                        17.62123606784992,
+                        0
+                    ]
+                ]
+                ]
+            },
+            "id": "00000000-0000-0000-0000-000000000001",
+            "properties": {
+                "name": "grading 1",
+                "policies": {
+                    "exclusion": { }
+                },
+                "activationDeadline": "2024-04-04T06:05:47Z"
+            }
+        }
+    }
+}
+```
