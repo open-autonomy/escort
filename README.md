@@ -1,32 +1,43 @@
-# Escort Zones  
-Escort Zones are dynamic safety regions created around an escort vehicle within an autonomous operating area. An escort vehicle is a conventionally driven vehicle equipped with the proper communication system, allowing Autonomous Vehicles (AVs) to detect and respond to its presence.  
-
-This repository defines the **messages and communication protocol between the Fleet Management System (FMS) and the Autonomous Haulage System (AHS)** for activating and deactivating escorts. Through this protocol, AVs in the area enforce a **no-drive zone** around the escort vehicle, ensuring safe movement for non-autonomous or non-equipped vehicles.  
-
----
-
-### Language  
-| Acronyms | Extended Name |  
+# Escort 
+The Escort feature allows non-instrumented equipment to safely travel in the autonomous operating zone by being escorted by a staffed instrumented vehicle. The non-instrumented equipment is protected by always being inside a zone behind the instrumented vehicle, communicated to all autonomous vehicles.
+ 
+This repository defines the **messages and communication protocol between the Fleet Management System (FMS) and the Autonomous Haulage System (AHS)** for activating and deactivating escorts.
+ 
+## Terminology
+| Term | Description |  
 | --- | --- |  
 | AHS | Autonomous Haulage System |  
 | AV | Autonomous Vehicle |  
 | FMS | Fleet Management System |  
+| AOZ | Autonomous Operating Zone. The area where the autonomus mining vehicles are allowed to operate. |
+| SIV | Staffed Instrumented Vehicle. Manually driven equipment equipped with a remote stop. Could be a car, an excavator, or any other type of moving equipment. |
+| Escorter | The leading SIV during the escort activity. |
+| Escortee | A non-instrumented vehicle being escorted. |
+| Escorting convoy | The escorter together with its escortee(s) |
+| Escort Protection Zone | The zone in which the escorting convoy is required to be within at all times. Is defined by a configurable distance that extends behind the escorter, to include the escortee. |
+| Escort Avoidance Zone | Zone internally defined on each AV, that the AV will not enter. It is at least as big as the protection zone, but is likely bigger due to latency of the escorter's position. |
 
 ---
 
-## Escort Zone Specification  
-Escort zones are defined and exchanged using this protocol. The zones are dynamically shaped based on both **escort-defined parameters** and **real-time operating conditions**:  
+## Escort Protection Zone Specification  
+Escort protection zones are defined and exchanged using this protocol. The zones are dynamically shaped based on both **escort-defined parameters** and **real-time operating conditions**:
 
-- **Width**: Configured by the escorting vehicle, but constrained by the lane width.  
-- **Length**: Initially defined by the escort, but may extend depending on communication latency and the escort’s speed.  
-  - If position updates are immediate, the zone length equals the escort vehicle length.  
-  - If updates are delayed, the zone expands in proportion to the elapsed time and the escort’s speed.  
+### Parameters
+These parameters are part of the activation request, during the active escort phase the parameters are constant througout the entire escort operation.
+- **Length**: The Escortee must always stay within _length_ meters of the Escorter along the path that the Escorter is driving.
+- **Width**: Configured by the Escorter vehicle, applicable to escorting in open areas. When driving on road the escort must always stay within the lane, and the entire lane width will constitute the protection zone.
 
-> [!IMPORTANT]  
-> Once an escort is activated, the escort vehicle continuously transmits its position at **1 Hz (one update per second)**. These periodic updates allow AVs to maintain an accurate escort zone. If updates are delayed or missed, the zone length automatically increases to maintain safety margins.  
+![Protection Zone Definition Image](images/escort-protection_zone.png)
 
+### Real-Time Operating Conditions
+Once an escort is activated, the Escorter vehicle continuously transmits its position at **1 Hz (one update per second)**. These periodic updates allow AVs to maintain an accurate escort zone. If updates are delayed or missed, the AV will automatically increase its Avoidance Zone to maintain safety margins to the Protection Zone. 
 This adaptive expansion ensures AVs keep a protective buffer even when communication is unreliable.  
 
+Each AV will maintain its own representation of the Protection Zone. This is because an AV must rely on delayed position updates from the Escorter. The AV will use its knowledge about the escort combined with map knowledge to make a predicion on where the escort might have moved during the time delay. This uncertainty due to time delay forces the AV to increase the Avoidance Zone compared to the Protection Zone, in order to maintain safety.
+
+> [!IMPORTANT]
+> - The Escorter and Escortee must at all times stay within the defined Protection Zone.
+> - The AV will in its escort predictions assume that an Escort Convoy that is driving on a road will keep driving on the road and within the lane. Therefore it is important that the Escort Convoy actually does that.
 ---
 
 ## Escort Zone State Machine  
