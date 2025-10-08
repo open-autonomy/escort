@@ -21,18 +21,18 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
 | `"EquipmentIds"` | shall | Array[UUID] | UUID list | List of EquipmentIds (AV identifiers) this position is intended for; MAY be the full active set, MAY be a targeted subset. |
-| `"Timestamp"` | shall | DateTime | ISO 8601 (GPS time if available) | Timestamp when the position sample was measured (NOT when message transmitted). |
+| `"Timestamp"` | shall | DateTime | ISO 8601 (GPS time) | GPS timestamp when the position sample was measured (NOT when message transmitted). Note that GPS time differs from UTC time by a couple of seconds (currently 18). |
 | `"Latitude"` | shall | decimal | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
 | `"Longitude"` | shall | decimal | degrees (WGS84) | 6+ decimal places. |
 | `"Elevation"` | shall | decimal | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
-| `"Heading"` | shall | integer | degrees | 0–359; 0 = true north, clockwise increase. |
+| `"Heading"` | shall | decimal | degrees | 0–359; 0 = true north, clockwise increase. |
 | `"Speed"` | shall | decimal | m/s | Instantaneous ground speed (consider conversion from native km/h). |
 | `"LatitudeAccuracy"` | should | decimal | meters (1σ) | 1‑sigma horizontal positional accuracy latitude component. |
 | `"LongitudeAccuracy"` | should | decimal | meters (1σ) | 1‑sigma horizontal positional accuracy longitude component. |
 | `"ElevationAccuracy"` | should | decimal | meters (1σ) | 1‑sigma vertical accuracy. |
-| `"HeadingAccuracy"` | could | decimal | degrees (1σ) | 1‑sigma heading accuracy. |
-| `"SpeedAccuracy"` | could | decimal | m/s (1σ) | 1‑sigma speed accuracy (optional). |
-| `"VelocityVector"` | could | Object | m/s | Optional decomposed velocity components. |
+| `"HeadingAccuracy"` | should | decimal | degrees (1σ) | 1‑sigma heading accuracy. |
+| `"SpeedAccuracy"` | should | decimal | m/s (1σ) | 1‑sigma speed accuracy. |
+| `"VelocityVector"` | could | Object | - | Optional decomposed velocity components. |
 | `"VelocityVector.vx"` | could | decimal | m/s | X component in local ENU (East). |
 | `"VelocityVector.vy"` | could | decimal | m/s | Y component in local ENU (North). |
 | `"VelocityVector.vz"` | could | decimal | m/s | Z component (Up). |
