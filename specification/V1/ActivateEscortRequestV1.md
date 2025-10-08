@@ -12,34 +12,26 @@ The `ActivateEscortResponseV1` message consists of the following properties.
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"Escorts"` | | Array[Escort] | True | A single [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) object consist of the following properties. |
+| `"Escorts"` | - | Array[Escort] | True | A single Escort object is described below. |
 
 >[!NOTE]
 > The top-level message headers should contain the `EquipmentId`, indicating which AV the `ActivateEscortRequestV1` message is for.
-
 ### Escort Object
-The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/rfc7946) compatible feature object that describes the escort. It contains the following properties:
+
+
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"id"` | EscortId | String | True | A unique identifier for the escort |
-| `"type"` | `Feature` | String | True | The GeoJSON compatible feature type |
-| `"geometry"` | Geometry | Object | True | A GeoJSON compatible geometry object |
-| `"properties"` | Properties | Object | True | A GeoJSON compatible properties object |
+| `"EscorterId"` | UUID | UUID | False | Identifier of the escorting vehicle providing protection. Required if the `Escorts` list in `ActivateEscortResponseV1` is of length greater than 1 |
+| `"EscortId"` | UUID | UUID | True | A unique identifier for the escort operation |
+| `"V2XStationId"` | StationId  | integer | True | V2X StationId of the Escorter SIV |
+| `"Length"` | m | decimal | True | Length of protection Zone |
+| `"Width"` | m | decimal | True | Width of protection Zone, applicable when Escort Convoy is in open area. |
 
-### Geometry Object
-| Key | Value | Format | Required | Description |
-| --- | :---: | :---: | :---: | --- |
-| `"type"` | `Polygon` | String | True | The geometry type that conforms with GeoJSON geometry `Polygon` |
-| `"coordinates"` |  | Array[Array[Array[Number, Number, Number]]] | True | A GeoJSON compatible polygon geometry coordinates. <br/> **NOTE** each coordinate must consist of 3 number, [longitude, latitude, elevation]. See [GeoJSON Geometry Object](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1) |
-
-
-### Properties Object
-| Key | Value | Format | Required | Description |
-| --- | :---: | :---: | :---: | --- |
-| `"id"` | EscortId | String | True | The escort id |
-| `"name"` |  | String | True | The name of the escort |
-| `"activateDeadline"` | DateTime | ISO8601 UTC | False | Indicates when AV the latest time by which AV that has accepted a escort should transition to activating it. <br/> **NOTE** This is a soft deadline, AV should aim to adhere to the request by this time but it is not strictly required to do so if it is not possible or safe to do so. |
-
+> [!NOTE]
+> Why V2X StationId?
+> - V2X CAM messages can be received with smaller latency than the `EscortPositionV1` messages therefore StationId of the Escorter is a valuable information to the AV.
+> 
+> Usually V2X StationIds are changing from time to time. The Escorter must not change its StationId during the extent of the specific escort operation.
 
 
 ## Examples
@@ -52,12 +44,15 @@ The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/r
     "EscorterId": "11111111-2222-3333-4444-555555555555",
     "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
     "ActivateEscortRequestV1": {
-        "Escort": {},
-            "id": "00000000-0000-0000-0000-000000000001",
-            "properties": {
-                "name": "grading 1",
+        "Escorts": [
+            {
+                "EscorterId": "11111111-2222-3333-4444-555555555555",
+                "EscortId": "00000000-0000-0000-0000-000000000001",
+                "StationId": 23983958,
+                "Length": 200.0,
+                "Width": 6.0
             }
-        }
+        ]
     }
 }
 ```

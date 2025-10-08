@@ -1,5 +1,5 @@
 # Escort Activation
-When an escort is created, the Fleet Management System (FMS) initiates the activation process by sending `ActivateEscortRequestV1` messages to the Autonomous Haulage System (AHS) for each of the Autonomous Vehicles (AVs) defined in the Fleet Definition. The AHS then communicates with each of the AVs to activate the escort internally. This document now also includes the full life cycle: activation attempts, steady‑state position pulsing, and deactivation.
+When an escort is created, the FMS initiates the activation process by sending `ActivateEscortRequestV1` messages to the AHS for each of the AV defined in the Fleet Definition. The AHS then communicates with each of the AVs to activate the escort internally. This document now also includes the full life cycle: activation attempts, steady‑state position pulsing, and deactivation.
 
 > [!IMPORTANT]
 > All systems shall implement idempotency when managing Escort Activations.
@@ -42,8 +42,8 @@ sequenceDiagram
     deactivate FMS
 ```
 
-> [!TIP]
-> FMS must begin streaming position updates immediately after sending the activation request; waiting for an Accepted / Activated response can reduce safety margins.
+> [!IMPORTANT]
+> FMS should begin streaming position updates immediately after sending the activation request, since the position information is required for AVs to activate the escort.
 
 ## Typical Escort Activation
 
@@ -91,7 +91,7 @@ sequenceDiagram
 When an AV cannot adhere to the request defined in the escort definition, the AHS should send a `"Rejected"` status in the `ActivateEscortResponse` message to FMS. The FMS will then notify the user accordingly.
 
 > [!NOTE]
-> If an AV rejects the `ActivateEscortRequestV1` message for a given escort, the escort will not be activated within the FMS and will remain as `"pending"` until all AVs have successfully activated the escort.
+> If an AV rejects a given escort, it will never activate it. The escort will not be activated within the FMS and will remain as `"pending"` until it has been de-activated. 
 
 ```mermaid
 sequenceDiagram
