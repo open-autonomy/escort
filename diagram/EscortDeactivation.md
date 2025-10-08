@@ -1,5 +1,5 @@
 # Escort Deactivation
-When an escort is deactivated, the Fleet Management System (FMS) sends a request to the Autonomous Haulage System (AHS) to deactivate the escort on all Autonomous Vehicles (AV) that are currently adhering to it. The AHS then communicates with each AV to remove the active escort zone.
+When an escort is deactivated, the FMS sends a request to the AHS to deactivate the escort on all AVs that are currently adhering to it. The AHS then communicates with each AV to remove the active escort zone.
 
 > [!IMPORTANT]
 > - All systems shall implement idempotency when managing Escort Deactivations.
