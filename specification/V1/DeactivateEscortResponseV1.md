@@ -13,7 +13,7 @@ The `DeactivateEscortResponseV1` message consists of the following properties.
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
 | `"EscortId"` | EscortId | UUID | True | The escort id in which the truck is responding to |
-| `"Status"` | [`Accepted`] | String | True |  |
+| `"Status"` | [`Pending`] | String | True |  |
 
 >[!NOTE]
 > The top-level message headers should contain the `EquipmentId` which indicate the origin AV of the `DeactivateEscortResponseV1` message
@@ -29,7 +29,7 @@ The `DeactivateEscortResponseV1` message consists of the following properties.
   "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
   "DeactivateEscortResponseV1": {
     "EscortId": "123e4567-e89b-12d3-a456-426614174000",
-    "Status": "Accepted"
+    "Status": "Pending"
   }
 }
 ```

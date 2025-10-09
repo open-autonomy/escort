@@ -20,8 +20,8 @@ sequenceDiagram
     FMS->>AHS: ActivateEscortRequestV1
     AHS->>AV: Activate
     AV->>AV: Protection zone pending
-    AV-->>AHS: Accepted
-    AHS-->>FMS: ActivateEscortResponseV1(status=Accepted)
+    AV-->>AHS: Pending
+    AHS-->>FMS: ActivateEscortResponseV1(status=Pending)
 
     AV->>AV: Enable protection zone
     AV-->>AHS: Activated
@@ -49,7 +49,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant User
+    actor User
     participant FMS
     participant AHS
     participant AV 1
@@ -62,16 +62,16 @@ sequenceDiagram
     par AV 1
     FMS->>AHS: ActivateEscortRequestV1
     AHS->>AV 1: ActivateEscortCommand
-    AV 1->>AHS: ActivationStatus(accepted)
-    AHS->>FMS: ActivateEscortResponseV1(status=Accepted)
+    AV 1->>AHS: ActivationStatus(pending)
+    AHS->>FMS: ActivateEscortResponseV1(status=Pending)
         AV 1->>AV 1: Adheres to request
     AV 1->>AHS: ActivationStatus(activated)
     AHS->>FMS: ActivateEscortResponseV1(status=Activated)
     and AV N
     FMS->>AHS: ActivateEscortRequestV1
     AHS->>AV N: ActivateEscortCommand
-    AV N->>AHS: ActivationStatus(accepted)
-    AHS->>FMS: ActivateEscortResponseV1(status=Accepted)
+    AV N->>AHS: ActivationStatus(pending)
+    AHS->>FMS: ActivateEscortResponseV1(status=Pending)
         Note Over AV N: Unable to immediately adhere to request
         AV N->>AV N: Adheres to request
     AV N->>AHS: ActivationStatus(activated)

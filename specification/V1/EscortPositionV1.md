@@ -18,10 +18,15 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 
 The `EscortPositionV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentId`, and `EscorterId` are defined in `MessageHeader.md`).
 
+// TODO time stamp
+
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
 | `"EquipmentIds"` | shall | Array[UUID] | UUID list | List of EquipmentIds (AV identifiers) this position is intended for; MAY be the full active set, MAY be a targeted subset. |
 | `"Timestamp"` | shall | DateTime | ISO 8601 (GPS time) | GPS timestamp when the position sample was measured (NOT when message transmitted). Note that GPS time differs from UTC time by a couple of seconds (currently 18). |
+| `"GPSWeek"` | shall | integer | GPS Week | GPS Week when the position sample was measured (NOT when message transmitted) |
+| `"GPSSecondInWeek"` | shall | integer | millisecond in GPS Week | millisecond in GPS Week when the position sample was measured (NOT when message transmitted) |
+| `"V2XStationId"` | should  | integer | StationId | V2X StationId of the Escorter SIV |
 | `"Latitude"` | shall | decimal | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
 | `"Longitude"` | shall | decimal | degrees (WGS84) | 6+ decimal places. |
 | `"Elevation"` | shall | decimal | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
@@ -32,10 +37,6 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
 | `"ElevationAccuracy"` | should | decimal | meters (1σ) | 1‑sigma vertical accuracy. |
 | `"HeadingAccuracy"` | should | decimal | degrees (1σ) | 1‑sigma heading accuracy. |
 | `"SpeedAccuracy"` | should | decimal | m/s (1σ) | 1‑sigma speed accuracy. |
-| `"VelocityVector"` | could | Object | - | Optional decomposed velocity components. |
-| `"VelocityVector.vx"` | could | decimal | m/s | X component in local ENU (East). |
-| `"VelocityVector.vy"` | could | decimal | m/s | Y component in local ENU (North). |
-| `"VelocityVector.vz"` | could | decimal | m/s | Z component (Up). |
 
 > [!NOTE]
 > - At minimum: `EscorterId`, `EquipmentIds`, `Timestamp`, `Latitude`, `Longitude`, `Elevation`, `Heading`, `Speed` MUST be present.
@@ -43,6 +44,13 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
 > - If GPS time differs from system send time by > 250 ms, implementers SHOULD still populate `Timestamp` with measurement time (not transmission time).
 >
 > The `EquipmentIds` array allows targeted updates (e.g., only AVs within a geographic radius). FMS SHOULD include all active AVs unless bandwidth optimization is necessary.
+
+> [!NOTE]
+> Why V2X StationId?
+> - V2X CAM messages can be received with smaller latency than the `EscortPositionV1` messages therefore StationId of the Escorter is a valuable information to the AV.
+> 
+> Usually V2X StationIds are changing from time to time. The Escorter must not change its StationId during the extent of the specific escort operation.
+
 
 ## Example
 ```JSON
@@ -57,6 +65,7 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
   ],
   "EscortPositionV1": {
     "Timestamp": "2025-09-26T10:15:29.900Z",
+    "StationId": 23983958,
     "Latitude": 59.1546127,
     "Longitude": 17.6212361,
     "Elevation": 428.32,
@@ -67,11 +76,6 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
     "ElevationAccuracy": 1.5,
     "HeadingAccuracy": 2.0,
     "SpeedAccuracy": 0.2,
-    "VelocityVector": {
-      "vx": 4.15,
-      "vy": 0.35,
-      "vz": 0.00
-    }
   }
 }
 ```
@@ -79,11 +83,11 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
 ## Validation Rules
 - SHALL be published at 1 Hz (±100 ms tolerance recommended).
 - SHALL monotonically increase `Timestamp` (no duplicates or regressions within a session).
-- SHOULD omit `VelocityVector` if any component is NaN or unavailable (omit entire object).
 - SHALL include `Speed` even if zero.
-- If accuracy metrics are unknown, omit the respective fields rather than sending zero (unless zero is a valid measured accuracy).
+- If accuracy metrics are unknown, omit the respective fields rather than sending zero.
 
 ## Failure / Degradation Handling
+// TODO
 | Condition | Recommended Behavior |
 | --- | --- |
 | Missing consecutive > 2 samples | AV enlarges protective zone using last known speed & heading decay. |

@@ -15,7 +15,7 @@ This repository defines the **messages and communication protocol between the Fl
 | Escortee | A non-instrumented vehicle being escorted. |
 | Escorting convoy | The escorter together with its escortee(s) |
 | Escort Protection Zone | The zone in which the escorting convoy is required to be within at all times. Is defined by a configurable distance that extends behind the escorter, to include the escortee. |
-| Escort Avoidance Zone | Zone internally defined on each AV, that the AV will not enter. It is at least as big as the protection zone, but is likely bigger due to latency of the escorter's position. |
+| Escort Avoidance Zone | Zone internally defined on each AV, that the AV will not enter. It is at least as big as the protection zone, but is likely bigger due to latency of the escorter's position updates. |
 
 ---
 
@@ -33,19 +33,19 @@ These parameters are part of the activation request, during the active escort ph
 Once an escort is activated, the Escorter vehicle continuously transmits its position at **1 Hz (one update per second)**. These periodic updates allow AVs to maintain an accurate escort zone. If updates are delayed or missed, the AV will automatically increase its Avoidance Zone to maintain safety margins to the Protection Zone. 
 This adaptive expansion ensures AVs keep a protective buffer even when communication is unreliable.  
 
-Each AV will maintain its own representation of the Protection Zone. This is because an AV must rely on delayed position updates from the Escorter. The AV will use its knowledge about the escort combined with map knowledge to make a predicion on where the escort might have moved during the time delay. This uncertainty due to time delay forces the AV to increase the Avoidance Zone compared to the Protection Zone, in order to maintain safety.
+Each AV will maintain its own representation of the Protection Zone, called Avoidance Zone. This is because an AV must rely on delayed position updates from the Escorter. The AV will use its knowledge about the escort combined with map knowledge to make a predicion on where the escort might have moved during the time delay. This uncertainty due to time delay forces the AV to increase the Avoidance Zone compared to the Protection Zone, in order to maintain safety.
 
 > [!IMPORTANT]
-> - The Escorter and Escortee must at all times stay within the defined Protection Zone.
+> - The Escortee must at all times stay within the defined Protection Zone.
 > - The AV will in its escort predictions assume that an Escort Convoy that is driving on a road will keep driving on the road and within the lane. Therefore it is important that the Escort Convoy actually does that.
 ---
 
-## Escort Zone State Machine  
+## Escort Operation State Machine  
 Escort zones follow a lifecycle managed through the FMS–AHS communication:  
 
-- `Pending`: The escort zone has been created but not yet activated.  
-- `Active`: The escort zone is active, transmitting location updates, and enforced by AVs.  
-- `Deleted`: The escort zone has been removed and is no longer enforced.  
+- `Pending`: The escort operation has been announced but is not yet activated.  
+- `Active`: The escort operation is active, transmitting location updates, and enforced by AVs.  
+- `Deleted`: The escort operation has been removed and is no longer enforced.  
 
 ![Escort Zone State Machine](draw.io/EscortZoneStateMachine.svg)  
 
@@ -65,11 +65,11 @@ All communication between the FMS and AHS for managing escort zones is handled t
 This connection must satisfy the following requirements:  
 - The connection is continuously monitored from both ends.  
 - Messages are exchanged asynchronously over the connection.  
-- Escort position updates are streamed at **1 Hz** while the escort is active.  
+- Escort position updates are streamed at **1 Hz** while the escort is pending or active.  
 - If the connection is lost, the following applies:  
   - The connection must be reestablished **as soon as possible**.  
-  - During the outage, AVs automatically expand the escort zone length to maintain safety.  
-  - Once the connection is restored, the zone contracts back to its configured dimensions.  
+  - During the outage, AVs automatically expand the Avoidance Zone to maintain safety.  
+  - Once the connection is restored, the Avoidance Zone contracts back to its configured dimensions.  
 
 ---
 
@@ -77,7 +77,7 @@ This connection must satisfy the following requirements:
 Because escort zones are safety-critical, the protocol defines explicit behavior for failures:  
 
 - **Connection loss**: Triggers immediate reconnection attempts and automatic safety expansion of the escort zone.  
-- **Delayed updates**: Zone length expands in proportion to the escort’s speed and elapsed time since last update.  
+- **Delayed updates**: Avoidance Zone expands in proportion to the escort’s speed and elapsed time since last update.  
 - **Recovery**: Normal zone dimensions are restored as soon as updates resume.  
 
 ---
