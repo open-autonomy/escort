@@ -18,7 +18,7 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 
 The `EscortPositionV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentId`, and `EscorterId` are defined in `MessageHeader.md`).
 
-// TODO time stamp
+// Ensure the timestamp fields (`Timestamp`, `GPSWeek`, `GPSSecondInWeek`) are clearly defined and consistently used to represent the measurement time, not the transmission time.
 
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
@@ -65,7 +65,7 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
   ],
   "EscortPositionV1": {
     "Timestamp": "2025-09-26T10:15:29.900Z",
-    "StationId": 23983958,
+    "V2XStationId": 23983958,
     "Latitude": 59.1546127,
     "Longitude": 17.6212361,
     "Elevation": 428.32,
@@ -87,7 +87,7 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
 - If accuracy metrics are unknown, omit the respective fields rather than sending zero.
 
 ## Failure / Degradation Handling
-// TODO
+// Document how the system should respond to message loss, unavailable data, or degraded sensor quality.
 | Condition | Recommended Behavior |
 | --- | --- |
 | Missing consecutive > 2 samples | AV enlarges protective zone using last known speed & heading decay. |

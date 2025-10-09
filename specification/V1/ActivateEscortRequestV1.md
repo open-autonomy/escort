@@ -4,7 +4,7 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `FMS`  | Escort creation or updates | The AV to start accepting and adher to the escorts, and fire off `ActivateEscortRequestV1` messages |
+| `FMS`  | Escort creation or updates | The AV to start accepting and adhere to the escorts, and fire off `ActivateEscortResponseV1` messages |
 
 ## Message Attributes
 

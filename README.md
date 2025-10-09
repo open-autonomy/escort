@@ -33,7 +33,7 @@ These parameters are part of the activation request, during the active escort ph
 Once an escort is activated, the Escorter vehicle continuously transmits its position at **1 Hz (one update per second)**. These periodic updates allow AVs to maintain an accurate escort zone. If updates are delayed or missed, the AV will automatically increase its Avoidance Zone to maintain safety margins to the Protection Zone. 
 This adaptive expansion ensures AVs keep a protective buffer even when communication is unreliable.  
 
-Each AV will maintain its own representation of the Protection Zone, called Avoidance Zone. This is because an AV must rely on delayed position updates from the Escorter. The AV will use its knowledge about the escort combined with map knowledge to make a predicion on where the escort might have moved during the time delay. This uncertainty due to time delay forces the AV to increase the Avoidance Zone compared to the Protection Zone, in order to maintain safety.
+Each AV will maintain its own representation of the Protection Zone, called Avoidance Zone. This is because an AV must rely on delayed position updates from the Escorter. The AV will use its knowledge about the escort combined with map knowledge to make a prediction on where the escort might have moved during the time delay. This uncertainty due to time delay forces the AV to increase the Avoidance Zone compared to the Protection Zone, in order to maintain safety.
 
 > [!IMPORTANT]
 > - The Escortee must at all times stay within the defined Protection Zone.
