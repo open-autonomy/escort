@@ -23,8 +23,10 @@ The `OutOfSyncV1` message does not contain any additional attributes beyond the 
     "Protocol": "Open-Autonomy",
     "Version": 1,
     "Timestamp": "2024-08-23T08:19:55.621Z",
-    "EscorterId": "11111111-2222-3333-4444-555555555555",
-    "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
+    "EquipmentIds": [
+        "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
+        "9b8b6d54-1234-4c81-a911-5555bbbb7777"
+    ],
     "OutOfSyncV1": {
     }
 }

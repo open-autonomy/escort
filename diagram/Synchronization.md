@@ -44,7 +44,7 @@ When an AV connects while a new escort is pending, the AV must internally activa
 
 ```mermaid
 sequenceDiagram
-    participant User
+    actor Escorter
     participant FMS
     participant AHS
     participant AV 1
@@ -53,16 +53,16 @@ sequenceDiagram
     Note over FMS,AHS: On Connect Sequence
     Note over AV N: AV N offline and immobilized
 
-    User->>FMS: Create Escort
+    Escorter->>FMS: Create Escort
     FMS-->>FMS: Escort Pending
-    FMS-->+User: Pending
+    FMS-->+Escorter: Pending
 
     FMS->>AHS: Send ActivateEscortRequestV1 to AV 1
 
     AHS->>AV 1: Activate Escort
     Note over AV 1: Unable to immediately adhere to request
-    AV 1->>AHS: Accepted
-    AHS->>FMS: ActivateEscortResponseV1: Status "Accepted"
+    AV 1->>AHS: Pending
+    AHS->>FMS: ActivateEscortResponseV1: Status "Pending"
 
     Note Over AV N: AV N connects
 
@@ -96,12 +96,12 @@ sequenceDiagram
      AHS->>FMS: AV 1 <br/> ActivateEscortResponseV1: Status "Activated"
 
 
-    User-->-FMS: Pending
+    Escorter-->-FMS: Pending
 
     Note Over FMS: All AVs activated Escort
     FMS-->>FMS: Escort Activated
 
-    FMS-->>User: Escort Activated
+    FMS-->>Escorter: Escort Activated
 ```
 
 ## AV Connects - Reject Active Escorts
@@ -112,7 +112,7 @@ When an AV connects and the active escorts are internally rejected, it must not 
 
 ```mermaid
 sequenceDiagram
-    participant User
+    actor Escorter
     participant FMS
     participant AHS
     participant AV 1
@@ -139,7 +139,7 @@ sequenceDiagram
 
     AHS->>FMS: ActivateEscortResponseV1: Status "Rejected"
 
-    FMS-->>User: Error Message
+    FMS-->>Escorter: Error Message
 
 ```
 
@@ -152,7 +152,7 @@ In the event that the truck has been parked up and powered off, the AHS may choo
 > [!IMPORTANT]
 > It is the responsibility of the AHS to ensure that it is safe to respond on behalf of an AV.
 
-The following message provides an example of a escort change request that is accepted after the truck has been powered off.
+The following message provides an example of a escort change request that is pending after the truck has been powered off.
 
 ```json
 {
@@ -162,7 +162,7 @@ The following message provides an example of a escort change request that is acc
     "ActivateEscortResponseV1": {
         "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
         "EscortId": "00000000-0000-0000-0000-000000000001",
-        "Status": "Accepted"
+        "Status": "Pending"
     }
 }
 ```
@@ -229,7 +229,7 @@ In the event that a truck has lost connection to the AHS, the AHS may choose to 
 > [!IMPORTANT]
 > It is the responsibility of the AHS to ensure that it is safe to respond on behalf of an AV.
 
-The following message provides an example of a escort change request that is accepted after the truck has come to a stop.
+The following message provides an example of a escort change request that is pending after the truck has come to a stop.
 
 ```json
 {
@@ -239,7 +239,7 @@ The following message provides an example of a escort change request that is acc
     "ActivateEscortResponseV1": {
         "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
         "EscortId": "00000000-0000-0000-0000-000000000001",
-        "Status": "Accepted"
+        "Status": "Pending"
     }
 }
 ```

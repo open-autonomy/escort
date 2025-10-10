@@ -17,32 +17,10 @@ The `SyncAllActiveEscortsRequestV1` is
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
 | `"RequestId"` | RequestId | UUID | True | A unique identifier for the request. This is used to match the request with the response. |
-| `"Escorts"` | | Array[Escort] | True |An array of [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) object consist in the Escort Object. |
+| `"Escorts"` | | Array[ActivateEscortRequestV1] | True |An array of ActivateEscortRequestV1 |
 
 >[!NOTE]
-> The top-level message headers should contain the `EquipmentId`, indicating which AV the `SyncAllActiveEscortsRequestV1` message is for.
-
-### Escort Object
-The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/rfc7946) compatible feature object that describes the escort. It contains the following properties:
-| Key | Value | Format | Required | Description |
-| --- | :---: | :---: | :---: | --- |
-| `"id"` | EscortId | String | True | A unique identifier for the escort |
-| `"type"` | `Feature` | String | True | The GeoJSON compatible feature type |
-| `"geometry"` | Geometry | Object | True | A GeoJSON compatible geometry object |
-| `"properties"` | Properties | Object | True | A GeoJSON compatible properties object |
-
-### Geometry Object
-| Key | Value | Format | Required | Description |
-| --- | :---: | :---: | :---: | --- |
-| `"type"` | `Polygon` | String | True | The geometry type that conforms with GeoJSON geometry `Polygon` |
-| `"coordinates"` |  | Array[Array[Array[Number, Number, Number]]] | True | A GeoJSON compatible polygon geometry coordinates. <br/> **NOTE** each coordinate must consist of 3 number, [longitude, latitude, elevation]. See [GeoJSON Geometry Object](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1) |
-
-
-### Properties Object
-| Key | Value | Format | Required | Description |
-| --- | :---: | :---: | :---: | --- |
-| `"id"` | EscortId | String | True | The escort id |
-| `"name"` |  | String | True | The name of the escort |
+> The top-level message headers should contain the `EquipmentIds`, indicating which AVs the `SyncAllActiveEscortsRequestV1` message is for.
 
 
 ## Examples
@@ -52,16 +30,57 @@ The Escort object is a GeoJSON [RFC7946](https://datatracker.ietf.org/doc/html/r
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2024-08-23T08:19:56.631Z",
-  "EscorterId": "11111111-2222-3333-4444-555555555555",
-  "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
+  "EquipmentIds": [
+    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
+    "9b8b6d54-1234-4c81-a911-5555bbbb7777"
+  ],
   "SyncActiveEscortsRequestV1": {
     "RequestId": "00000000-0000-0000-0000-000000000001",
     "Escorts": [
-        { },
-        "id": "00000000-0000-0000-0000-000000000001",
-        "properties": {
-            "name": "grading 1",
+      {
+        "EscorterId": "11111111-2222-3333-4444-555555555555",
+        "EscortId": "00000000-0000-0000-0000-000000000001",
+        "Length": 200.0,
+        "Width": 6.0
+        "EscortPositionUpdate": {
+          "EscorterId": "11111111-2222-3333-4444-555555555555",
+          "GpsWeek": 2444,
+          "GpsMilliSecondInWeek": 345678900,
+          "V2XStationId": 23983958,
+          "Latitude": 59.1546127,
+          "Longitude": 17.6212361,
+          "Elevation": 428.32,
+          "Heading": 87.8,
+          "Speed": 4.2,
+          "LatitudeAccuracy": 0.8,
+          "LongitudeAccuracy": 0.9,
+          "ElevationAccuracy": 1.5,
+          "HeadingAccuracy": 2.0,
+          "SpeedAccuracy": 0.2,
         }
+      },
+      {
+        "EscorterId": "22222222-1111-3333-4444-555555555555",
+        "EscortId": "00000000-0000-0000-0000-000000000002",
+        "Length": 200.0,
+        "Width": 6.0
+        "EscortPositionUpdate": {
+          "EscorterId": "22222222-1111-3333-4444-555555555555",
+          "GpsWeek": 2444,
+          "GpsMilliSecondInWeek": 345678900,
+          "V2XStationId": 19839348,
+          "Latitude": 59.1546127,
+          "Longitude": 17.6212361,
+          "Elevation": 428.32,
+          "Heading": 87.8,
+          "Speed": 4.2,
+          "LatitudeAccuracy": 0.8,
+          "LongitudeAccuracy": 0.9,
+          "ElevationAccuracy": 1.5,
+          "HeadingAccuracy": 2.0,
+          "SpeedAccuracy": 0.2,
+        }
+      }
     ]
   }
 }
