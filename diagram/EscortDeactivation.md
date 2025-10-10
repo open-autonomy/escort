@@ -9,7 +9,7 @@ Assuming the escort already exists in the FMS
 
 ```mermaid
 sequenceDiagram
-    participant Escorter
+    actor Escorter
     participant FMS
     participant AHS
     participant AV 1

@@ -44,7 +44,7 @@ When an AV connects while a new escort is pending, the AV must internally activa
 
 ```mermaid
 sequenceDiagram
-    participant User
+    actor Escorter
     participant FMS
     participant AHS
     participant AV 1
@@ -53,9 +53,9 @@ sequenceDiagram
     Note over FMS,AHS: On Connect Sequence
     Note over AV N: AV N offline and immobilized
 
-    User->>FMS: Create Escort
+    Escorter->>FMS: Create Escort
     FMS-->>FMS: Escort Pending
-    FMS-->+User: Pending
+    FMS-->+Escorter: Pending
 
     FMS->>AHS: Send ActivateEscortRequestV1 to AV 1
 
@@ -96,12 +96,12 @@ sequenceDiagram
      AHS->>FMS: AV 1 <br/> ActivateEscortResponseV1: Status "Activated"
 
 
-    User-->-FMS: Pending
+    Escorter-->-FMS: Pending
 
     Note Over FMS: All AVs activated Escort
     FMS-->>FMS: Escort Activated
 
-    FMS-->>User: Escort Activated
+    FMS-->>Escorter: Escort Activated
 ```
 
 ## AV Connects - Reject Active Escorts
@@ -112,7 +112,7 @@ When an AV connects and the active escorts are internally rejected, it must not 
 
 ```mermaid
 sequenceDiagram
-    participant User
+    actor Escorter
     participant FMS
     participant AHS
     participant AV 1
@@ -139,7 +139,7 @@ sequenceDiagram
 
     AHS->>FMS: ActivateEscortResponseV1: Status "Rejected"
 
-    FMS-->>User: Error Message
+    FMS-->>Escorter: Error Message
 
 ```
 

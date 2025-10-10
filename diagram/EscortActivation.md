@@ -49,16 +49,16 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    actor User
+    actor Escorter
     participant FMS
     participant AHS
     participant AV 1
     participant AV N
 
     Note over FMS,AV N: On Connect Sequence
-    User->>FMS: Create Escort
+    Escorter->>FMS: Create Escort
     FMS-->>FMS: Escort Pending
-    FMS-->+User: Pending
+    FMS-->+Escorter: Pending
     par AV 1
     FMS->>AHS: ActivateEscortRequestV1
     AHS->>AV 1: ActivateEscortCommand
@@ -78,10 +78,10 @@ sequenceDiagram
     AHS->>FMS: ActivateEscortResponseV1(status=Activated)
     end
 
-    User-->-FMS: Pending
+    Escorter-->-FMS: Pending
     Note Over FMS: All AVs activated Escort
     FMS-->>FMS: Escort Activated
-    FMS-->>User: Escort Activated
+    FMS-->>Escorter: Escort Activated
 ```
 
 > [!TIP]
@@ -95,21 +95,21 @@ When an AV cannot adhere to the request defined in the escort definition, the AH
 
 ```mermaid
 sequenceDiagram
-    participant User
+    actor Escorter
     participant FMS
     participant AHS
     participant AV 1
 
     Note over FMS,AV 1: On Connect Sequence
-    User->>FMS: Create Escort
+    Escorter->>FMS: Create Escort
     FMS-->>FMS: Escort Pending
-    FMS-->+User: Pending
+    FMS-->+Escorter: Pending
     FMS->>AHS: ActivateEscortRequestV1
     AHS->>AV 1: ActivateEscortCommand
     Note Over AV 1: Cannot Adhere to request
     AV 1->>AHS: ActivationStatus(rejected)
     AHS->>FMS: ActivateEscortResponseV1(status=Rejected)
-    User-->-FMS: Pending
+    Escorter-->-FMS: Pending
     FMS-->>FMS: Escort Pending
-    FMS-->>User: Error Message
+    FMS-->>Escorter: Error Message
 ```
