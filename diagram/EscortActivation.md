@@ -33,7 +33,7 @@ sequenceDiagram
         Escorter-->>FMS: (Position Source)
         FMS-->>AHS: EscortPosition
         AHS->>AV: PositionUpdate
-        AV->>AV: Update zone geometry
+        AV->>AV: Update Avoidance Zone geometry
         AV-->>AHS: Updated
     end
     %% Deactivation flow moved to EscortDeactivation.md
