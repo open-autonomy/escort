@@ -9,16 +9,16 @@ Assuming the escort already exists in the FMS
 
 ```mermaid
 sequenceDiagram
-    participant User
+    participant Escorter
     participant FMS
     participant AHS
     participant AV 1
     participant AV N
 
     Note over FMS,AV N: Deactivation Sequence
-    User->>FMS: Deactivate Escort (UI Action)
+    Escorter->>FMS: Deactivate Escort (UI Action)
     FMS-->>FMS: Escort Pending Deactivation
-    FMS-->>User: Pending Deactivation
+    FMS-->>Escorter: Pending Deactivation
 
     par AV 1
         FMS->>AHS: DeactivateEscortRequestV1
@@ -36,7 +36,7 @@ sequenceDiagram
 
     Note over FMS: All AVs deactivated escort
     FMS-->>FMS: Escort Deactivated
-    FMS-->>User: Escort Deactivated
+    FMS-->>Escorter: Escort Deactivated
 ```
 
 ## Out-of-Sync Deactivation Handling
