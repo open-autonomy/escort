@@ -18,15 +18,12 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 
 The `EscortPositionV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentId`, and `EscorterId` are defined in `MessageHeader.md`).
 
-// Ensure the timestamp fields (`Timestamp`, `GPSWeek`, `GPSSecondInWeek`) are clearly defined and consistently used to represent the measurement time, not the transmission time.
-
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
 | `"EquipmentIds"` | shall | Array[UUID] | UUID list | List of EquipmentIds (AV identifiers) this position is intended for; MAY be the full active set, MAY be a targeted subset. |
-| `"Timestamp"` | shall | DateTime | ISO 8601 (GPS time) | GPS timestamp when the position sample was measured (NOT when message transmitted). Note that GPS time differs from UTC time by a couple of seconds (currently 18). |
-| `"GPSWeek"` | shall | integer | GPS Week | GPS Week when the position sample was measured (NOT when message transmitted) |
-| `"GPSSecondInWeek"` | shall | integer | millisecond in GPS Week | millisecond in GPS Week when the position sample was measured (NOT when message transmitted) |
-| `"V2XStationId"` | should  | integer | StationId | V2X StationId of the Escorter SIV |
+| `"GPSWeek"` | shall | uint32 | GPS Week | GPS Week when the position sample was measured (NOT when message transmitted) |
+| `"GPSMilliSecondInWeek"` | shall | uint32 | millisecond in GPS Week | millisecond in GPS Week when the position sample was measured (NOT when message transmitted) |
+| `"V2XStationId"` | should  | uint32 | StationId | V2X StationId of the Escorter SIV |
 | `"Latitude"` | shall | double | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
 | `"Longitude"` | shall | double | degrees (WGS84) | 6+ decimal places. |
 | `"Elevation"` | shall | double | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
@@ -63,7 +60,8 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
     "9b8b6d54-1234-4c81-a911-5555bbbb7777"
   ],
   "EscortPositionV1": {
-    "Timestamp": "2025-09-26T10:15:29.900Z",
+    "GpsWeek": 2444,
+    "GpsMilliSecondInWeek": 345678900,
     "V2XStationId": 23983958,
     "Latitude": 59.1546127,
     "Longitude": 17.6212361,
