@@ -85,7 +85,7 @@ sequenceDiagram
 ```
 
 > [!TIP]
-> The 2-step activation confirmation helps the system avoid unnecessary retries and allows for better transparency to be provided to the user. Accept allows the AV to respond to the request immediately, even if it cannot adhere to the request immediately. Activate is used to confirm when the request is being adhered to.
+> The 2-step activation confirmation helps the system avoid unnecessary retries and allows for better transparency to be provided to the user. Status Pending allows the AV to respond to the request immediately, even if it cannot adhere to the request immediately. Status Activate is used to confirm when the request is being adhered to.
 
 ## Escort Activation Rejection
 When an AV cannot adhere to the request defined in the escort definition, the AHS should send a `"Rejected"` status in the `ActivateEscortResponse` message to FMS. The FMS will then notify the user accordingly.
