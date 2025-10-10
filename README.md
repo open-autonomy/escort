@@ -64,7 +64,7 @@ d --> [*] : Escort Retired in BM
 ```
 
 > [!NOTE]  
-> Immutable attributes (e.g., escort vehicle ID, Station ID (V2X ID), communication configuration) cannot be changed on an active zone. To update them, a new escort zone must be created, and the old one must be retired.  
+> Immutable attributes (e.g., escort vehicle ID, length and width [TBD - Station ID (V2X ID)], communication configuration) cannot be changed on an active zone. To update them, a new escort zone must be created, and the old one must be retired.  
 
 ---
 
