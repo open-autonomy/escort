@@ -1,4 +1,4 @@
-# EscortUpdateV1
+# EscortPositionUpdateV1
 
 This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) at a frequency of 1 Hz to report the current position and motion state of the active escorting vehicle (Escorter). The purpose is to enable all Autonomous Vehicles (AVs) to maintain an up‑to‑date dynamic protection zone around the escort.
 
@@ -7,16 +7,16 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 | `FMS` | Escort activation (immediately after sending `ActivateEscortRequestV1`) and every 1 s while active | AHS to forward/update internal AV state used for protection zone maintenance |
 
 > [!IMPORTANT]
-> FMS SHALL begin sending `EscortUpdateV1` messages immediately after transmitting an `ActivateEscortRequestV1` (shall NOT wait for any `ActivateEscortResponseV1`).
+> FMS SHALL begin sending `EscortPositionUpdateV1` messages immediately after transmitting an `ActivateEscortRequestV1` (shall NOT wait for any `ActivateEscortResponseV1`).
 >
-> If more than 2 consecutive `EscortUpdateV1` messages are missed (configurable), AVs MAY expand protection margins or fail-safe according to site request.
+> If more than 2 consecutive `EscortPositionUpdateV1` messages are missed (configurable), AVs MAY expand protection margins or fail-safe according to site request.
 
 > [!IMPORTANT]
 > `EquipmentIds` is an array (rather than the single `EquipmentId` used in the standard header) because this message is broadcast at 1 Hz to all active AVs. By listing all intended recipients in one payload the FMS avoids transmitting an identical position update separately to each AV, reducing bandwidth and processing overhead. This is a deliberate, message-specific deviation from the standard header pattern to support high‑frequency distribution efficiency.
 
 ## Message Attributes
 
-The `EscortUpdateV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentId`, and `EscorterId` are defined in `MessageHeader.md`).
+The `EscortPositionUpdateV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentId`, and `EscorterId` are defined in `MessageHeader.md`).
 
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
@@ -41,7 +41,7 @@ The `EscortUpdateV1` payload object contains the following properties (top-level
 
 > [!NOTE]
 > Why V2X StationId?
-> - V2X CAM messages can be received with smaller latency than the `EscortUpdateV1` messages therefore StationId of the Escorter is a valuable information to the AV.
+> - V2X CAM messages can be received with smaller latency than the `EscortPositionUpdateV1` messages therefore StationId of the Escorter is a valuable information to the AV.
 
 ## Example
 ```JSON
@@ -53,7 +53,7 @@ The `EscortUpdateV1` payload object contains the following properties (top-level
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
     "9b8b6d54-1234-4c81-a911-5555bbbb7777"
   ],
-  "EscortUpdateV1": {
+  "EscortPositionUpdateV1": {
     "EscorterId": "11111111-2222-3333-4444-555555555555",
     "GpsWeek": 2444,
     "GpsMilliSecondInWeek": 345678900,
