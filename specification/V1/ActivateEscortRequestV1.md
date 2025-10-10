@@ -23,8 +23,8 @@ The `ActivateEscortRequestV1` message consists of the following properties.
 | --- | :---: | :---: | :---: | --- |
 | `"EscorterId"` | UUID | UUID | False | Identifier of the escorting vehicle providing protection. Required if the `Escorts` list in `ActivateEscortRequestV1` is of length greater than 1 |
 | `"EscortId"` | UUID | UUID | True | A unique identifier for the escort operation |
-| `"Length"` | m | decimal | True | Length of protection Zone |
-| `"Width"` | m | decimal | True | Width of protection Zone, applicable when Escort Convoy is in open area. |
+| `"Length"` | m | double | True | Length of protection Zone |
+| `"Width"` | m | double | True | Width of protection Zone, applicable when Escort Convoy is in open area. |
 | `"EscortPosition"` | EscortPositionV1 | EscortPositionV1 | True | Current position of the escort |
 
 >[!IMPORTANT]
