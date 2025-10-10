@@ -20,7 +20,7 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
 
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
-| `"EquipmentIds"` | shall | Array[UUID] | UUID list | List of EquipmentIds (AV identifiers) this position is intended for; MAY be the full active set, MAY be a targeted subset. |
+| `"EscorterId"` | shall | UUID | UUID | Identifier of the Escorter Vehicle |
 | `"GPSWeek"` | shall | uint32 | GPS Week | GPS Week when the position sample was measured (NOT when message transmitted) |
 | `"GPSMilliSecondInWeek"` | shall | uint32 | millisecond in GPS Week | millisecond in GPS Week when the position sample was measured (NOT when message transmitted) |
 | `"V2XStationId"` | should  | uint32 | StationId | V2X StationId of the Escorter SIV |
@@ -36,18 +36,12 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
 | `"SpeedAccuracy"` | should | double | m/s (1σ) | 1‑sigma speed accuracy. |
 
 > [!NOTE]
-> - At minimum: `EscorterId`, `EquipmentIds`, `Timestamp`, `Latitude`, `Longitude`, `Elevation`, `Heading`, `Speed` MUST be present.
+> - At minimum: `EscorterId`, `GPSWeek`, `GPSMilliSecondInWeek`, `Latitude`, `Longitude`, `Elevation`, `Heading`, `Speed` MUST be present.
 > - Accuracy fields help AVs tune dynamic buffer growth; include when available.
-> - If GPS time differs from system send time by > 250 ms, implementers SHOULD still populate `Timestamp` with measurement time (not transmission time).
->
-> The `EquipmentIds` array allows targeted updates (e.g., only AVs within a geographic radius). FMS SHOULD include all active AVs unless bandwidth optimization is necessary.
 
 > [!NOTE]
 > Why V2X StationId?
 > - V2X CAM messages can be received with smaller latency than the `EscortPositionV1` messages therefore StationId of the Escorter is a valuable information to the AV.
-> 
-> Usually V2X StationIds are changing from time to time. The Escorter must not change its StationId during the extent of the specific escort operation.
-
 
 ## Example
 ```JSON
@@ -60,13 +54,14 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
     "9b8b6d54-1234-4c81-a911-5555bbbb7777"
   ],
   "EscortPositionV1": {
+    "EscorterId": "11111111-2222-3333-4444-555555555555",
     "GpsWeek": 2444,
     "GpsMilliSecondInWeek": 345678900,
     "V2XStationId": 23983958,
     "Latitude": 59.1546127,
     "Longitude": 17.6212361,
     "Elevation": 428.32,
-    "Heading": 87,
+    "Heading": 87.8,
     "Speed": 4.2,
     "LatitudeAccuracy": 0.8,
     "LongitudeAccuracy": 0.9,
