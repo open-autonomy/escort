@@ -16,7 +16,7 @@ The `ActivateEscortRequestV1` message consists of the following properties.
 | `"EscortId"` | UUID | UUID | True | A unique identifier for the escort operation |
 | `"Length"` | m | double | True | Length of protection Zone |
 | `"Width"` | m | double | True | Width of protection Zone, applicable when Escort Convoy is in open area. |
-| `"EscortPosition"` | EscortPositionV1 | EscortPositionV1 | True | Current position of the escort |
+| `"EscortUpdate"` | EscortUpdateV1 | EscortUpdateV1 | True | Current position of the escort |
 
 >[!IMPORTANT]
 > The AV will reject the request if the escort position is in some way faulty
@@ -38,8 +38,8 @@ The `ActivateEscortRequestV1` message consists of the following properties.
     "EscorterId": "11111111-2222-3333-4444-555555555555",
     "EscortId": "00000000-0000-0000-0000-000000000001",
     "Length": 200.0,
-    "Width": 6.0
-    "EscortPosition": {
+    "Width": 6.0,
+    "EscortUpdate": {
       "EscorterId": "11111111-2222-3333-4444-555555555555",
       "GpsWeek": 2444,
       "GpsMilliSecondInWeek": 345678900,
