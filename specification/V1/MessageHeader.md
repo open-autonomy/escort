@@ -8,8 +8,7 @@ This document describes the top-level data structure that serves as a message he
 | `"Protocol"` | `"Open-Autonomy"` | string | True | The protocol of the messages. |
 | `"Version"` | 1 | integer | True | The version of the protocol. |
 | `"Timestamp"` | DateTime | ISO 8601 (UTC)  | True | The date-time of when the message is sent in ISO 8601 format. |
-| `"EquipmentId"` | EquipmentId | UUID | False | The UUID identifying the equipment defined in the ISO 23725 - FleetDefinitionV2, indicating the equipment that the message is intended for or from. This shall be in all messages except for ServiceIdentification |
-| `"EscorterId"` | UUID | UUID | False | Identifier of the escorting vehicle providing protection. Included when the message relates to an active escort operation. |
+| `"EquipmentIds"` | Array<EquipmentId> | UUID | True | The UUID identifying the equipment defined in the ISO 23725 - FleetDefinitionV2, indicating the equipment(s) that the message is intended for or from. This shall be in all messages except for ServiceIdentification, in this case an empty list should be provided |
 
 ### Message Header Examples
 An example `ActivateEscortRequestV1` enclosed in the message header data structure
@@ -20,7 +19,10 @@ An example `ActivateEscortRequestV1` enclosed in the message header data structu
   "Version": 1,
   "Timestamp": "2018-10-31T09:30:10.435Z",
   "EscorterId": "11111111-2222-3333-4444-555555555555",
-  "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
+  "EquipmentIds": [
+    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
+    "9b8b6d54-1234-4c81-a911-5555bbbb7777"
+  ],
   "ActivateEscortRequestV1": {...}
 }
 ```
