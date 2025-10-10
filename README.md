@@ -33,7 +33,7 @@ These parameters are part of the activation request, during the active escort ph
 Once an escort is activated, the Escorter vehicle continuously transmits its position at **1 Hz (one update per second)**. These periodic updates allow AVs to maintain an accurate escort zone. If updates are delayed or missed, the AV will automatically increase its Avoidance Zone to maintain safety margins to the Protection Zone. 
 This adaptive expansion ensures AVs keep a protective buffer even when communication is unreliable.  
 
-Each AV will maintain its own representation of the Protection Zone, called Avoidance Zone. This is because an AV must rely on delayed position updates from the Escorter. The AV will use its knowledge about the escort combined with map knowledge to make a prediction on where the escort might have moved during the time delay. This uncertainty due to time delay forces the AV to increase the Avoidance Zone compared to the Protection Zone, in order to maintain safety.
+  .
 
 > [!IMPORTANT]
 > - The Escortee must at all times stay within the defined Protection Zone.
@@ -47,7 +47,21 @@ Escort zones follow a lifecycle managed through the FMS–AHS communication:
 - `Active`: The escort operation is active, transmitting location updates, and enforced by AVs.  
 - `Deleted`: The escort operation has been removed and is no longer enforced.  
 
-![Escort Zone State Machine](draw.io/EscortZoneStateMachine.svg)  
+```mermaid
+stateDiagram-v2
+state "Pending" as p
+state "Pending Delete" as pd
+state "Active" as a
+state "Deleted" as d
+
+[*] --> p : Create Escort in BM
+p --> p : AVs report pending
+p --> a : Escort Activated by all AVs
+a --> pd : Escort Deactivated by Escorter
+p --> pd : Escort Deactivated by Escorter
+pd --> d : Deactivated by all AVs
+d --> [*] : Escort Retired in BM
+```
 
 > [!NOTE]  
 > Immutable attributes (e.g., escort vehicle ID, Station ID (V2X ID), communication configuration) cannot be changed on an active zone. To update them, a new escort zone must be created, and the old one must be retired.  
