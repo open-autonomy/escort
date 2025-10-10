@@ -44,28 +44,28 @@ The `ActivateEscortRequestV1` message consists of the following properties.
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
     "9b8b6d54-1234-4c81-a911-5555bbbb7777"
   ],
-    "ActivateEscortRequestV1": {
-        "Escort":  {
-                "EscorterId": "11111111-2222-3333-4444-555555555555",
-                "EscortId": "00000000-0000-0000-0000-000000000001",
-                "Length": 200.0,
-                "Width": 6.0
-                "EscortPositionV1": {
-                    "Timestamp": "2025-09-26T10:15:29.900Z",
-                    "V2XStationId": 23983958,
-                    "Latitude": 59.1546127,
-                    "Longitude": 17.6212361,
-                    "Elevation": 428.32,
-                    "Heading": 87,
-                    "Speed": 4.2,
-                    "LatitudeAccuracy": 0.8,
-                    "LongitudeAccuracy": 0.9,
-                    "ElevationAccuracy": 1.5,
-                    "HeadingAccuracy": 2.0,
-                    "SpeedAccuracy": 0.2,
-                  }
-            }
+  "ActivateEscortRequestV1": {
+    "Escort":  {
+      "EscorterId": "11111111-2222-3333-4444-555555555555",
+      "EscortId": "00000000-0000-0000-0000-000000000001",
+      "Length": 200.0,
+      "Width": 6.0
+      "EscortPositionV1": {
+        "Timestamp": "2025-09-26T10:15:29.900Z",
+        "V2XStationId": 23983958,
+        "Latitude": 59.1546127,
+        "Longitude": 17.6212361,
+        "Elevation": 428.32,
+        "Heading": 87,
+        "Speed": 4.2,
+        "LatitudeAccuracy": 0.8,
+        "LongitudeAccuracy": 0.9,
+        "ElevationAccuracy": 1.5,
+        "HeadingAccuracy": 2.0,
+        "SpeedAccuracy": 0.2,
         }
-}
+      }
+    }
+  }
 
 ```
