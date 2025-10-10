@@ -33,8 +33,10 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2021-09-01T12:00:00Z",
-  "EscorterId": "11111111-2222-3333-4444-555555555555",
-  "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
+  "EquipmentIds": [
+    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
+    "9b8b6d54-1234-4c81-a911-5555bbbb7777"
+  ],
   "SyncActiveEscortsResponseV1": {
     "ResponseId": "00000000-0000-0000-0000-000000000001",
     "Status": "Activated",
