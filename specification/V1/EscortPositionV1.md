@@ -27,16 +27,16 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
 | `"GPSWeek"` | shall | integer | GPS Week | GPS Week when the position sample was measured (NOT when message transmitted) |
 | `"GPSSecondInWeek"` | shall | integer | millisecond in GPS Week | millisecond in GPS Week when the position sample was measured (NOT when message transmitted) |
 | `"V2XStationId"` | should  | integer | StationId | V2X StationId of the Escorter SIV |
-| `"Latitude"` | shall | decimal | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
-| `"Longitude"` | shall | decimal | degrees (WGS84) | 6+ decimal places. |
-| `"Elevation"` | shall | decimal | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
-| `"Heading"` | shall | decimal | degrees | 0–359; 0 = true north, clockwise increase. |
-| `"Speed"` | shall | decimal | m/s | Instantaneous ground speed (consider conversion from native km/h). |
-| `"LatitudeAccuracy"` | should | decimal | meters (1σ) | 1‑sigma horizontal positional accuracy latitude component. |
-| `"LongitudeAccuracy"` | should | decimal | meters (1σ) | 1‑sigma horizontal positional accuracy longitude component. |
-| `"ElevationAccuracy"` | should | decimal | meters (1σ) | 1‑sigma vertical accuracy. |
-| `"HeadingAccuracy"` | should | decimal | degrees (1σ) | 1‑sigma heading accuracy. |
-| `"SpeedAccuracy"` | should | decimal | m/s (1σ) | 1‑sigma speed accuracy. |
+| `"Latitude"` | shall | double | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
+| `"Longitude"` | shall | double | degrees (WGS84) | 6+ decimal places. |
+| `"Elevation"` | shall | double | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
+| `"Heading"` | shall | double | degrees | 0–359; 0 = true north, clockwise increase. |
+| `"Speed"` | shall | double | m/s | Instantaneous ground speed (consider conversion from native km/h). |
+| `"LatitudeAccuracy"` | should | double | meters (1σ) | 1‑sigma horizontal positional accuracy latitude component. |
+| `"LongitudeAccuracy"` | should | double | meters (1σ) | 1‑sigma horizontal positional accuracy longitude component. |
+| `"ElevationAccuracy"` | should | double | meters (1σ) | 1‑sigma vertical accuracy. |
+| `"HeadingAccuracy"` | should | double | degrees (1σ) | 1‑sigma heading accuracy. |
+| `"SpeedAccuracy"` | should | double | m/s (1σ) | 1‑sigma speed accuracy. |
 
 > [!NOTE]
 > - At minimum: `EscorterId`, `EquipmentIds`, `Timestamp`, `Latitude`, `Longitude`, `Elevation`, `Heading`, `Speed` MUST be present.
