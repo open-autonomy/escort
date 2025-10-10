@@ -58,7 +58,6 @@ The `EscortPositionV1` payload object contains the following properties (top-lev
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2025-09-26T10:15:30.125Z",
-  "EscorterId": "11111111-2222-3333-4444-555555555555",
   "EquipmentIds": [
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
     "9b8b6d54-1234-4c81-a911-5555bbbb7777"
