@@ -41,7 +41,7 @@ This adaptive expansion ensures AVs keep a protective buffer even when communica
 ---
 
 ## Escort Operation State Machine  
-Escort zones follow a lifecycle managed through the FMS–AHS communication:  
+Escorts follow a lifecycle managed through the FMS–AHS communication:  
 
 - `Pending`: The escort operation has been announced but is not yet activated.  
 - `Active`: The escort operation is active, transmitting location updates, and enforced by AVs.  
@@ -59,6 +59,7 @@ p --> p : AVs report pending
 p --> a : Escort Activated by all AVs
 a --> pd : Escort Deactivated by Escorter
 p --> pd : Escort Deactivated by Escorter
+p --> pd : An AV Rejected the Escort
 pd --> d : Deactivated by all AVs
 d --> [*] : Escort Retired in BM
 ```

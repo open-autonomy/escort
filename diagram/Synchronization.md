@@ -3,7 +3,7 @@
 Synchronization is required whenever an Autonomous Vehicle (AV) connects to the Autonomous Haulage System (AHS).
 
 > [!IMPORTANT]
->- AVs shall be immobilized when their onboard escorts are not synchrnised with the FMS.
+>- AVs shall be immobilized when their onboard escorts are not synchronized with the FMS.
 >- The AHS shall monitor the connection to each AV, and synchronization must also occur on re-connection after all lost communications events.
 
 
@@ -37,7 +37,7 @@ sequenceDiagram
 ```
 
 > [!IMPORTANT]
-> The FMS must 'Clear AV N Activations for Pending Escorts' after receiving an OutOfSync from 'AV N' because it needs to assume that 'AV N' has lost or cleared its orinternal memory.
+> The FMS must 'Clear AV N Activations for Pending Escorts' after receiving an OutOfSync from 'AV N' because it needs to assume that 'AV N' has lost or cleared its internal memory.
 
 ## AV Connects With New Pending Escort
 When an AV connects while a new escort is pending, the AV must internally activates all active escorts sent via `SyncActiveEscortsRequestV1` in order to operate. The AV will also receive an `ActivateEscortRequestV1` message for each of the pending escorts to be activated internally as well.
@@ -157,10 +157,10 @@ The following message provides an example of a escort change request that is pen
 ```json
 {
     "Protocol": "Open-Autonomy",
-    "CorrelationId": "7850cb0e-dee0-4b21-8948-73dec03f3887",
+    "Version": 1,
     "Timestamp": "2024-08-23T07:26:33.344Z",
+    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
     "ActivateEscortResponseV1": {
-        "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
         "EscortId": "00000000-0000-0000-0000-000000000001",
         "Status": "Pending"
     }
@@ -172,10 +172,10 @@ The following message provides an example of a escort change request that is pen
 ```json
 {
     "Protocol": "Open-Autonomy",
-    "CorrelationId": "7850cb0e-dee0-4b21-8948-73dec03f3887",
+    "Version": 1,
     "Timestamp": "2024-08-23T08:19:55.621Z",
+    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
     "OutOfSyncV1": {
-        "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff"
     }
 }
 ```
@@ -193,10 +193,10 @@ The following message provides an example of a escort change request that is rej
 ```json
 {
     "Protocol": "Open-Autonomy",
-    "CorrelationId": "7850cb0e-dee0-4b21-8948-73dec03f3887",
+    "Version": 1,
     "Timestamp": "2024-08-23T07:26:33.344Z",
+    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
     "ActivateEscortResponseV1": {
-        "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
         "EscortId": "00000000-0000-0000-0000-000000000001",
         "Status": "Rejected",
         "Reason": "UnexpectedOffline"
@@ -211,10 +211,10 @@ In such an event, the FMS may attempt to continue sending the escort change requ
 ```json
 {
     "Protocol": "Open-Autonomy",
-    "CorrelationId": "7850cb0e-dee0-4b21-8948-73dec03f3887",
+    "Version": 1,
     "Timestamp": "2024-08-23T08:19:55.621Z",
+    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
     "OutOfSyncV1": {
-        "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff"
     }
 }
 ```
@@ -234,10 +234,10 @@ The following message provides an example of a escort change request that is pen
 ```json
 {
     "Protocol": "Open-Autonomy",
-    "CorrelationId": "7850cb0e-dee0-4b21-8948-73dec03f3887",
+    "Version": 1,
     "Timestamp": "2024-08-23T07:26:33.344Z",
+    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
     "ActivateEscortResponseV1": {
-        "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
         "EscortId": "00000000-0000-0000-0000-000000000001",
         "Status": "Pending"
     }
@@ -249,10 +249,10 @@ The following message provides an example of a escort change request that is pen
 ```json
 {
     "Protocol": "Open-Autonomy",
-    "CorrelationId": "7850cb0e-dee0-4b21-8948-73dec03f3887",
+    "Version": 1,
     "Timestamp": "2024-08-23T08:19:55.621Z",
+    "EquipmentId": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
     "OutOfSyncV1": {
-        "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff"
     }
 }
 ```

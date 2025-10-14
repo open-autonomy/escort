@@ -32,7 +32,6 @@ The `SyncAllActiveEscortsRequestV1` is
   "Timestamp": "2024-08-23T08:19:56.631Z",
   "EquipmentIds": [
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
-    "9b8b6d54-1234-4c81-a911-5555bbbb7777"
   ],
   "SyncActiveEscortsRequestV1": {
     "RequestId": "00000000-0000-0000-0000-000000000001",

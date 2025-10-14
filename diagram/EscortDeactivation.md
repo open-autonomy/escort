@@ -49,11 +49,14 @@ sequenceDiagram
 
     FMS->>AHS: DeactivateEscortRequestV1
     alt AHS/AV missing escort
-        AHS-->>FMS: DeactivateEscortResponseV1(status=NoOp)
+        AHS->>AV: DeactivateEscortCommand
+        Note over AV: No escort to remove
+        AV->>AHS: DeactivationStatus
+        AHS->>FMS: DeactivateEscortResponseV1
     else Present
         AHS->>AV: DeactivateEscortCommand
-        AV->>AV: Remove zone
+        AV->>AV: Remove escort
         AV->>AHS: DeactivationStatus
-        AHS-->>FMS: DeactivateEscortResponseV1(status=Success)
+        AHS-->>FMS: DeactivateEscortResponseV1
     end
 ```
