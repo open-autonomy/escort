@@ -37,7 +37,9 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2021-09-01T12:00:00Z",
-  "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
+  "EquipmentIds": [
+    "e4de3723-a315-4506-b4e9-537088a0eabf"
+  ],
   "SyncActiveEscortsResponseV1": {
     "ResponseId": "00000000-0000-0000-0000-000000000001",
     "Status": "Activated"
@@ -51,7 +53,9 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2021-09-01T12:00:00Z",
-  "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
+  "EquipmentIds": [
+    "e4de3723-a315-4506-b4e9-537088a0eabf"
+  ],
   "SyncActiveEscortsResponseV1": {
     "ResponseId": "00000000-0000-0000-0000-000000000001",
     "Status": "Rejected",
@@ -66,7 +70,9 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2021-09-01T12:00:00Z",
-  "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
+  "EquipmentIds": [
+    "e4de3723-a315-4506-b4e9-537088a0eabf"
+  ],
   "SyncActiveEscortsResponseV1": {
     "ResponseId": "00000000-0000-0000-0000-000000000001",
     "Status": "Rejected",

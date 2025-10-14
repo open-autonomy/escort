@@ -15,7 +15,7 @@ The `DeactivateEscortRequestV1` message consists of the following properties.
 | `"EscortId"` | EscortId | UUID | True | The escort id in which the AV is responding to |
 
 >[!NOTE]
-> The top-level message headers should contain the `EquipmentId`, indicating which AV the `deactivateEscortsRequestV1` message is for.
+> The top-level message headers should contain the `EquipmentIds`, indicating which AVs the `deactivateEscortsRequestV1` message are for.
 
 
 ## Examples

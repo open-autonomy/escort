@@ -1,5 +1,5 @@
 # Escort Activation
-When an escort is created, the FMS initiates the activation process by sending `ActivateEscortRequestV1` messages to the AHS for each of the AV defined in the Fleet Definition. The AHS then communicates with each of the AVs to activate the escort internally. This document now also includes the full life cycle: activation attempts, steady‑state position pulsing, and deactivation.
+When an escort is created, the FMS initiates the activation process by sending `ActivateEscortRequestV1` messages to the AHS for each of the AV defined in the Fleet Definition. The AHS then communicates with each of the AVs to activate the escort internally. This document includes the full life cycle: activation attempts, steady‑state position pulsing, and deactivation.
 
 > [!IMPORTANT]
 > All systems shall implement idempotency when managing Escort Activations.
@@ -18,13 +18,13 @@ sequenceDiagram
     activate AHS
     activate AV
     FMS->>AHS: ActivateEscortRequestV1
-    AHS->>AV: Activate
+    AHS->>AV: ActivateEscortCommand
     AV->>AV: Protection zone pending
-    AV-->>AHS: Pending
+    AV-->>AHS: ActivationStatus(Pending)
     AHS-->>FMS: ActivateEscortResponseV1(status=Pending)
 
     AV->>AV: Enable protection zone
-    AV-->>AHS: Activated
+    AV-->>AHS: ActivationStatus(Activated)
     AHS-->>FMS: ActivateEscortResponseV1(status=Activated)
     FMS-->>FMS: All AVs Activated
     FMS-->>Escorter: Escort activated
@@ -62,19 +62,19 @@ sequenceDiagram
     par AV 1
     FMS->>AHS: ActivateEscortRequestV1
     AHS->>AV 1: ActivateEscortCommand
-    AV 1->>AHS: ActivationStatus(pending)
+    AV 1->>AHS: ActivationStatus(Pending)
     AHS->>FMS: ActivateEscortResponseV1(status=Pending)
         AV 1->>AV 1: Adheres to request
-    AV 1->>AHS: ActivationStatus(activated)
+    AV 1->>AHS: ActivationStatus(Activated)
     AHS->>FMS: ActivateEscortResponseV1(status=Activated)
     and AV N
     FMS->>AHS: ActivateEscortRequestV1
     AHS->>AV N: ActivateEscortCommand
-    AV N->>AHS: ActivationStatus(pending)
+    AV N->>AHS: ActivationStatus(Pending)
     AHS->>FMS: ActivateEscortResponseV1(status=Pending)
         Note Over AV N: Unable to immediately adhere to request
         AV N->>AV N: Adheres to request
-    AV N->>AHS: ActivationStatus(activated)
+    AV N->>AHS: ActivationStatus(Activated)
     AHS->>FMS: ActivateEscortResponseV1(status=Activated)
     end
 
@@ -91,7 +91,7 @@ sequenceDiagram
 When an AV cannot adhere to the request defined in the escort definition, the AHS should send a `"Rejected"` status in the `ActivateEscortResponse` message to FMS. The FMS will then notify the user accordingly.
 
 > [!NOTE]
-> If an AV rejects a given escort, it will never activate it. The escort will not be activated within the FMS and will remain as `"pending"` until it has been de-activated. 
+> If an AV rejects a given escort, it will never activate it.
 
 ```mermaid
 sequenceDiagram

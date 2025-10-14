@@ -11,12 +11,9 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 >
 > If more than 2 consecutive `EscortPositionUpdateV1` messages are missed (configurable), AVs MAY expand protection margins or fail-safe according to site request.
 
-> [!IMPORTANT]
-> `EquipmentIds` is an array (rather than the single `EquipmentId` used in the standard header) because this message is broadcast at 1 Hz to all active AVs. By listing all intended recipients in one payload the FMS avoids transmitting an identical position update separately to each AV, reducing bandwidth and processing overhead. This is a deliberate, message-specific deviation from the standard header pattern to support high‑frequency distribution efficiency.
-
 ## Message Attributes
 
-The `EscortPositionUpdateV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentId`, and `EscorterId` are defined in `MessageHeader.md`).
+The `EscortPositionUpdateV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentIds`, and `EscorterId` are defined in `MessageHeader.md`).
 
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
@@ -79,13 +76,9 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
 - If accuracy metrics are unknown, omit the respective fields rather than sending zero.
 
 ## Failure / Degradation Handling
-// Document how the system should respond to message loss, unavailable data, or degraded sensor quality.
+// TODO: Document how the system should respond to message loss, unavailable data, etc..
 | Condition | Recommended Behavior |
 | --- | --- |
-| Missing consecutive > 2 samples | AV enlarges protective zone using last known speed & heading decay. |
-| Heading unavailable | Set `Heading` to last valid; omit `HeadingAccuracy`. |
-| Speed unavailable | Use 0 and flag internally (do not omit field). |
-| Position accuracy > site threshold | AV may treat escort as stationary hazard until quality recovers. |
 
 ## Versioning
 Additional optional fields MAY be appended in future minor protocol versions; consumers SHALL ignore unknown fields.

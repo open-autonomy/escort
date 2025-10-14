@@ -35,7 +35,6 @@ The `ActivateEscortResponseV1` message consists of the following properties.
   "Timestamp": "2021-09-01T12:00:00Z",
   "EquipmentIds": [
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
-    "9b8b6d54-1234-4c81-a911-5555bbbb7777"
   ],
   "ActivateEscortResponseV1": {
     "EscortId": "123e4567-e89b-12d3-a456-426614174000",
@@ -52,7 +51,6 @@ The `ActivateEscortResponseV1` message consists of the following properties.
   "Timestamp": "2021-09-01T12:00:00Z",
   "EquipmentIds": [
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
-    "9b8b6d54-1234-4c81-a911-5555bbbb7777"
   ],
   "ActivateEscortResponseV1": {
     "EscortId": "123e4567-e89b-12d3-a456-426614174000",
