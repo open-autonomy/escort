@@ -11,11 +11,11 @@ This message is sent by the Autonomous Haulage System (AHS) in response to an `A
 
 The `ActivateEscortResponseV1` message consists of the following properties.
 
-| Key |               Value               | Format | Required | Description |
-| --- |:---------------------------------:| :---: | :---: | --- |
-| `"EscortId"` |             EscortId              | UUID | True | Identifier of the escort instance being acknowledged. MUST match the request. |
+| Key | Value | Format | Required | Description |
+| --- | :---: | :---: | :---: | --- |
+| `"EscortId"` | EscortId | UUID | True | Identifier of the escort instance being acknowledged. MUST match the request. |
 | `"Status"` | [`Pending`, `Active`, `Rejected`] | String | True | Activation state for this AV. |
-| `"Reason"` |            String Enum            | String | False | Present only when `Status` = `Rejected`; provides machine‑readable cause. |
+| `"Reason"` | String Enum | String | False | Present only when `Status` = `Rejected`; provides machine‑readable cause. |
 
 ### Status Semantics
 | Status | Meaning |
