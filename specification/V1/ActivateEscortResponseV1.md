@@ -4,7 +4,7 @@ This message is sent by the Autonomous Haulage System (AHS) in response to an `A
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| AHS | Receipt of valid `ActivateEscortRequestV1` | Informs FMS of AV escort activation status; contributes to escort lifecycle progression |
+| AHS | Receipt of valid `ActivateEscortRequestV1` | |
 
 
 ## Message Attributes
@@ -31,26 +31,10 @@ The `ActivateEscortResponseV1` message consists of the following properties.
 
 ## Rejection Reasons
 Recommended enumeration (implementations MAY extend):
-- `InvalidParameters` – Escort attributes failed validation.
-- `StalePosition` – Initial position snapshot too old.
-- `InvalidPosition` – Position Update contains invalid data
-- `InvalidMap` – Map is incompatible
-- `ResourceUnavailable` – Required internal resource (e.g., planner) - unavailable.
-- `InternalError` – Non‑recoverable internal failure.
-- `UnexpectedOffline` – AV transitioning offline state.
-- `ConflictingEscort` – Another active escort prevents activation.
-
-## Validation Rules
-Response SHALL be considered invalid by FMS if:
-- Missing mandatory attribute.
-- `EscortId` unknown or not currently Pending.
-- `Status` value not in defined enumeration.
-- `Reason` present while `Status` ≠ `Rejected`, or absent while `Status` = `Rejected`.
-
-Invalid responses SHOULD be logged and MAY trigger a re‑request.
-
-## Idempotency
-Duplicate responses (same `EscortId`, same `Status`) SHALL be treated as retransmissions and MUST NOT alter aggregate escort state beyond updating last‑seen timestamp.
+- `UnexpectedOffline` – AV not reachable.
+- `TooManyActiveEscorts` – AV can not safely manage another escort.
+- `InvalidPosition` – Position update contains invalid data.
+- `InvalidProtectionZone` – Protection zone parameters wrongly configured.
 
 ## Example – Active Response
 ```json
