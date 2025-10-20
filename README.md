@@ -19,19 +19,18 @@ Out of scope:
 - Map data format
 
 ## Table of Contents
-1. Scope
-2. Terminology
-3. Operational Requirements
-4. Instrumentation Requirements
-5. System Limitations
-6. General Operation
-7. Protection Zone Specification
-8. Prediction Model
-9. Operation State Machine
-10. Sequence Diagrams
-11. Communication Protocol
-12. Failure Handling
-13. Glossary Consistency Notes
+1. [Scope](#scope)
+2. [Terminology](#terminology)
+3. [Operational Requirements](#operational-requirements)
+4. [Instrumentation Requirements (Escorting SIV)](#instrumentation-requirements-escorting-siv)
+5. [System Limitations](#system-limitations)
+6. [General Operation](#general-operation)
+7. [Protection Zone Specification](#protection-zone-specification)
+8. [Prediction Model](#prediction-model)
+9. [Operation State Machine](#operation-state-machine)
+10. [Sequence Diagrams](#sequence-diagrams)
+11. [Communication Protocol](#communication-protocol)
+12. [Glossary Consistency Notes](#glossary-consistency-notes)
 
 ## Terminology
 | Term | Description |
