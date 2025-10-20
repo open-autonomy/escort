@@ -28,9 +28,7 @@ Example escort activation request broadcast (multiple recipients):
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
     "9b8b6d54-1234-4c81-a911-5555bbbb7777"
   ],
-  "CorrelationId": "22222222-3333-4444-5555-666666666666",
-  "MessageId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-  "ActivateEscortRequestV1": { "EscortId": "00000000-0000-0000-0000-000000000001" }
+  "ActivateEscortRequestV1": {...}
 }
 ```
 
@@ -43,8 +41,6 @@ Example escort activation response (single sender):
   "EquipmentIds": [
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc"
   ],
-  "CorrelationId": "22222222-3333-4444-5555-666666666666",
-  "MessageId": "bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
-  "ActivateEscortResponseV1": { "EscortId": "00000000-0000-0000-0000-000000000001", "Status": "Active" }
+  "ActivateEscortResponseV1": {...}
 }
 ```
