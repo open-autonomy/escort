@@ -132,6 +132,7 @@ Escort lifecycle states exchanged between FMS and AHS:
 - Pending: Escort announced; activation acknowledgments outstanding.
 - Active: Escort fully acknowledged; zone enforcement in effect.
 - Deleted: Escort retired; zone no longer enforced.
+- Pending Delete: The escort operation has been marked for deletion but has not yet been removed by all operating AVs.
 
 ```mermaid
 stateDiagram-v2
