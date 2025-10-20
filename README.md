@@ -1,121 +1,138 @@
-# Escort 
-The Escort feature allows non-instrumented equipment to safely travel in the autonomous operating zone by being escorted by a staffed instrumented vehicle. The non-instrumented equipment is protected by always being inside a zone behind the instrumented vehicle, communicated to all autonomous vehicles.
- 
-This repository defines the **messages and communication protocol between the Fleet Management System (FMS) and the Autonomous Haulage System (AHS)** for activating and deactivating escorts.
- 
+# Escort Protocol Overview
+
+This document specifies an open standard interface for the operation of staffed vehicle escorts that enable non‑instrumented equipment to safely traverse an Autonomous Operating Zone (AOZ). Safety is achieved by keeping the escorted equipment (Escortee) continuously inside a dynamically enforced protection zone trailing a staffed instrumented lead vehicle (Escorter). All Autonomous Vehicles (AVs) receive and respect this zone via the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) communication channel.
+
+The repository defines the normative message set and communication behaviors between the Fleet Management System (FMS) and the Autonomous Haulage System (AHS) for the life cycle of an escort (creation, activation, operation, and deactivation).
+
+## Scope
+This specification covers:
+- Terminology and roles
+- Operational and instrumentation requirements
+- Zone geometry and prediction assumptions
+- Escort life cycle state machine semantics
+- Communication transport requirements
+- Failure handling rules
+
+Out of scope:
+- Detailed AV internal planning algorithms
+- Human‑machine interface (HMI) design
+- Map data format
+
+## Table of Contents
+1. Scope
+2. Terminology
+3. Operational Requirements
+4. Instrumentation Requirements
+5. System Limitations
+6. General Operation
+7. Protection Zone Specification
+8. Prediction Model
+9. Operation State Machine
+10. Sequence Diagrams
+11. Communication Protocol
+12. Failure Handling
+13. Glossary Consistency Notes
+
 ## Terminology
-| Term | Description |  
-| --- | --- |  
-| AHS | Autonomous Haulage System |  
-| AV | Autonomous Vehicle |  
-| FMS | Fleet Management System |  
-| AOZ | Autonomous Operating Zone. The area where the autonomus mining vehicles are allowed to operate. |
-| SIV | Staffed Instrumented Vehicle. Manually driven equipment equipped with a remote stop. Could be a car, an excavator, or any other type of moving equipment. |
-| Escorter | The leading SIV during the escort activity. |
-| Escortee | A non-instrumented vehicle being escorted. |
-| Escorting convoy | The escorter together with its escortee(s) |
-| Escort Protection Zone | The zone in which the escorting convoy is required to be within at all times. Is defined by a configurable distance that extends behind the escorter, to include the escortee. |
-| Escort Avoidance Zone | Zone internally defined on each AV, that the AV will not enter. It is at least as big as the protection zone, but is likely bigger due to latency of the escorter's position updates. |
+| Term | Description |
+| --- | --- |
+| AHS | Autonomous Haulage System |
+| AV | Autonomous Vehicle |
+| FMS | Fleet Management System |
+| AOZ | Autonomous Operating Zone – geographic area within which autonomous mining vehicles are permitted to operate. |
+| SIV | Staffed Instrumented Vehicle – manually operated equipment equipped with required instrumentation (e.g. positioning, remote stop). |
+| Escorter | The leading SIV responsible for defining and transmitting the escort protection zone. |
+| Escortee | The non‑instrumented vehicle (or vehicles) being escorted. |
+| Escort Convoy | The Escorter together with all associated Escortees. |
+| Protection Zone | The geometric zone that the Escort Convoy shall remain within; extends behind the Escorter to encompass all Escortees. |
+| Avoidance Zone | A zone derived and maintained internally by each AV; the AV shall not enter it. It is never smaller than the Protection Zone and may be enlarged due to update latency. |
 
 ## Operational Requirements
-For the system to function as intended, the following driving behaviours must be adhered to:
+The following operational behaviors are mandatory to ensure the integrity of the escort safety concept.
 
-### All parties shall:
-- Adhere to the traffic rules specified by the map
+### All Parties Shall
+- Adhere to map‑defined traffic rules and constraints.
 
-### The ```Escorter``` must:
+### Escorter Shall
+- Adhere to the configured speed limit for the escort.
+- Drive so that all Escortees can remain within the defined Protection Zone Length.
+- Maintain predictable lane compliance when operating on roads.
 
-- Adhere to the speed limit specified at the time of creation
-- Drive in such a manner as to ensure the 'Escortee/s' can follow within the 'Length' of the escort
-
-### The ```Escortee``` must:
-
-- Always follow the path of the Escorter at a safe driving distance
-- Follow the Escorter, as closely as possible, within the bounds of a safe distance
-- When on roads, the Escorter shall follow within the boundaries of the lane
-- When in open areas, the Escorter shall follow within the boundaries of the 'Width' of the escort
-- If the Escorter stops, the Escortee shall pull up directly behind, within the bounds of a safe distance.
+### Escortee Shall
+- Follow the Escorter path at a safe, forward, non‑reversing distance.
+- Remain within lane boundaries when on roads.
+- Remain within the configured Width when in open areas.
+- Stop directly behind the Escorter within a safe distance if the Escorter stops.
 
 > [!IMPORTANT]
-> - The Escortee must at all times stay within the defined Protection Zone.
-> - The AV will in its escort predictions assume that an Escort Convoy that is driving on a road will keep driving on the road and within the lane. Therefore it is important that the Escort Convoy actually does that.
+> - Escortees must remain inside the Protection Zone at all times.
+> - Prediction assumes road travel remains within the originating lane; deviations invalidate optimal avoidance performance.
 
-> ![Warning]
-> Failure to adhere to the specified driving behaviours could result in loss of protection provided by the system.
+> [!WARNING]
+> Failure to comply with these requirements can result in loss of system‑provided protection.
 
+## Instrumentation Requirements (Escorting SIV)
+The typical Escorter is a light vehicle (e.g. a car). Minimum instrumentation capabilities:
+- Precision position determination (meeting site accuracy criteria).
+- Reliable bidirectional network connectivity to FMS.
 
-### Escorting SIV Requirements
-The typical use case expects the Escorter SIV to be a light vehicle.
-
-#### Minimum requirements for the instrumentation are that it has the ability to:
-- Determine its position with a precision measurement
-- Network connection to the FMS
-
-#### Optional:
-- Connection to secondary network layer (e.g. V2X)
-
+Optional capabilities:
+- Secondary communication channel (e.g. V2X) for enhanced performance.
 
 ## System Limitations
+Oversized vehicles are not supported. A vehicle is considered oversized if it:
+- Occupies or blocks both lanes of a two‑lane road segment.
+- Cannot remain fully within a single lane for the escort duration.
+- Cannot comply with map‑defined traffic rules.
 
-The Escort system cannot accommodate oversized vehicles. Oversized vehicles are defined as vehicles that meet any of the following conditions:
+## General Operation
 
-- Block both lanes of traffic
-- Cannot remain within a single lane for the entire journey
-- For any reason, cannot adhere to the road rules specified by the map
-
-
-## General Operation Description
-
-### Escort Initiation
-The Escorter and the Escortee line up at a safe place near or within the AOZ. The Escorter requests a new escort and the FMS communicates this to all active autonomous vehicles.
-
-### Activation
-When all AVs have activated the escort, the Escorter receives confirmation from the FMS that the escort is operational.
-
-### Active Protection
-Each AV must account for the escort's position and avoid entering its protection zone. Due to transmission delays, AVs expand their internal representation (Avoidance Zone) to cover all possible movements of the escort since the last position update.
+### Initiation
+Escorter and Escortee(s) position at a safe staging location near or within the AOZ. Escorter issues an escort creation request. FMS distributes the escort definition to all active AVs.
 
 > ![Note]
-> The safety case does not require position updates once the escort is activated. However, because of the expanding avoidance zone the overall system performance will be better with more frequent and less delayed position updates.
+> Safe staging location within AOZ requires another layer of protection since it will not be safe by the escort mechanism until the escort is activated.
 
+### Activation
+Each AV acknowledges activation. When all required AV acknowledgments are received, FMS reports the escort as Active to the Escorter.
 
+### Active Operation
+AVs incorporate the Protection Zone into their planning and shall not enter the Avoidance Zone. Due to message latency, each AV expands its Avoidance Zone to encompass all feasible Escorter movement since the last received position update.
 
-## Escort Protection Zone Specification  
-Escort protection zones are defined and exchanged using this protocol. The zones are dynamically shaped based on both **escort-defined parameters** and **real-time operating conditions**:
+> [!NOTE]
+> While continuous position updates post‑activation are not strictly required for baseline safety, higher update frequency reduces Avoidance Zone expansion and improves overall system performance.
+
+### Deactivation
+Escorter and Escortee(s) position at a safe staging location near or within the AOZ. Escorter issues an escort deactivation request. FMS distributes the escort deactivation to all active AVs.
+
+## Protection Zone Specification
+Protection Zones are parameterized during escort creation and are immutable for the active escort instance.
 
 ### Parameters
-These parameters are part of the activation request, during the active escort phase the parameters are constant througout the entire escort operation.
-- **Length**: The Escortee must always stay within _length_ meters of the Escorter along the path that the Escorter is driving.
-- **Width**: Configured by the Escorter vehicle, applicable to escorting in open areas. When driving on road the escort must always stay within the lane, and the entire lane width will constitute the protection zone.
+- Length: Maximum longitudinal trailing distance within which all Escortees must remain behind the Escorter along its driven path.
+- Width: Lateral extent used in open areas. On roads, lane boundaries supersede Width and define the Protection Zone lateral limits.
 
-![Protection Zone Definition Image](images/escort-protection_zone.png)
+![Protection Zone Definition](images/escort-protection_zone.png)
 
-### Real-Time Operating Conditions
-Once an escort is activated, the Escorter vehicle continuously transmits its position at **1 Hz (one update per second)**. These periodic updates allow AVs to maintain a limited Avoidance Zone.
+### Real‑Time Updates
+Escorter position is transmitted nominally at 1 Hz (one update per second) while Pending or Active. AVs use these updates to constrain expansion of the Avoidance Zone.
 
-### Escort Prediction
-Since each AV must predict each escort's possible position since its last postion update there has to be a defined predictor behaviour.
+## Prediction Model
+Each AV shall predict possible Escorter positions between updates according to these assumptions:
+- Escorter speed may be any value up to the map‑defined maximum for its current segment.
+- On roads:
+  - No reversing within a lane.
+  - Lane adherence; no crossing into opposing lanes.
+  - At legal splits, any permitted branch may be chosen.
+- In open areas:
+  - No reversing.
+  - Any forward trajectory consistent with vehicle dynamics within the configured Width and site constraints may be taken.
 
-The AV will assume that:
-- The Escort drives at any speed up to the maximum allowed according to the map.
-- If the Escort is on a road the AV will assume:
-  - The Escort is not reversing in the lane.
-  - The Escort is staying within the lane and never crosses into any opposing lanes.
-  - If the lane splits the Escort could have taken any of the allowed splits.
-- If the Escort is within an open area the AV will assume:
-  - The Escort is not reversing.
-  - The Escort may do any possible* forward driving within the Open Area.
-
-*Within some vehicle dynamics limitations.
-
-
-
-## Escort Operation State Machine  
-Escorts follow a lifecycle managed through the FMS–AHS communication:  
-
-- `Pending`: The escort operation has been announced but has not been activated by all operating AVs.  
-- `Active`: The escort operation is active and enforced by all operating AVs.  
-- `Deleted`: The escort operation has been removed and is no longer enforced.  
+## Operation State Machine
+Escort lifecycle states exchanged between FMS and AHS:
+- Pending: Escort announced; activation acknowledgments outstanding.
+- Active: Escort fully acknowledged; zone enforcement in effect.
+- Deleted: Escort retired; zone no longer enforced.
 
 ```mermaid
 stateDiagram-v2
@@ -134,36 +151,28 @@ pd --> d : Deactivated by all AVs
 d --> [*] : Escort Retired in FMS
 ```
 
-> [!NOTE]  
-> Immutable attributes (e.g., escort vehicle ID, length and width [TBD - Station ID (V2X ID)], communication configuration) cannot be changed on an active zone. To update them, a new escort zone must be created, and the old one must be retired.  
+> [!NOTE]
+> Immutable attributes (Escorter vehicle ID, Length, Width, communication mode, and any future station identifiers) shall not be modified while Active. To change them, create a new escort and retire the existing one.
+
+## Sequence Diagrams
+Refer to `diagram/SequenceDiagrams.md` for interaction flows covering creation, activation, updates, and retirement.
+
+## Communication Protocol
+Escort management messages are exchanged between FMS and AHS.
+
+Requirements:
+- Continuous health monitoring by both endpoints.
+- Asynchronous, non‑blocking message exchange.
+- Position updates at 1 Hz during Pending and Active states.
+- Rapid reconnection following any connection loss.
+- Upon reconnection, AVs contract Avoidance Zones back to nominal dimensions.
+
+## Glossary Consistency Notes
+- Use “Escorter” (capitalized) and “Escortee” consistently.
+- “Protection Zone” refers to the convoy zone; “Avoidance Zone” is the AV internal safety buffer.
+- Normative verbs: “shall” for mandatory, “may” for optional capability, “should” for recommended optimization.
 
 ---
-
-## Sequence Diagrams  
-See [Sequence Diagrams](diagram/SequenceDiagrams.md) for scenarios illustrating the interactions between FMS, AHS, and AV when creating, activating, updating, and removing escort zones.  
-
----
-
-## Communication Protocol  
-All communication between the FMS and AHS for managing escort zones is handled through a **single persistent WebSocket connection**.  
-
-This connection must satisfy the following requirements:  
-- The connection is continuously monitored from both ends.  
-- Messages are exchanged asynchronously over the connection.  
-- Escort position updates are streamed at **1 Hz** while the escort is pending or active.  
-- If the connection is lost, the following applies:  
-  - The connection must be reestablished **as soon as possible**.  
-  - Once the connection is restored, the Avoidance Zone contracts back to its configured dimensions.  
-
----
-
-## Failure Handling  
-Because escort zones are safety-critical, the protocol defines explicit behavior for failures:  
-
-- **Connection loss**: Triggers immediate reconnection attempts and automatic safety expansion of the escort zone.  
-- **Delayed updates**: Avoidance Zone expands in proportion to the escort’s speed and elapsed time since last update.  
-- **Recovery**: Normal zone dimensions are restored as soon as updates resume.  
-
----
+Copyright (c) Contributors. Licensed under the terms in `LICENSE`.
 
  
