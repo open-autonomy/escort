@@ -1,51 +1,81 @@
 # ActivateEscortResponseV1
 
-This message is sent by the Autonomous Haulage System (AHS) in response to the `ActivateEscortRequestV1` messages from the Fleet Management System (FMS), indicating whether the Autonomous Vehicle (AV) is in state pending, activated or rejected with respect to the escort request.
+This message is sent by the Autonomous Haulage System (AHS) in response to an `ActivateEscortRequestV1` from the Fleet Management System (FMS). It reports the current escort activation state for a specific Autonomous Vehicle (AV).
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `AHS`  | `ActivateEscortRequestV1` |  |
+| AHS | Receipt of valid `ActivateEscortRequestV1` | Informs FMS of AV escort activation status; contributes to escort lifecycle progression |
 
 
 ## Message Attributes
 
 The `ActivateEscortResponseV1` message consists of the following properties.
 
-| Key | Value | Format | Required | Description |
-| --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | The escort id in which the truck is responding to |
-| `"Status"` | [`Pending`, `Activated`, `Rejected`] | String | True | Determine whether the AV is in state pending, activated or rejected with respect to the escort request.<br/>- `Pending`: The AV has processed the escort and has scheduled it for activation.<br/>- `Activated`: The AV has activated the escort and it is now adhering to the specified protection zone.<br/>- `Rejected`: The AV is unable to activate the escort due to an error explained in `"Reason"` |
-| `"Reason"` | String Enum | String | False | The reason for rejecting escort request |
+| Key |               Value               | Format | Required | Description |
+| --- |:---------------------------------:| :---: | :---: | --- |
+| `"EscortId"` |             EscortId              | UUID | True | Identifier of the escort instance being acknowledged. MUST match the request. |
+| `"Status"` | [`Pending`, `Active`, `Rejected`] | String | True | Activation state for this AV. |
+| `"Reason"` |            String Enum            | String | False | Present only when `Status` = `Rejected`; provides machine‑readable cause. |
+
+### Status Semantics
+| Status | Meaning |
+| --- | --- |
+| `Pending` | AV has accepted escort parameters and is transitioning to `Active` (e.g., internal planning adjustments in progress). |
+| `Active` | AV has applied Protection / Avoidance Zone constraints and is enforcing the escort. |
+| `Rejected` | AV is unable to activate the escort; a `Reason` SHOULD be supplied. |
 
 > [!IMPORTANT]
-> - AV shall only `Reject` an escort request if there is an error preventing it from processing the escort request.
-> - An AV may choose to send an `Activate` response without sending a `Pending` response first. In this case, the AV is indicating that it has activated the escort and is adhering to the specified policy. An AV shall send a `Pending` response if it cannot immediately adhere to the escort.
+> - An AV SHALL send `Rejected` only if an error prevents activation.
+> - An AV MAY send `Active` directly (skipping `Pending`) if activation is immediate.
+> - If activation cannot be immediate, AV SHALL first send `Pending`.
 
-## Examples
-### Typical Message
-```JSON
+## Rejection Reasons
+Recommended enumeration (implementations MAY extend):
+- `InvalidParameters` – Escort attributes failed validation.
+- `StalePosition` – Initial position snapshot too old.
+- `InvalidPosition` – Position Update contains invalid data
+- `InvalidMap` – Map is incompatible
+- `ResourceUnavailable` – Required internal resource (e.g., planner) - unavailable.
+- `InternalError` – Non‑recoverable internal failure.
+- `UnexpectedOffline` – AV transitioning offline state.
+- `ConflictingEscort` – Another active escort prevents activation.
+
+## Validation Rules
+Response SHALL be considered invalid by FMS if:
+- Missing mandatory attribute.
+- `EscortId` unknown or not currently Pending.
+- `Status` value not in defined enumeration.
+- `Reason` present while `Status` ≠ `Rejected`, or absent while `Status` = `Rejected`.
+
+Invalid responses SHOULD be logged and MAY trigger a re‑request.
+
+## Idempotency
+Duplicate responses (same `EscortId`, same `Status`) SHALL be treated as retransmissions and MUST NOT alter aggregate escort state beyond updating last‑seen timestamp.
+
+## Example – Active Response
+```json
 {
   "Protocol": "Open-Autonomy",
   "Version": 1,
-  "Timestamp": "2021-09-01T12:00:00Z",
+  "Timestamp": "2025-10-20T12:00:00Z",
   "EquipmentIds": [
-    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
+    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc"
   ],
   "ActivateEscortResponseV1": {
     "EscortId": "123e4567-e89b-12d3-a456-426614174000",
-    "Status": "Activated"
+    "Status": "Active"
   }
 }
 ```
 
-### Rejection Message
-```JSON
+## Example – Rejected Response
+```json
 {
   "Protocol": "Open-Autonomy",
   "Version": 1,
-  "Timestamp": "2021-09-01T12:00:00Z",
+  "Timestamp": "2025-10-20T12:00:05Z",
   "EquipmentIds": [
-    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
+    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc"
   ],
   "ActivateEscortResponseV1": {
     "EscortId": "123e4567-e89b-12d3-a456-426614174000",
