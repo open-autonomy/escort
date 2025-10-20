@@ -165,7 +165,6 @@ Requirements:
 - Asynchronous, non‑blocking message exchange.
 - Position updates at 1 Hz during Pending and Active states.
 - Rapid reconnection following any connection loss.
-- Upon reconnection, AVs contract Avoidance Zones back to nominal dimensions.
 
 ## Glossary Consistency Notes
 - Use “Escorter” (capitalized) and “Escortee” consistently.
