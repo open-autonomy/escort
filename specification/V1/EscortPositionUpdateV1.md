@@ -28,7 +28,7 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
 | `"SpeedAccuracy"` | shall | double | m/s (1σ) | 1‑sigma speed accuracy. |
 
 > [!NOTE]
-> - Accuracy fields help AVs tune dynamic buffer growth; include when available.
+> - Accuracy fields help AVs tune dynamic buffer growth.
 
 > [!NOTE]
 > Why V2X StationId?
