@@ -22,15 +22,15 @@ sequenceDiagram
 
     par AV 1
         FMS->>AHS: DeactivateEscortRequestV1
-        AHS->>AV 1: DeactivateEscortCommand
-        AV 1->>AV 1: Remove zone
-        AV 1->>AHS: DeactivationStatus
+        AHS->>AV 1: Deactivate Escort
+        AV 1->>AV 1: Remove Escort
+        AV 1->>AHS: Escort Deactivated
         AHS->>FMS: DeactivateEscortResponseV1
     and AV N
         FMS->>AHS: DeactivateEscortRequestV1
-        AHS->>AV N: DeactivateEscortCommand
-        AV N->>AV N: Remove zone
-        AV N->>AHS: DeactivationStatus
+        AHS->>AV N: Deactivate Escort
+        AV N->>AV N: Remove Escort
+        AV N->>AHS: Escort Deactivated
         AHS->>FMS: DeactivateEscortResponseV1
     end
 
@@ -49,14 +49,13 @@ sequenceDiagram
 
     FMS->>AHS: DeactivateEscortRequestV1
     alt AHS/AV missing escort
-        AHS->>AV: DeactivateEscortCommand
-        Note over AV: No escort to remove
-        AV->>AHS: DeactivationStatus
+        AHS->>AV: Deactivate Escort
+        AV->>AHS: No Escort to Deactivate
         AHS->>FMS: DeactivateEscortResponseV1
     else Present
-        AHS->>AV: DeactivateEscortCommand
+        AHS->>AV: Deactivate Escort
         AV->>AV: Remove escort
-        AV->>AHS: DeactivationStatus
+        AV->>AHS: Escort Deactivated
         AHS-->>FMS: DeactivateEscortResponseV1
     end
 ```
