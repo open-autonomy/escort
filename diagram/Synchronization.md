@@ -29,7 +29,7 @@ sequenceDiagram
     FMS->>AHS: AV N <br/> SyncActiveEscortsRequestV1
     AHS->>AV N: Active Escorts
     AV N->>AV N: Adheres to all Escorts
-    AV N->>AHS: Activated
+    AV N->>AHS: Escort Activated
 
     AHS->>FMS: AV N <br/> SyncActiveEscortsResponseV1: Activated
 
@@ -60,8 +60,8 @@ sequenceDiagram
     FMS->>AHS: Send ActivateEscortRequestV1 to AV 1
 
     AHS->>AV 1: Activate Escort
-    Note over AV 1: Unable to immediately adhere to request
-    AV 1->>AHS: Pending
+    Note over AV 1: Unable to immediately adhere to Escort
+    AV 1->>AHS: Escort Pending
     AHS->>FMS: ActivateEscortResponseV1: Status "Pending"
 
     Note Over AV N: AV N connects
@@ -76,7 +76,7 @@ sequenceDiagram
         FMS->>AHS: AV N <br/> SyncActiveEscortsRequestV1
         AHS->>AV N: Active Escorts
         AV N->>AV N: Adheres to all Escorts
-        AV N->>AHS: Activated
+        AV N->>AHS: Escort Activated
         Note over AV N: AV N can operate
 
         AHS->>FMS: AV N <br/> SyncActiveEscortsResponseV1: Activated
@@ -84,15 +84,15 @@ sequenceDiagram
         loop
             FMS->>AHS: Send ActivateEscortRequestV1 to AV N
             AHS->>AV N: Activate Escort
-            AV N->>AV N: Adheres to request
-            AV N->>AHS: Activated
+            AV N->>AV N: Adheres to Escort
+            AV N->>AHS: Escort Activated
             AHS->>FMS: ActivateEscortResponseV1: Status "Activated"
         end
     end
 
     Note Over AV 1: Adhering to request
-    AV 1->>AV 1: Adheres to request
-    AV 1->>AHS: Activated
+    AV 1->>AV 1: Adheres to Escort
+    AV 1->>AHS: Escort Activated
      AHS->>FMS: AV 1 <br/> ActivateEscortResponseV1: Status "Activated"
 
 
@@ -133,7 +133,7 @@ sequenceDiagram
     AHS->>AV 1: Active Escorts
     Note Over AV 1: AV 1 cannot adhere to all escorts
 
-    AV 1->>AHS: Rejected
+    AV 1->>AHS: Escort Rejected
 
     Note Over AV 1: AV 1 MUST remain immobilized
 
