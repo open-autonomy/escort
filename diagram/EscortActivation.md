@@ -45,6 +45,7 @@ sequenceDiagram
 > FMS should begin streaming position updates immediately after sending the activation request, since the position information is required for AVs to activate the escort.
 
 ## Typical Escort Activation
+AV 1 can adhere to the escort immediately, AV N can not.
 
 ```mermaid
 sequenceDiagram
@@ -61,17 +62,15 @@ sequenceDiagram
     par AV 1
     FMS->>AHS: ActivateEscortRequestV1
     AHS->>AV 1: ActivateEscortCommand
-    AV 1->>AHS: ActivationStatus(Pending)
-    AHS->>FMS: ActivateEscortResponseV1(status=Pending)
         AV 1->>AV 1: Adheres to request
     AV 1->>AHS: ActivationStatus(Activated)
     AHS->>FMS: ActivateEscortResponseV1(status=Activated)
     and AV N
     FMS->>AHS: ActivateEscortRequestV1
     AHS->>AV N: ActivateEscortCommand
+        Note Over AV N: Unable to immediately adhere to request
     AV N->>AHS: ActivationStatus(Pending)
     AHS->>FMS: ActivateEscortResponseV1(status=Pending)
-        Note Over AV N: Unable to immediately adhere to request
         AV N->>AV N: Adheres to request
     AV N->>AHS: ActivationStatus(Activated)
     AHS->>FMS: ActivateEscortResponseV1(status=Activated)
