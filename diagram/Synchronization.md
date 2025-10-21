@@ -137,7 +137,7 @@ sequenceDiagram
 
     Note Over AV 1: AV 1 MUST remain immobilized
 
-    AHS->>FMS: ActivateEscortResponseV1: Status "Rejected"
+    AHS->>FMS: SyncActiveEscortsResponseV1: Rejected
 
     FMS-->>Escorter: Error Message
 
