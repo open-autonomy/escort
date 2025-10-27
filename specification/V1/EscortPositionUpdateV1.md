@@ -1,15 +1,10 @@
 # EscortPositionUpdateV1
 
-This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) at a frequency of 1 Hz to report the current position and motion state of the active escorting vehicle (Escorter). The purpose is to enable all Autonomous Vehicles (AVs) to maintain an up‑to‑date dynamic protection zone around the escort.
+This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) at a nominal frequency of 1 Hz to report current position and motion state of the active Escorter. It enables Autonomous Vehicles (AVs) to maintain and update their Avoidance Zone relative to the Protection Zone.
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `FMS` | Escort activation (immediately after sending `ActivateEscortRequestV1`) and every 1 s while active | AHS to forward/update internal AV state used for protection zone maintenance |
-
-> [!IMPORTANT]
-> FMS SHALL begin sending `EscortPositionUpdateV1` messages immediately after transmitting an `ActivateEscortRequestV1` (shall NOT wait for any `ActivateEscortResponseV1`).
->
-> If more than 2 consecutive `EscortPositionUpdateV1` messages are missed (configurable), AVs MAY expand protection margins or fail-safe according to site request.
+| FMS | Escort Pending or Active (after `ActivateEscortRequestV1`) and periodic (every ~1 s) | Provides latest Escorter pose for AV prediction & Avoidance Zone constraint |
 
 ## Message Attributes
 
@@ -20,32 +15,31 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
 | `"EscorterId"` | shall | UUID | UUID | Identifier of the Escorter Vehicle |
 | `"GPSWeek"` | shall | uint32 | GPS Week | GPS Week when the position sample was measured (NOT when message transmitted) |
 | `"GPSMilliSecondInWeek"` | shall | uint32 | millisecond in GPS Week | millisecond in GPS Week when the position sample was measured (NOT when message transmitted) |
-| `"V2XStationId"` | should  | uint32 | StationId | V2X StationId of the Escorter SIV |
+| `"V2XStationId"` | should  | string | Id | Unique ID on redundant network channel e.g. V2X station id |
 | `"Latitude"` | shall | double | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
 | `"Longitude"` | shall | double | degrees (WGS84) | 6+ decimal places. |
 | `"Elevation"` | shall | double | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
 | `"Heading"` | shall | double | degrees | 0–359; 0 = true north, clockwise increase. |
 | `"Speed"` | shall | double | m/s | Instantaneous ground speed (consider conversion from native km/h). |
-| `"LatitudeAccuracy"` | should | double | meters (1σ) | 1‑sigma horizontal positional accuracy latitude component. |
-| `"LongitudeAccuracy"` | should | double | meters (1σ) | 1‑sigma horizontal positional accuracy longitude component. |
-| `"ElevationAccuracy"` | should | double | meters (1σ) | 1‑sigma vertical accuracy. |
-| `"HeadingAccuracy"` | should | double | degrees (1σ) | 1‑sigma heading accuracy. |
-| `"SpeedAccuracy"` | should | double | m/s (1σ) | 1‑sigma speed accuracy. |
+| `"LatitudeAccuracy"` | shall | double | meters (1σ) | 1‑sigma horizontal positional accuracy latitude component. |
+| `"LongitudeAccuracy"` | shall | double | meters (1σ) | 1‑sigma horizontal positional accuracy longitude component. |
+| `"ElevationAccuracy"` | shall | double | meters (1σ) | 1‑sigma vertical accuracy. |
+| `"HeadingAccuracy"` | shall | double | degrees (1σ) | 1‑sigma heading accuracy. |
+| `"SpeedAccuracy"` | shall | double | m/s (1σ) | 1‑sigma speed accuracy. |
 
 > [!NOTE]
-> - At minimum: `EscorterId`, `GPSWeek`, `GPSMilliSecondInWeek`, `Latitude`, `Longitude`, `Elevation`, `Heading`, `Speed` MUST be present.
-> - Accuracy fields help AVs tune dynamic buffer growth; include when available.
+> - Accuracy fields help AVs tune dynamic buffer growth.
 
 > [!NOTE]
 > Why V2X StationId?
 > - V2X CAM messages can be received with smaller latency than the `EscortPositionUpdateV1` messages therefore StationId of the Escorter is a valuable information to the AV.
 
 ## Example
-```JSON
+```json
 {
   "Protocol": "Open-Autonomy",
   "Version": 1,
-  "Timestamp": "2025-09-26T10:15:30.125Z",
+  "Timestamp": "2025-10-20T10:15:30.125Z",
   "EquipmentIds": [
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
     "9b8b6d54-1234-4c81-a911-5555bbbb7777"
@@ -64,7 +58,7 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
     "LongitudeAccuracy": 0.9,
     "ElevationAccuracy": 1.5,
     "HeadingAccuracy": 2.0,
-    "SpeedAccuracy": 0.2,
+    "SpeedAccuracy": 0.2
   }
 }
 ```

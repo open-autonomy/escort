@@ -89,7 +89,7 @@ Oversized vehicles are not supported. A vehicle is considered oversized if it:
 ### Initiation
 Escorter and Escortee(s) position at a safe staging location near or within the AOZ. Escorter issues an escort creation request. FMS distributes the escort definition to all active AVs.
 
-> [!Note]
+> [!NOTE]
 > Safe staging location within AOZ requires another layer of protection since it will not be safe by the escort mechanism until the escort is activated.
 
 ### Activation

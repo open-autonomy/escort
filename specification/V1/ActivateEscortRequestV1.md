@@ -1,10 +1,10 @@
 # ActivateEscortRequestV1
 
-This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) to indicate a escort has been created in the FMS which the Autonomous Vehicles (AV) are expected to adhere to. Each AV should then respond with an `ActivateEscortResponseV1` message indicating whether it has pending, activated or rejected the escort request (see `ActivateEscortResponseV1` for a description of response types).
+This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) to announce an escort instance that Autonomous Vehicles (AVs) SHALL acknowledge and enforce. Each AV SHALL respond with an `ActivateEscortResponseV1` indicating one of: Pending, Active, or Rejected (see `ActivateEscortResponseV1`).
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `FMS`  | Escort creation or updates | The AV to start accepting and adhere to the escorts, and fire off `ActivateEscortResponseV1` messages |
+| FMS | Successful escort creation (immutable parameters established) | An `ActivateEscortResponseV1` from each addressed AV |
 
 ## Message Attributes
 
@@ -15,21 +15,20 @@ The `ActivateEscortRequestV1` message consists of the following properties.
 | `"EscorterId"` | UUID | UUID | False | Identifier of the Escorter Vehicle |
 | `"EscortId"` | UUID | UUID | True | A unique identifier for the escort operation |
 | `"Length"` | m | double | True | Length of protection Zone |
-| `"Width"` | m | double | True | Width of protection Zone, applicable when Escort Convoy is in open area. |
-| `"EscortPositionUpdate"` | EscortPositionUpdateV1 | EscortPositionUpdateV1 | True | Current position of the escort |
+| `"Width"` | m | double | True | Lateral Protection Zone extent used in open areas. Lane boundaries supersede Width on roads. |
+| `"EscortPositionUpdate"` | EscortPositionUpdateV1 | EscortPositionUpdateV1 | True | Position snapshot used to seed AV prediction and Avoidance Zone calculation. |
 
 >[!IMPORTANT]
 > The AV will reject the request if the escort position is in some way faulty
 
 
 
-## Examples
-### Typical Message
-```JSON
+## Example
+```json
 {
   "Protocol":"Open-Autonomy",
   "Version": 1,
-  "Timestamp": "2018-10-31T09:30:10.435Z",
+  "Timestamp": "2025-10-20T09:30:10.435Z",
   "EquipmentIds": [
     "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
     "9b8b6d54-1234-4c81-a911-5555bbbb7777"
@@ -53,9 +52,8 @@ The `ActivateEscortRequestV1` message consists of the following properties.
       "LongitudeAccuracy": 0.9,
       "ElevationAccuracy": 1.5,
       "HeadingAccuracy": 2.0,
-      "SpeedAccuracy": 0.2,
+      "SpeedAccuracy": 0.2
     }
   }
 }
-
 ```

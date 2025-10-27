@@ -18,13 +18,13 @@ sequenceDiagram
     activate AHS
     activate AV
     FMS->>AHS: ActivateEscortRequestV1
-    AHS->>AV: ActivateEscortCommand
-    AV->>AV: Protection zone pending
-    AV-->>AHS: ActivationStatus(Pending)
+    AHS->>AV: Activate Escort
+    AV->>AV: Escort adherence pending
+    AV-->>AHS: Escort Pending
     AHS-->>FMS: ActivateEscortResponseV1(status=Pending)
 
-    AV->>AV: Enable protection zone
-    AV-->>AHS: ActivationStatus(Activated)
+    AV->>AV: Adhering to Escort
+    AV-->>AHS: Escort Activated
     AHS-->>FMS: ActivateEscortResponseV1(status=Activated)
     FMS-->>FMS: All AVs Activated
     FMS-->>Escorter: Escort activated
@@ -34,7 +34,6 @@ sequenceDiagram
         FMS-->>AHS: EscortPositionUpdate
         AHS->>AV: PositionUpdate
         AV->>AV: Update Avoidance Zone geometry
-        AV-->>AHS: Updated
     end
     %% Deactivation flow moved to EscortDeactivation.md
     deactivate AV
@@ -46,6 +45,7 @@ sequenceDiagram
 > FMS should begin streaming position updates immediately after sending the activation request, since the position information is required for AVs to activate the escort.
 
 ## Typical Escort Activation
+AV 1 can adhere to the escort immediately, AV N can not.
 
 ```mermaid
 sequenceDiagram
@@ -61,20 +61,18 @@ sequenceDiagram
     FMS-->+Escorter: Pending
     par AV 1
     FMS->>AHS: ActivateEscortRequestV1
-    AHS->>AV 1: ActivateEscortCommand
-    AV 1->>AHS: ActivationStatus(Pending)
-    AHS->>FMS: ActivateEscortResponseV1(status=Pending)
-        AV 1->>AV 1: Adheres to request
-    AV 1->>AHS: ActivationStatus(Activated)
+    AHS->>AV 1: Activate Escort
+        AV 1->>AV 1: Adhering to Escort
+    AV 1->>AHS: Escort Activated
     AHS->>FMS: ActivateEscortResponseV1(status=Activated)
     and AV N
     FMS->>AHS: ActivateEscortRequestV1
-    AHS->>AV N: ActivateEscortCommand
-    AV N->>AHS: ActivationStatus(Pending)
+    AHS->>AV N: Activate Escort
+        Note Over AV N: Unable to immediately adhere to Escort
+    AV N->>AHS: Escort Pending
     AHS->>FMS: ActivateEscortResponseV1(status=Pending)
-        Note Over AV N: Unable to immediately adhere to request
-        AV N->>AV N: Adheres to request
-    AV N->>AHS: ActivationStatus(Activated)
+        AV N->>AV N: Adhering to Escort
+    AV N->>AHS: Escort Activated
     AHS->>FMS: ActivateEscortResponseV1(status=Activated)
     end
 
@@ -105,9 +103,9 @@ sequenceDiagram
     FMS-->>FMS: Escort Pending
     FMS-->+Escorter: Pending
     FMS->>AHS: ActivateEscortRequestV1
-    AHS->>AV 1: ActivateEscortCommand
-    Note Over AV 1: Cannot Adhere to request
-    AV 1->>AHS: ActivationStatus(rejected)
+    AHS->>AV 1: Activate Escort
+    Note Over AV 1: Cannot Adhere to Escort
+    AV 1->>AHS: Escort Rejected
     AHS->>FMS: ActivateEscortResponseV1(status=Rejected)
     Escorter-->-FMS: Pending
     FMS-->>FMS: Escort Pending
