@@ -22,6 +22,7 @@ The following messages are defined in this specification for managing escorts:
 - [ActivateEscortResponseV1](ActivateEscortResponseV1.md)
 - [DeactivateEscortRequestV1](DeactivateEscortRequestV1.md)
 - [DeactivateEscortResponseV1](DeactivateEscortResponseV1.md)
+- [EscortPositionUpdateV1](EscortPositionUpdateV1.md)
 - [OutOfSyncV1](OutOfSyncV1.md)
 - [SyncActiveEscortsRequestV1](SyncActiveEscortsRequestV1.md)
 - [SyncActiveEscortsResponseV1](SyncActiveEscortsResponseV1.md)
