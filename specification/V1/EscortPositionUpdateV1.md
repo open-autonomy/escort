@@ -12,10 +12,10 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
 
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
-| `"EscorterId"` | shall | UUID | UUID | Identifier of the Escorter Vehicle |
+| `"EscortId"` | shall | UUID | UUID | Identifier of the Escort instance |
 | `"GPSWeek"` | shall | uint32 | GPS Week | GPS Week when the position sample was measured (NOT when message transmitted) |
 | `"GPSMilliSecondInWeek"` | shall | uint32 | millisecond in GPS Week | millisecond in GPS Week when the position sample was measured (NOT when message transmitted) |
-| `"V2XStationId"` | should  | string | Id | Unique ID on redundant network channel e.g. V2X station id |
+| `"V2XStationId"` | should  | string | Id | Unique ID on redundant network channel i.e. V2X |
 | `"Latitude"` | shall | double | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
 | `"Longitude"` | shall | double | degrees (WGS84) | 6+ decimal places. |
 | `"Elevation"` | shall | double | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
@@ -33,6 +33,9 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
 > [!NOTE]
 > Why V2X StationId?
 > - V2X CAM messages can be received with smaller latency than the `EscortPositionUpdateV1` messages therefore StationId of the Escorter is a valuable information to the AV.
+>
+> Why V2X StationId in Position Update Message?
+> - V2X StationIds change regularly therefore this is part of the update rather than the activation message.
 
 ## Example
 ```json

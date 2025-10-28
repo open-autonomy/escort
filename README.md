@@ -134,6 +134,8 @@ Escort lifecycle states exchanged between FMS and AHS:
 - Deleted: Escort retired; zone no longer enforced.
 - Pending Delete: The escort operation has been marked for deletion but has not yet been removed by all operating AVs.
 
+
+### State Machine In FMS
 ```mermaid
 stateDiagram-v2
 state "Pending" as p
@@ -151,11 +153,29 @@ pd --> d : Deactivated by all AVs
 d --> [*] : Escort Retired in FMS
 ```
 
+### State Machine In AV
+```mermaid
+stateDiagram-v2
+state "Pending" as p
+state "Active" as a
+state "Deleted" as d
+
+[*] --> p : Incoming ActivateEscortRequest
+p --> p : AV wants to postpone Activation
+p --> a : AV activates escort
+a --> a : Escort is active and AV avoids protection zone
+p --> d : AV rejects escort
+p --> d : Incoming DeactivateEscortRequest
+a --> d : Incoming DeactivateEscortRequest
+d --> [*] : Escort Removed from AV
+```
+
+
 > [!NOTE]
 > Immutable attributes (Escorter vehicle ID, Length, Width, communication mode, and any future station identifiers) shall not be modified while Active. To change them, create a new escort and retire the existing one.
 
 ## Sequence Diagrams
-Refer to `diagram/SequenceDiagrams.md` for interaction flows covering creation, activation, updates, and retirement.
+Refer to [sequence diagrams](diagram/SequenceDiagrams.md) for interaction flows covering creation, activation, updates, and retirement.
 
 ## Communication Protocol
 Escort management messages are exchanged between FMS and AHS.
