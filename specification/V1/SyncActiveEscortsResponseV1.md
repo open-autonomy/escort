@@ -30,6 +30,8 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
 > [!TIP]
 > Use `Reason` at the top level for a single global failure (e.g. `MaxActiveEscortsExceeded`). Use `RejectedEscorts[i].Reason` for individual zones when some, but not all, failed. If both are present, the top-level `Reason` should summarize while per-zone reasons provide detail.
 
+See [ActivateEscortResponseV1 - Rejection Reasons](./ActivateEscortResponseV1.md#rejection-reasons) for recommended rejection reason enumerations.
+
 ### Examples
 #### Activated (All Escorts Succeeded)
 ```json
