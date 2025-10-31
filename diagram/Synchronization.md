@@ -161,7 +161,7 @@ The following message provides an example of an escort activation response from 
     "Protocol": "Open-Autonomy",
     "Version": 1,
     "Timestamp": "2024-08-23T07:26:33.344Z",
-    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
+    "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
     "ActivateEscortResponseV1": {
         "EscortId": "00000000-0000-0000-0000-000000000001",
         "Status": "Active"
@@ -176,7 +176,7 @@ The following message provides an example of an escort activation response from 
     "Protocol": "Open-Autonomy",
     "Version": 1,
     "Timestamp": "2024-08-23T08:19:55.621Z",
-    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
+    "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
     "OutOfSyncV1": {
     }
 }
@@ -199,7 +199,7 @@ The following message provides an example of an escort activation request that i
     "Protocol": "Open-Autonomy",
     "Version": 1,
     "Timestamp": "2024-08-23T07:26:33.344Z",
-    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
+    "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
     "ActivateEscortResponseV1": {
         "EscortId": "00000000-0000-0000-0000-000000000001",
         "Status": "Rejected",
@@ -217,7 +217,7 @@ In such an event, the FMS may attempt to continue sending the escort activation 
     "Protocol": "Open-Autonomy",
     "Version": 1,
     "Timestamp": "2024-08-23T08:19:55.621Z",
-    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
+    "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
     "OutOfSyncV1": {
     }
 }
@@ -240,7 +240,7 @@ The following message provides an example of an escort activation response from 
     "Protocol": "Open-Autonomy",
     "Version": 1,
     "Timestamp": "2024-08-23T07:26:33.344Z",
-    "EquipmentIds": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
+    "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
     "ActivateEscortResponseV1": {
         "EscortId": "00000000-0000-0000-0000-000000000001",
         "Status": "Active"
@@ -255,7 +255,7 @@ The following message provides an example of an escort activation response from 
     "Protocol": "Open-Autonomy",
     "Version": 1,
     "Timestamp": "2024-08-23T08:19:55.621Z",
-    "EquipmentId": ["e6d895b0-e377-4567-8b1a-8d2a4f3104ff"],
+    "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
     "OutOfSyncV1": {
     }
 }

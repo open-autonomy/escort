@@ -8,7 +8,7 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 
 ## Message Attributes
 
-The `EscortPositionUpdateV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentIds`, and `EscorterId` are defined in `MessageHeader.md`).
+The `EscortPositionUpdateV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentId`, and `EscorterId` are defined in `MessageHeader.md`).
 
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
@@ -43,10 +43,7 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2025-10-20T10:15:30.125Z",
-  "EquipmentIds": [
-    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
-    "9b8b6d54-1234-4c81-a911-5555bbbb7777"
-  ],
+  "EquipmentId": "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
   "EscortPositionUpdateV1": {
     "EscorterId": "11111111-2222-3333-4444-555555555555",
     "GpsWeek": 2444,
