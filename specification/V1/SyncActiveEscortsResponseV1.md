@@ -18,28 +18,28 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
 | `"Reason"` | String Enum | String | False | High-level reason for rejecting the entire set when Status = Rejected (e.g. a global failure). Use per-escort reasons in RejectedEscorts for granular causes. |
 | `"RejectedEscorts"` | Array[`RejectedEscortObject`] | Array[] | False | Granular list of escorts the AV failed to activate along with per-escort rejection reasons. Present only when `Status` = `Rejected`. |
 
->[!NOTE]
-> The top-level message headers should contain the `EquipmentIds` which indicate the origin AV of the `SyncActiveEscortsResponseV1` message.
+> [!NOTE]
+> The top-level message header SHALL contain `EquipmentId` identifying the origin AV of this `SyncActiveEscortsResponseV1` message.
 
 ### RejectedEscortObject
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | Identifier of the zone that failed activation |
-| `"Reason"` | String Enum | String | True | Specific reason this zone could not be activated (e.g. `...`, `...`, `...`). |
+| `"EscortId"` | EscortId | UUID | True | Identifier of the escort that failed activation |
+| `"Reason"` | String Enum | String | True | Specific reason this escort could not be activated (e.g. `MaxActiveEscortsExceeded`, `...`, `...`). |
 
 > [!TIP]
 > Use `Reason` at the top level for a single global failure (e.g. `MaxActiveEscortsExceeded`). Use `RejectedEscorts[i].Reason` for individual zones when some, but not all, failed. If both are present, the top-level `Reason` should summarize while per-zone reasons provide detail.
 
-## Examples
-### Activated (All Escorts Succeeded)
-```JSON
+See [ActivateEscortResponseV1 - Rejection Reasons](./ActivateEscortResponseV1.md#rejection-reasons) for recommended rejection reason enumerations.
+
+### Examples
+#### Activated (All Escorts Succeeded)
+```json
 {
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2021-09-01T12:00:00Z",
-  "EquipmentIds": [
-    "e4de3723-a315-4506-b4e9-537088a0eabf"
-  ],
+  "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
   "SyncActiveEscortsResponseV1": {
     "ResponseId": "00000000-0000-0000-0000-000000000001",
     "Status": "Activated"
@@ -47,15 +47,13 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
 }
 ```
 
-### Rejected (Global Reason Only)
-```JSON
+#### Rejected (Global Reason Only)
+```json
 {
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2021-09-01T12:00:00Z",
-  "EquipmentIds": [
-    "e4de3723-a315-4506-b4e9-537088a0eabf"
-  ],
+  "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
   "SyncActiveEscortsResponseV1": {
     "ResponseId": "00000000-0000-0000-0000-000000000001",
     "Status": "Rejected",
@@ -64,15 +62,13 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
 }
 ```
 
-### Rejected (Per-Escort Granular Reasons)
-```JSON
+#### Rejected (Per-Escort Granular Reasons)
+```json
 {
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2021-09-01T12:00:00Z",
-  "EquipmentIds": [
-    "e4de3723-a315-4506-b4e9-537088a0eabf"
-  ],
+  "EquipmentId": "e4de3723-a315-4506-b4e9-537088a0eabf",
   "SyncActiveEscortsResponseV1": {
     "ResponseId": "00000000-0000-0000-0000-000000000001",
     "Status": "Rejected",

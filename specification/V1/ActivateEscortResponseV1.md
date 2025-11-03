@@ -42,9 +42,7 @@ Recommended enumeration (implementations MAY extend):
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2025-10-20T12:00:00Z",
-  "EquipmentIds": [
-    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc"
-  ],
+  "EquipmentId": "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
   "ActivateEscortResponseV1": {
     "EscortId": "123e4567-e89b-12d3-a456-426614174000",
     "Status": "Active"
@@ -58,9 +56,7 @@ Recommended enumeration (implementations MAY extend):
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2025-10-20T12:00:05Z",
-  "EquipmentIds": [
-    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc"
-  ],
+  "EquipmentId": "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
   "ActivateEscortResponseV1": {
     "EscortId": "123e4567-e89b-12d3-a456-426614174000",
     "Status": "Rejected",

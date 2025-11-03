@@ -12,25 +12,22 @@ The `DeactivateEscortRequestV1` message consists of the following properties.
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | The escort id in which the AV is responding to |
+| `"EscortId"` | EscortId | UUID | True | The escort id to deactivate |
 
 >[!NOTE]
-> The top-level message headers should contain the `EquipmentIds`, indicating which AVs the `deactivateEscortsRequestV1` message are for.
+> The top-level message header SHALL contain `EquipmentId` identifying the single AV this request addresses.
 
 
 ## Examples
 ### Typical Message
-```JSON
+```json
 {
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2021-09-01T12:00:00Z",
-  "EquipmentIds": [
-    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
-    "9b8b6d54-1234-4c81-a911-5555bbbb7777"
-  ],
+  "EquipmentId": "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
   "DeactivateEscortRequestV1": {
-    "EscortId": "123e4567-e89b-12d3-a456-426614174000",
+    "EscortId": "123e4567-e89b-12d3-a456-426614174000"
   }
 }
 ```

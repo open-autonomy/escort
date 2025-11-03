@@ -18,14 +18,12 @@ The `OutOfSyncV1` message does not contain any additional attributes beyond the 
 
 ## Examples
 ### Typical Message
-```JSON
+```json
 {
     "Protocol": "Open-Autonomy",
     "Version": 1,
     "Timestamp": "2024-08-23T08:19:55.621Z",
-    "EquipmentIds": [
-        "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
-    ],
+    "EquipmentId": "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
     "OutOfSyncV1": {}
 }
 ```

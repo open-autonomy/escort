@@ -15,20 +15,18 @@ The `DeactivateEscortResponseV1` message consists of the following properties.
 | `"EscortId"` | EscortId | UUID | True | The escort id in which the truck is responding to |
 
 >[!NOTE]
-> The top-level message headers should contain the `EquipmentId` which indicate the origin AV of the `DeactivateEscortResponseV1` message
+> The top-level message header SHALL contain `EquipmentId` identifying the origin AV of this `DeactivateEscortResponseV1` message.
 
 ## Examples
 ### Typical Message
-```JSON
+```json
 {
   "Protocol": "Open-Autonomy",
   "Version": 1,
   "Timestamp": "2021-09-01T12:00:00Z",
-  "EquipmentIds": [
-    "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
-  ],
+  "EquipmentId": "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
   "DeactivateEscortResponseV1": {
-    "EscortId": "123e4567-e89b-12d3-a456-426614174000",
+    "EscortId": "123e4567-e89b-12d3-a456-426614174000"
   }
 }
 ```

@@ -118,12 +118,13 @@ Escorter position is transmitted nominally at 1 Hz (one update per second) while
 
 ## Prediction Model
 Each AV shall predict possible Escorter positions between updates according to these assumptions:
-- Escorter speed may be any value up to the map‑defined maximum for its current segment.
 - On roads:
+  - Escorter speed may be any value up to OnRoadSpeedLimit defined in the activate request.
   - No reversing within a lane.
   - Lane adherence; no crossing into opposing lanes.
   - At legal splits, any permitted branch may be chosen.
 - In open areas:
+  - Escorter speed may be any value up to the map‑defined maximum for the current open area.
   - No reversing.
   - Any forward trajectory consistent with vehicle dynamics within the configured Width and site constraints may be taken.
 
