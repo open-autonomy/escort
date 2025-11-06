@@ -122,7 +122,7 @@ Each AV shall predict possible Escorter positions between updates according to t
   - Escorter speed may be any value up to OnRoadSpeedLimit defined in the activate request.
   - No reversing within a lane.
   - Lane adherence; no crossing into opposing lanes.
-  - At legal splits, any permitted branch may be chosen.
+  - At legal splits (intersections), any permitted branch may be chosen.
 - In open areas:
   - Escorter speed may be any value up to the map‑defined maximum for the current open area.
   - No reversing.
@@ -145,11 +145,10 @@ state "Active" as a
 state "Deleted" as d
 
 [*] --> p : Create Escort in FMS
-p --> p : AVs report pending
 p --> a : Escort Activated by all AVs
 a --> pd : Escort Deactivated by Escorter
 p --> pd : Escort Deactivated by Escorter
-p --> pd : An AV Rejected the Escort
+p --> p : An AV Rejects the Escort or AVs report pending
 pd --> d : Deactivated by all AVs
 d --> [*] : Escort Retired in FMS
 ```
@@ -187,12 +186,7 @@ Requirements:
 - Position updates at 1 Hz during Pending and Active states.
 - Rapid reconnection following any connection loss.
 
-## Glossary Consistency Notes
-- Use “Escorter” (capitalized) and “Escortee” consistently.
-- “Protection Zone” refers to the convoy zone; “Avoidance Zone” is the AV internal safety buffer.
-- Normative verbs: “shall” for mandatory, “may” for optional capability, “should” for recommended optimization.
-
 ---
-Copyright (c) Contributors. Licensed under the terms in `LICENSE`.
+Copyright (c) Contributors. Licensed under the terms in [LICENSE](LICENSE).
 
  

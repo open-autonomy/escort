@@ -4,7 +4,7 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| FMS | Escort Pending or Active (after `ActivateEscortRequestV1`) and periodic (every ~1 s) | Provides latest Escorter pose for AV prediction & Avoidance Zone constraint |
+| FMS | Escort Pending or Active (after [ActivateEscortRequestV1](ActivateEscortRequestV1.md)) and periodic (every ~1 s) | Provides latest Escorter pose for AV prediction & Avoidance Zone constraint |
 
 ## Message Attributes
 

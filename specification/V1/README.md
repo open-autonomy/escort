@@ -10,7 +10,7 @@ Find below the Specification for the Version 1 protocol of escorts for Open-Auto
 
 
 # Fleet Synchronization
-To facilitate escort state synchronization between the FMS and the fleet of AVs managed by the AHS, The AHS must inform the FMS of the current configuration of the fleet. This specification uses the [FleetDefinitionV2](FleetDefinitionV2.md) message from ISO 23725 to exchange fleet definition information between the AHS and FMS.
+To facilitate escort state synchronization between the FMS and the fleet of AVs managed by the AHS, the AHS must inform the FMS of the current configuration of the fleet. This specification uses the [FleetDefinitionV2](FleetDefinitionV2.md) message from ISO 23725 to exchange fleet definition information between the AHS and FMS.
 
 # Escort Messages
 

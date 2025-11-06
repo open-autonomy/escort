@@ -4,7 +4,7 @@ This message is sent by the Fleet Management System (FMS) to Autonomous Haulage 
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `FMS`  | Deletion of escort | AV to internally deactivate the escort, and response with `DeactivateEscortResponseV1` message |
+| `FMS`  | Deletion of escort | AV to internally deactivate the escort, and response with [DeactivateEscortResponseV1](DeactivateEscortResponseV1.md) message |
 
 ## Message Attributes
 

@@ -1,13 +1,13 @@
 # OutOfSyncV1
 
-This message is sent by the Autonomous Haulage System (AHS) to Fleet Management System (FMS) to notify that the Autonomous Vehicle (AV) cannot guarantee that it has an up-to-date list of active escorts (e.g., the AV was previously offline), and requires the FMS to send the current set of active escorts through a `SyncActiveEscortsRequestV1`. 
+This message is sent by the Autonomous Haulage System (AHS) to Fleet Management System (FMS) to notify that the Autonomous Vehicle (AV) cannot guarantee that it has an up-to-date list of active escorts (e.g., the AV was previously offline), and requires the FMS to send the current set of active escorts through a [SyncActiveEscortsRequestV1](SyncActiveEscortsRequestV1.md). 
 
 > [!IMPORTANT]
-> AV that are out of sync with the active escorts must not operate until they have received and internally activated these escorts.
+> AVs that are out of sync with the active escorts must not operate until they have received and internally activated these escorts.
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `AHS`  | AV re-connecting to AHS with outdated escorts | FMS to send `SyncActiveEscortsRequestV1` |
+| `AHS`  | AV re-connecting to AHS with outdated escorts | FMS to send [SyncActiveEscortsRequestV1](SyncActiveEscortsRequestV1.md) |
 
 ## Message Attributes
 

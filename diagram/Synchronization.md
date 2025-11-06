@@ -7,7 +7,7 @@ Synchronization is required whenever an Autonomous Vehicle (AV) connects to the 
 >- The AHS shall monitor the connection to each AV, and synchronization must also occur on re-connection after all lost communications events.
 
 
-When an AV connects to the AHS, it shall send an `OutOfSyncV1` message to the Fleet Management System (FMS). This message indicates that the AV cannot guarantee that it has an up-to-date list of active escorts, and requires the FMS to send the current set of active escorts through a `SyncActiveEscortsRequestV1`. While the AV is out of sync, the AV shall be immobilized until it has received and internally activated these escorts.
+When an AV connects to the AHS, it shall send an [OutOfSyncV1](/specification/V1//OutOfSyncV1.md) message to the Fleet Management System (FMS). This message indicates that the AV cannot guarantee that it has an up-to-date list of active escorts, and requires the FMS to send the current set of active escorts through a [SyncActiveEscortsRequestV1](/specification/V1/SyncActiveEscortsRequestV1.md). While the AV is out of sync, the AV shall be immobilized until it has received and internally activated these escorts.
 
 After a sync procedure the AV is responsible for handling any ongoing escorts safely. This might imply remaining in standstill until the AV has collected enough information about the escort through the EscortPositionUpdate messages.
 
@@ -42,7 +42,7 @@ sequenceDiagram
 > The FMS must 'Clear AV N Activations for Pending Escorts' after receiving an OutOfSync from 'AV N' because it needs to assume that 'AV N' has lost or cleared its internal memory.
 
 ## AV Connects With New Pending Escort
-When an AV connects while a new escort is pending, the AV must internally activates all active escorts sent via `SyncActiveEscortsRequestV1` in order to operate. The AV will also receive an `ActivateEscortRequestV1` message for each of the pending escorts to be activated internally as well.
+When an AV connects while a new escort is pending, the AV must internally activates all active escorts sent via [SyncActiveEscortsRequestV1](/specification/V1/SyncActiveEscortsRequestV1.md) in order to operate. The AV will also receive an [ActivateEscortRequestV1](/specification/V1/ActivateEscortRequestV1.md) message for each of the pending escorts to be activated internally as well.
 
 ```mermaid
 sequenceDiagram
@@ -107,10 +107,10 @@ sequenceDiagram
 ```
 
 ## AV Connects - Reject Active Escorts
-When an AV connects and the active escorts are internally rejected, it must not operate. The AHS will send a `ActivateEscortResponseV1` with a status of "Rejected", and the FMS shall then notify the user of the error.
+When an AV connects and the active escorts are internally rejected, it must not operate. The AHS will send a [ActivateEscortResponseV1](/specification/V1/ActivateEscortResponseV1.md) with a status of "Rejected", and the FMS shall then notify the user of the error.
 
 > [!IMPORTANT]
-> An AV that rejects an `ActivateEscortRequestV1` shall remain immobilized.
+> An AV that rejects an [ActivateEscortRequestV1](/specification/V1/ActivateEscortRequestV1.md) shall remain immobilized.
 
 ```mermaid
 sequenceDiagram
@@ -184,7 +184,7 @@ The following message provides an example of an escort activation response from 
 
 The FMS should then: 
 
-* publish all active escorts to the AV using [SyncActiveEscortsRequestV1](#specification/V1/SyncActiveEscortsRequestV1.md) message which will allow the AV to synchronize its set of active escorts with the FMS.
+* publish all active escorts to the AV using [SyncActiveEscortsRequestV1](/specification/V1/SyncActiveEscortsRequestV1.md) message which will allow the AV to synchronize its set of active escorts with the FMS.
 
 * Resend any escorts that are still pending (including the escorts that were rejected due to being unexpectedly offline).
 
@@ -222,7 +222,7 @@ In such an event, the FMS may attempt to continue sending the escort activation 
     }
 }
 ```
-* The FMS should then publish all active escorts to the AV using [SyncActiveEscortsRequestV1](#specification/V1/SyncActiveEscortsRequestV1.md) message which will allow the AV to synchronize its set of active escorts with the FMS.
+* The FMS should then publish all active escorts to the AV using [SyncActiveEscortsRequestV1](/specification/V1/SyncActiveEscortsRequestV1.md) message which will allow the AV to synchronize its set of active escorts with the FMS.
 
 * Resend any escorts that are still pending (including the escorts that were rejected due to being unexpectedly offline).
 
@@ -261,4 +261,4 @@ The following message provides an example of an escort activation response from 
 }
 ```
 
-* The FMS should then publish all active escorts to the AV using [SyncActiveEscortsRequestV1](#specification/V1/SyncActiveEscortsRequestV1.md) message which will allow the AV to synchronize its set of active escorts with the FMS.
+* The FMS should then publish all active escorts to the AV using [SyncActiveEscortsRequestV1](/specification/V1/SyncActiveEscortsRequestV1.md) message which will allow the AV to synchronize its set of active escorts with the FMS.

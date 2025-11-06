@@ -1,10 +1,10 @@
 # ActivateEscortRequestV1
 
-This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) to announce an escort instance that Autonomous Vehicles (AVs) SHALL acknowledge and enforce. Each AV SHALL respond with an `ActivateEscortResponseV1` indicating one of: Pending, Active, or Rejected (see `ActivateEscortResponseV1`).
+This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) to announce an escort instance that Autonomous Vehicles (AVs) SHALL acknowledge and enforce. Each AV SHALL respond with an [ActivateEscortResponseV1](/specification/V1/ActivateEscortResponseV1.md) indicating one of: Pending, Active, or Rejected (see [ActivateEscortResponseV1](/specification/V1/ActivateEscortResponseV1.md)).
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| FMS | Successful escort creation (immutable parameters established) | An `ActivateEscortResponseV1` from each addressed AV |
+| FMS | Successful escort creation (immutable parameters established) | An [ActivateEscortResponseV1](/specification/V1/ActivateEscortResponseV1.md) from each addressed AV |
 
 ## Message Attributes
 

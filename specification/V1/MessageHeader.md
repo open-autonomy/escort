@@ -1,6 +1,6 @@
 # Message Header
 
-This section defines the common top‑level envelope used by all messages in the Escort Protocol. Every application payload (e.g., `ActivateEscortRequestV1`, `ActivateEscortResponseV1`) SHALL be embedded as a single additional top‑level property alongside the header attributes defined here.
+This section defines the common top‑level envelope used by all messages in the Escort Protocol. Every application payload (e.g., [ActivateEscortRequestV1](ActivateEscortRequestV1.md), [ActivateEscortResponseV1](ActivateEscortResponseV1.md)) SHALL be embedded as a single additional top‑level property alongside the header attributes defined here.
 
 ## Structure
 The header conveys protocol identification, versioning, temporal context, and equipment addressing.
@@ -13,7 +13,7 @@ The header conveys protocol identification, versioning, temporal context, and eq
 | `"Timestamp"` | DateTime | ISO 8601 (UTC)  | True | The date-time of when the message is sent in ISO 8601 format. |
 | `"EquipmentId"` | EquipmentId | UUID | True | Target or source equipment identifier. UUID as defined in the ISO 23725 - FleetDefinitionV2. |
 
-##Examples
+## Examples
 Example escort activation request (FMS -> AV):
 ```json
 {

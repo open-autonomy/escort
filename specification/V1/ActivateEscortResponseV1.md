@@ -1,10 +1,10 @@
 # ActivateEscortResponseV1
 
-This message is sent by the Autonomous Haulage System (AHS) in response to an `ActivateEscortRequestV1` from the Fleet Management System (FMS). It reports the current escort activation state for a specific Autonomous Vehicle (AV).
+This message is sent by the Autonomous Haulage System (AHS) in response to an [ActivateEscortRequestV1](/specification/V1/ActivateEscortRequestV1.md) from the Fleet Management System (FMS). It reports the current escort activation state for a specific Autonomous Vehicle (AV).
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| AHS | Receipt of valid `ActivateEscortRequestV1` | |
+| AHS | Receipt of valid [ActivateEscortRequestV1](/specification/V1/ActivateEscortRequestV1.md) | |
 
 
 ## Message Attributes
