@@ -27,7 +27,7 @@ The `ActivateEscortRequestV1` message consists of the following properties.
 > The AV will use the speed limits when increasing the avoidance zone in accordance to the time delay since last EscortPositionUpdate.
 
 >[!WARNING]
-> If the Escort violates the speed limits the Escort may end up outside of the AVs avoidance zones.
+> If the Escort violates the speed limits the Escort may end up outside of the AVs' avoidance zones.
 
 
 ## Example
@@ -63,4 +63,5 @@ The `ActivateEscortRequestV1` message consists of the following properties.
   }
 }
 ```
+
 
