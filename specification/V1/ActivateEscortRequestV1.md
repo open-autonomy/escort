@@ -16,14 +16,16 @@ The `ActivateEscortRequestV1` message consists of the following properties.
 | `"EscortId"` | UUID | UUID | True | A unique identifier for the escort operation |
 | `"Length"` | m | double | True | Length of protection Zone |
 | `"Width"` | m | double | True | Lateral Protection Zone extent used in open areas. Lane boundaries supersede Width on roads. |
-| `"OnRoadSpeedLimit"` | m/s | double | True | The Escort must never drive faster than this limit. This limit is applicable to roads. For open areas other speed limits apply. |
+| `"OnRoadSpeedLimit"` | m/s | double | True | This speed limit is applicable when the Escort drives on roads. The escort must never violate this speed limit. |
+| `"OpenAreaSpeedLimit"` | m/s | double | True | This speed limit is applicable when the Escort drives in open areas. The escort must never violate this speed limit. |
 | `"EscortPositionUpdate"` | EscortPositionUpdateV1 | EscortPositionUpdateV1 | True | Position snapshot used to seed AV prediction and Avoidance Zone calculation. |
 
 >[!IMPORTANT]
 > The AV will reject the request if the escort position is in some way faulty
 
 >[!IMPORTANT]
-> The AV will use the speed limit when increasing the avoidance zone in accordance to the time delay since last EscortPositionUpdate.
+> The AV will use the speed limits when increasing the avoidance zone in accordance to the time delay since last EscortPositionUpdate.
+> If the Escort violates the speed limits the Escort may end up outside of the AVs avoidance zones.
 
 
 ## Example
@@ -39,11 +41,12 @@ The `ActivateEscortRequestV1` message consists of the following properties.
     "Length": 200.0,
     "Width": 6.0,
     "OnRoadSpeedLimit": 10.0,
+    "OpenAreaSpeedLimit": 6.0,
     "EscortPositionUpdate": {
       "EscorterId": "11111111-2222-3333-4444-555555555555",
       "GpsWeek": 2444,
       "GpsMilliSecondInWeek": 345678900,
-      "V2XStationId": 23983958,
+      "V2XStationId": "23983958",
       "Latitude": 59.1546127,
       "Longitude": 17.6212361,
       "Elevation": 428.32,
