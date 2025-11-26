@@ -48,7 +48,7 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
     "EscorterId": "11111111-2222-3333-4444-555555555555",
     "GpsWeek": 2444,
     "GpsMilliSecondInWeek": 345678900,
-    "V2XStationId": 23983958,
+    "V2XStationId": "23983958",
     "Latitude": 59.1546127,
     "Longitude": 17.6212361,
     "Elevation": 428.32,
