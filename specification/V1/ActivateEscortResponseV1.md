@@ -4,7 +4,7 @@ This message is sent by the Autonomous Haulage System (AHS) in response to an [A
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| AHS | Receipt of valid [ActivateEscortRequestV1](/specification/V1/ActivateEscortRequestV1.md) | |
+| AHS | Receipt of valid [ActivateEscortRequestV1](/specification/V1/ActivateEscortRequestV1.md) | The AV to start accepting and adhering to the escort. |
 
 
 ## Message Attributes
@@ -13,9 +13,9 @@ The `ActivateEscortResponseV1` message consists of the following properties.
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | Identifier of the escort instance being acknowledged. MUST match the request. |
-| `"Status"` | [`Pending`, `Active`, `Rejected`] | String | True | Activation state for this AV. |
-| `"Reason"` | String Enum | String | False | Present only when `Status` = `Rejected`; provides machine‑readable cause. |
+| `"EscortId"` | UUID | String | Shall | Identifier of the escort instance being acknowledged. MUST match the request. |
+| `"Status"` | String Enum | String | Shall | Activation state for this AV. See [status semantics](#status-semantics), below. |
+| `"Reason"` | String Enum | String | May | Present only when `Status` = `Rejected`; provides machine‑readable cause. See [rejection reasons](#rejection-reasons), below. |
 
 ### Status Semantics
 | Status | Meaning |

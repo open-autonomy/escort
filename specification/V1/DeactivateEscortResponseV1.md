@@ -4,7 +4,7 @@ This message is sent by the Autonomous Haulage System (AHS) in response to the [
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `AHS`  | [DeactivateEscortRequestV1](/specification/V1/DeactivateEscortRequestV1.md) |  |
+| `AHS`  | [DeactivateEscortRequestV1](/specification/V1/DeactivateEscortRequestV1.md) | The AV to no longer adhere to the escort. |
 
 ## Message Attributes
 
@@ -12,7 +12,7 @@ The `DeactivateEscortResponseV1` message consists of the following properties.
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | The escort id in which the truck is responding to |
+| `"EscortId"` | UUID | String | True | The escort id in which the truck is responding to |
 
 >[!NOTE]
 > The top-level message header SHALL contain `EquipmentId` identifying the origin AV of this `DeactivateEscortResponseV1` message.

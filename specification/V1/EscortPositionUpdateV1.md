@@ -8,18 +8,18 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 
 ## Message Attributes
 
-The `EscortPositionUpdateV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp`, `EquipmentId`, and `EscorterId` are defined in `MessageHeader.md`).
+The `EscortPositionUpdateV1` payload object contains the following properties (top-level message header fields such as `Protocol`, `Version`, `Timestamp` and `EquipmentId` are defined in `MessageHeader.md`).
 
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
-| `"EscortId"` | shall | UUID | UUID | Identifier of the Escort instance |
-| `"Timestamp"` | shall | string | ISO 8601 | Timestamp when the position sample was measured (NOT when message transmitted) |
-| `"V2XStationId"` | should  | string | Id | Unique ID on redundant network channel i.e. V2X |
+| `"EscortId"` | shall | string | UUID | Identifier of the Escort instance. |
+| `"Timestamp"` | shall | string | ISO 8601 | Timestamp when the position sample was measured (this is different to the Timestamp in the message header, which is the of the message). |
+| `"StationId"` | should  | string | Id | Unique ID on redundant network channel e.g. V2X. Content may vary depending on the technology in use. |
 | `"Pose.Latitude"` | shall | double | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
 | `"Pose.Longitude"` | shall | double | degrees (WGS84) | 6+ decimal places. |
 | `"Pose.Elevation"` | shall | double | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
-| `"Pose.Heading"` | shall | double | degrees | 0–359; 0 = true north, clockwise increase. |
-| `"Pose.Speed"` | shall | double | m/s | Instantaneous ground speed (consider conversion from native km/h). |
+| `"Pose.Heading"` | shall | double | degrees | 0 – 359.999...; 0 = true north, clockwise increase. A value of 360° is invalid and should be sent as 0°. |
+| `"Speed"` | shall | double | m/s | Instantaneous ground speed. |
 | `"Accuracy.Latitude"` | shall | double | meters (1σ) | 1‑sigma horizontal positional accuracy latitude component. |
 | `"Accuracy.Longitude"` | shall | double | meters (1σ) | 1‑sigma horizontal positional accuracy longitude component. |
 | `"Accuracy.Elevation"` | shall | double | meters (1σ) | 1‑sigma vertical accuracy. |
@@ -30,11 +30,11 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
 > - Accuracy fields help AVs tune dynamic buffer growth.
 
 > [!NOTE]
-> Why V2X StationId?
-> - V2X CAM messages can be received with smaller latency than the `EscortPositionUpdateV1` messages therefore StationId of the Escorter is a valuable information to the AV.
+> Why StationId?
+> - Technologies implementing vehicle-to-everytyhing (V2X) capabilites or other peer-to-peer (p2p) messaging mechanisms can typically operate with lower latency than the `EscortPositionUpdateV1` messages that are relayed via the controlling FMS solution, therefore StationId of the Escorter is valuable information to the AV.
 >
-> Why V2X StationId in Position Update Message?
-> - V2X StationIds change regularly therefore this is part of the update rather than the activation message.
+> Why StationId in Position Update Message?
+> - V2X StationIds are liable to change, therefore this is part of the update rather than the activation message.
 
 ## Example
 ```json
@@ -45,7 +45,7 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
   "EquipmentId": "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
   "EscortPositionUpdateV1": {
     "EscortId": "11111111-2222-3333-4444-555555555555",
-    "Timestamp": "2025-10-20T10:15:30.125Z",
+    "Timestamp": "2025-10-20T10:15:29.987Z",
     "V2XStationId": "23983958",
     "Speed": 0.2,
     "Pose": {
