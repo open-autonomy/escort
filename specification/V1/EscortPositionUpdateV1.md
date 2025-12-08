@@ -13,7 +13,7 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
 | `"EscortId"` | shall | string | UUID | Identifier of the Escort instance. |
-| `"Timestamp"` | shall | string | ISO 8601 | Timestamp when the position sample was measured (this is different to the Timestamp in the message header, which is the of the message). |
+| `"Timestamp"` | shall | string | ISO 8601 | Timestamp when the position sample was measured (this is different to the Timestamp in the message header, which is the of the message). This shall be monotonically increasing and sourced from a NTP Stratum 1 time source or equivalent. |
 | `"StationId"` | should  | string | Id | Unique ID on redundant network channel e.g. V2X. Content may vary depending on the technology in use. |
 | `"Pose.Latitude"` | shall | double | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
 | `"Pose.Longitude"` | shall | double | degrees (WGS84) | 6+ decimal places. |
@@ -66,9 +66,8 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
 ```
 
 ## Validation Rules
-- Should be published at 1 Hz (±100 ms tolerance recommended).
-- Should monotonically increase `Timestamp` (no duplicates or regressions within a session).
-- Should include `Speed` even if zero.
+- Shall be published at 1 Hz (±100 ms tolerance recommended).
+- Shall monotonically increase `Timestamp` (no duplicates or regressions within a session).
 - If accuracy metrics are unknown, omit the respective fields rather than sending zero.
 
 ## Failure / Degradation Handling
