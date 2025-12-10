@@ -15,7 +15,7 @@ The `OutOfSyncV1` message consists of the following property:
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EventId"` | EventId | UUID | Shall | Correlation identifier for this out-of-sync notification. The FMS SHALL send exactly one `SyncActiveZonesRequestV1` per distinct `EventId` and SHALL reuse this value as `SyncActiveZonesRequestV1.RequestId`. If multiple `OutOfSyncV1` messages with the same `EventId` are received (duplicates/retries), the FMS MUST NOT issue additional sync requests and MAY ignore them after confirming the initial request was sent. |
+| `"EventId"` | EventId | UUID | Shall | Correlation identifier for this out-of-sync notification. The FMS SHALL send exactly one [SyncActiveEscortsRequestV1](/specification/V1/SyncActiveEscortsRequestV1.md) per distinct `EventId` and SHALL reuse this value as `SyncActiveEscortsRequestV1.RequestId`. <br>If multiple `OutOfSyncV1` messages with the same `EventId` are received (duplicates/retries), the FMS MUST NOT issue additional sync requests and MAY ignore them after confirming the initial request was sent. |
 
 >[!NOTE]
 > The top-level message headers should contain the `EquipmentId` which indicate the origin AV of the `OutOfSyncV1` message 
