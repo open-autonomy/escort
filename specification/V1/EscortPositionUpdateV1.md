@@ -12,19 +12,19 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
 
 | Key | Req. Level | Type | Unit / Format | Description |
 | --- | --- | --- | --- | --- |
-| `"EscortId"` | shall | string | UUID | Identifier of the Escort instance. |
-| `"Timestamp"` | shall | string | ISO 8601 | Timestamp when the position sample was measured (this is different to the Timestamp in the message header, which is the of the message). This shall be monotonically increasing and sourced from a NTP Stratum 1 time source or equivalent. |
+| `"EscortId"` | Shall | string | UUID | Identifier of the Escort instance. |
+| `"Timestamp"` | Shall | string | ISO 8601 | Timestamp when the position sample was measured (this is different to the Timestamp in the message header, which is the of the message). This shall be monotonically increasing and sourced from a NTP Stratum 1 time source or equivalent. |
 | `"StationId"` | should  | string | Id | Unique ID on redundant network channel e.g. V2X. Content may vary depending on the technology in use. |
-| `"Pose.Latitude"` | shall | double | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
-| `"Pose.Longitude"` | shall | double | degrees (WGS84) | 6+ decimal places. |
-| `"Pose.Elevation"` | shall | double | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
-| `"Pose.Heading"` | shall | double | degrees | 0 – 359.999...; 0 = true north, clockwise increase. A value of 360° is invalid and should be sent as 0°. |
-| `"Speed"` | shall | double | m/s | Instantaneous ground speed. |
-| `"Accuracy.Latitude"` | shall | double | meters (1σ) | 1‑sigma horizontal positional accuracy latitude component. |
-| `"Accuracy.Longitude"` | shall | double | meters (1σ) | 1‑sigma horizontal positional accuracy longitude component. |
-| `"Accuracy.Elevation"` | shall | double | meters (1σ) | 1‑sigma vertical accuracy. |
-| `"Accuracy.Heading"` | shall | double | degrees (1σ) | 1‑sigma heading accuracy. |
-| `"Accuracy.Speed"` | shall | double | m/s (1σ) | 1‑sigma speed accuracy. |
+| `"Pose.Latitude"` | Shall | double | degrees (WGS84) | 6+ decimal places (≈0.11 m). |
+| `"Pose.Longitude"` | Shall | double | degrees (WGS84) | 6+ decimal places. |
+| `"Pose.Elevation"` | Shall | double | meters | Elevation relative to WGS84 ellipsoid (2 decimals). |
+| `"Pose.Heading"` | Shall | double | degrees | 0 – 359.999...; 0 = true north, clockwise increase. A value of 360° is invalid and should be sent as 0°. |
+| `"Speed"` | Shall | double | m/s | Instantaneous ground speed. |
+| `"Accuracy.Latitude"` | Should | double | meters (1σ) | 1‑sigma horizontal positional accuracy latitude component. |
+| `"Accuracy.Longitude"` | Should | double | meters (1σ) | 1‑sigma horizontal positional accuracy longitude component. |
+| `"Accuracy.Elevation"` | Should | double | meters (1σ) | 1‑sigma vertical accuracy. |
+| `"Accuracy.Heading"` | Should | double | degrees (1σ) | 1‑sigma heading accuracy. |
+| `"Accuracy.Speed"` | Should | double | m/s (1σ) | 1‑sigma speed accuracy. |
 
 > [!NOTE]
 > - Accuracy fields help AVs tune dynamic buffer growth.

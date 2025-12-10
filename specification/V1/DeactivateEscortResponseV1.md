@@ -12,7 +12,7 @@ The `DeactivateEscortResponseV1` message consists of the following properties.
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | UUID | String | True | The escort id in which the truck is responding to |
+| `"EscortId"` | UUID | String | Shall | The escort id in which the truck is responding to |
 
 >[!NOTE]
 > The top-level message header SHALL contain `EquipmentId` identifying the origin AV of this `DeactivateEscortResponseV1` message.
