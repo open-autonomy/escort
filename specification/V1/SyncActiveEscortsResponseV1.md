@@ -15,7 +15,7 @@ The `SyncActiveEscortsResponseV1` message consists of the following properties.
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
 | `"ResponseId"` | UUID | String | Shall | A unique identifier for the response. This is used to match the response message with the [SyncActiveEscortsRequestV1](SyncActiveEscortsRequestV1) message. |
-| `"Status"` | [`Activate`, `Rejected`] | String | Shall | Indicates whether the AV has successfully activated the escorts. <br/> - `Activate`: The AV has activated all escorts and is adhering to their associated protection zones. <br/> - `Rejected`: The AV cannot adhere to one or more of the escorts. In this case, the AV must not operate as it cannot guarantee safety. |
+| `"Status"` | [`Activated`, `Rejected`] | String | Shall | Indicates whether the AV has successfully activated the escorts. <br/> - `Activated`: The AV has activated all escorts and is adhering to their associated protection zones. <br/> - `Rejected`: The AV cannot adhere to one or more of the escorts. In this case, the AV must not operate as it cannot guarantee safety. |
 | `"Reason"` | String Enum | String | May | High-level reason for rejecting the entire set when Status = Rejected (e.g. a global failure). Use per-escort reasons in RejectedEscorts for granular causes. |
 | `"RejectedEscorts"` |  | Array[[RejectedEscortObject](#RejectedEscortObject)] | May | Granular list of escorts the AV failed to activate along with per-escort rejection reasons. Present only when `Status` = `Rejected`. |
 

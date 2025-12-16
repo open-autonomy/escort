@@ -164,7 +164,7 @@ The following message provides an example of an escort activation response from 
     "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
     "ActivateEscortResponseV1": {
         "EscortId": "00000000-0000-0000-0000-000000000001",
-        "Status": "Active"
+        "Status": "Activated"
     }
 }
 ```
@@ -243,7 +243,7 @@ The following message provides an example of an escort activation response from 
     "EquipmentId": "e6d895b0-e377-4567-8b1a-8d2a4f3104ff",
     "ActivateEscortResponseV1": {
         "EscortId": "00000000-0000-0000-0000-000000000001",
-        "Status": "Active"
+        "Status": "Activated"
     }
 }
 ```
