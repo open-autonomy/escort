@@ -46,7 +46,7 @@ The `EscortPositionUpdateV1` payload object contains the following properties (t
   "EscortPositionUpdateV1": {
     "EscortId": "11111111-2222-3333-4444-555555555555",
     "Timestamp": "2025-10-20T10:15:29.987Z",
-    "V2XStationId": "23983958",
+    "StationId": "23983958",
     "Speed": 0.2,
     "Pose": {
       "Latitude": 59.1546127,
