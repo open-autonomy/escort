@@ -9,7 +9,7 @@ Synchronization is required whenever an Autonomous Vehicle (AV) connects to the 
 
 When an AV connects to the AHS, it shall send an [OutOfSyncV1](/specification/V1//OutOfSyncV1.md) message to the Fleet Management System (FMS). This message indicates that the AV cannot guarantee that it has an up-to-date list of active escorts, and requires the FMS to send the current set of active escorts through a [SyncActiveEscortsRequestV1](/specification/V1/SyncActiveEscortsRequestV1.md). While the AV is out of sync, the AV shall be immobilized until it has received and internally activated these escorts.
 
-After a sync procedure the AV is responsible for handling any ongoing escorts safely. This might imply remaining in standstill until the AV has collected enough information about the escort through the EscortPositionUpdate messages.
+After a sync procedure the AV is responsible for handling any ongoing escorts safely. This might imply remaining in standstill until the AV has collected enough information about the escort through the EscortPositionUpdateV1 messages.
 
 ## Typical AV Connects
 ```mermaid

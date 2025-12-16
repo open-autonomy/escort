@@ -28,10 +28,10 @@ sequenceDiagram
     AHS-->>FMS: ActivateEscortResponseV1(status=Activated)
     FMS-->>FMS: All AVs Activated
     FMS-->>Escorter: Escort activated
-    Note over FMS: DO NOT wait for response<br/>to start sending EscortPositionUpdate
+    Note over FMS: DO NOT wait for response<br/>to start sending EscortPositionUpdateV1
     loop Escort loop (1 Hz)
         Escorter-->>FMS: (Position Source)
-        FMS-->>AHS: EscortPositionUpdate
+        FMS-->>AHS: EscortPositionUpdateV1
         AHS->>AV: PositionUpdate
         AV->>AV: Update Avoidance Zone geometry
     end

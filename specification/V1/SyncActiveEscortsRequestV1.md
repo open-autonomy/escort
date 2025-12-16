@@ -41,7 +41,7 @@ The `SyncActiveEscortsRequestV1` payload contains:
         "Width": 6.0,
         "OnRoadSpeedLimit": 10.0,
         "OpenAreaSpeedLimit": 6.0,
-        "EscortPositionUpdate": {
+        "EscortPositionUpdateV1": {
           "EscorterId": "11111111-2222-3333-4444-555555555555",
           "GpsWeek": 2444,
           "GpsMilliSecondInWeek": 345678900,
@@ -65,7 +65,7 @@ The `SyncActiveEscortsRequestV1` payload contains:
         "Width": 6.0,
         "OnRoadSpeedLimit": 15.0,
         "OpenAreaSpeedLimit": 6.0,
-        "EscortPositionUpdate": {
+        "EscortPositionUpdateV1": {
           "EscorterId": "22222222-1111-3333-4444-555555555555",
           "GpsWeek": 2444,
           "GpsMilliSecondInWeek": 345678900,

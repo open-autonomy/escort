@@ -18,13 +18,13 @@ The `ActivateEscortRequestV1` message consists of the following properties.
 | `"Width"` | m | double | Shall | Lateral Protection Zone extent used in open areas. Lane boundaries supersede Width on roads. |
 | `"OnRoadSpeedLimit"` | m/s | double | Shall | This speed limit is applicable when the Escort drives on roads. The escort must never violate this speed limit. |
 | `"OpenAreaSpeedLimit"` | m/s | double | Shall | This speed limit is applicable when the Escort drives in open areas. The escort must never violate this speed limit. |
-| `"EscortPositionUpdate"` | [EscortPositionUpdateV1](/specification/V1/EscortPositionUpdateV1.md) | Object | Shall | Position snapshot used to seed AV prediction and Avoidance Zone calculation. |
+| `"EscortPositionUpdateV1"` | [EscortPositionUpdateV1](/specification/V1/EscortPositionUpdateV1.md) | Object | Shall | Position snapshot used to seed AV prediction and Avoidance Zone calculation. |
 
 >[!IMPORTANT]
 > The AV will reject the request if the escort position is in some way faulty
 
 >[!IMPORTANT]
-> The AV will use the speed limits when increasing the avoidance zone in accordance to the time delay since last [EscortPositionUpdate](/specification/V1/EscortPositionUpdateV1.md).
+> The AV will use the speed limits when increasing the avoidance zone in accordance to the time delay since last [EscortPositionUpdateV1](/specification/V1/EscortPositionUpdateV1.md).
 
 >[!WARNING]
 > If the Escort violates the speed limits the Escort may end up outside of the AVs' avoidance zones.
@@ -44,7 +44,7 @@ The `ActivateEscortRequestV1` message consists of the following properties.
     "Width": 6.0,
     "OnRoadSpeedLimit": 10.0,
     "OpenAreaSpeedLimit": 6.0,
-    "EscortPositionUpdate": {...}
+    "EscortPositionUpdateV1": {...}
   }
 }
 ```
