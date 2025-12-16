@@ -41,22 +41,7 @@ The `SyncActiveEscortsRequestV1` payload contains:
         "Width": 6.0,
         "OnRoadSpeedLimit": 10.0,
         "OpenAreaSpeedLimit": 6.0,
-        "EscortPositionUpdateV1": {
-          "EscorterId": "11111111-2222-3333-4444-555555555555",
-          "GpsWeek": 2444,
-          "GpsMilliSecondInWeek": 345678900,
-          "StationId": "23983958",
-          "Latitude": 59.1546127,
-          "Longitude": 17.6212361,
-          "Elevation": 428.32,
-          "Heading": 87.8,
-          "Speed": 4.2,
-          "LatitudeAccuracy": 0.8,
-          "LongitudeAccuracy": 0.9,
-          "ElevationAccuracy": 1.5,
-          "HeadingAccuracy": 2.0,
-          "SpeedAccuracy": 0.2
-        }
+        "EscortPositionUpdateV1": {...}
       },
       {
         "EscorterId": "22222222-1111-3333-4444-555555555555",
@@ -65,22 +50,7 @@ The `SyncActiveEscortsRequestV1` payload contains:
         "Width": 6.0,
         "OnRoadSpeedLimit": 15.0,
         "OpenAreaSpeedLimit": 6.0,
-        "EscortPositionUpdateV1": {
-          "EscorterId": "22222222-1111-3333-4444-555555555555",
-          "GpsWeek": 2444,
-          "GpsMilliSecondInWeek": 345678900,
-          "StationId": "19839348",
-          "Latitude": 59.1546127,
-          "Longitude": 17.6212361,
-          "Elevation": 428.32,
-          "Heading": 87.8,
-          "Speed": 4.2,
-          "LatitudeAccuracy": 0.8,
-          "LongitudeAccuracy": 0.9,
-          "ElevationAccuracy": 1.5,
-          "HeadingAccuracy": 2.0,
-          "SpeedAccuracy": 0.2
-        }
+        "EscortPositionUpdateV1": {...}  
       }
     ]
   }
