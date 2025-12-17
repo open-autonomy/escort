@@ -8,7 +8,7 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `FMS`  | `OutOfSyncV1` | Causes AV to activate all listed escorts; AV answers with [SyncActiveEscortsResponseV1](SyncActiveEscortsResponseV1.md) |
+| `FMS`  | `OutOfSyncV1` | Causes AV to activate all listed escorts; AV answers with [SyncActiveEscortsResponseV1](SyncActiveEscortsResponseV1.md). |
 
 ## Message Attributes
 
@@ -16,8 +16,8 @@ The `SyncActiveEscortsRequestV1` payload contains:
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"RequestId"` | RequestId | UUID | True | A unique identifier for the request. This is used to match the request with the response. |
-| `"Escorts"` | | Array[[ActivateEscortRequestV1](ActivateEscortRequestV1.md)] | True | Array of active escort definitions (no Pending escorts). |
+| `"RequestId"` | UUID | String | Shall | A unique identifier for the request. This is used to match the request with the response. |
+| `"Escorts"` |  | Array[[ActivateEscortRequestV1](ActivateEscortRequestV1.md)] | Shall | Array of active escort definitions (no Pending escorts). |
 
 >[!NOTE]
 > The top-level message header SHALL contain `EquipmentId` identifying the single AV this synchronization request targets.
@@ -41,22 +41,7 @@ The `SyncActiveEscortsRequestV1` payload contains:
         "Width": 6.0,
         "OnRoadSpeedLimit": 10.0,
         "OpenAreaSpeedLimit": 6.0,
-        "EscortPositionUpdate": {
-          "EscorterId": "11111111-2222-3333-4444-555555555555",
-          "GpsWeek": 2444,
-          "GpsMilliSecondInWeek": 345678900,
-          "V2XStationId": "23983958",
-          "Latitude": 59.1546127,
-          "Longitude": 17.6212361,
-          "Elevation": 428.32,
-          "Heading": 87.8,
-          "Speed": 4.2,
-          "LatitudeAccuracy": 0.8,
-          "LongitudeAccuracy": 0.9,
-          "ElevationAccuracy": 1.5,
-          "HeadingAccuracy": 2.0,
-          "SpeedAccuracy": 0.2
-        }
+        "EscortPositionUpdateV1": {...}
       },
       {
         "EscorterId": "22222222-1111-3333-4444-555555555555",
@@ -65,22 +50,7 @@ The `SyncActiveEscortsRequestV1` payload contains:
         "Width": 6.0,
         "OnRoadSpeedLimit": 15.0,
         "OpenAreaSpeedLimit": 6.0,
-        "EscortPositionUpdate": {
-          "EscorterId": "22222222-1111-3333-4444-555555555555",
-          "GpsWeek": 2444,
-          "GpsMilliSecondInWeek": 345678900,
-          "V2XStationId": "19839348",
-          "Latitude": 59.1546127,
-          "Longitude": 17.6212361,
-          "Elevation": 428.32,
-          "Heading": 87.8,
-          "Speed": 4.2,
-          "LatitudeAccuracy": 0.8,
-          "LongitudeAccuracy": 0.9,
-          "ElevationAccuracy": 1.5,
-          "HeadingAccuracy": 2.0,
-          "SpeedAccuracy": 0.2
-        }
+        "EscortPositionUpdateV1": {...}  
       }
     ]
   }

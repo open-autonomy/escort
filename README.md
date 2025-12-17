@@ -58,7 +58,8 @@ The following operational behaviors are mandatory to ensure the integrity of the
 - Maintain predictable lane compliance when operating on roads.
 
 ### Escortee Shall
-- Follow the Escorter path at a safe, forward, non‑reversing distance.
+- Follow the Escorter's path at a safe distance.
+- Follow the Escorter by proceeding in a forward direction (no reversing).
 - Remain within lane boundaries when on roads.
 - Remain within the configured Width when in open areas.
 - Stop directly behind the Escorter within a safe distance if the Escorter stops.
@@ -178,7 +179,7 @@ d --> [*] : Escort Removed from AV
 Refer to [sequence diagrams](diagram/SequenceDiagrams.md) for interaction flows covering creation, activation, updates, and retirement.
 
 ## Communication Protocol
-Escort management messages are exchanged between FMS and AHS.
+[Escort management messages](/specification/V1/README.md) are exchanged between the FMS and the AHS.
 
 Requirements:
 - Continuous health monitoring by both endpoints.

@@ -3,7 +3,7 @@
 The `FleetDefinitionV2` message is used in to inform the FMS of the set of AVs managed by the AHS to allow the FMS to correctly manage escort synchronization with the AVs in the fleet. This message is sent by the AHS to the FMS when the AHS connects to the FMS and whenever an AV is commissioned or decommissioned from the fleet.
 
 > [!IMPORTANT]
-> The `FleetDefinitionV2` message is part of the ISO 23725 standard for the exchange of fleet definition information between AHS and FMS. For more information on the ISO 23725 standard, see the [ISO 23725 documentation](https://www.iso.org/standard/73766.html).
+> The `FleetDefinitionV2` message is part of the ISO 23725 standard for the exchange of fleet definition information between AHS and FMS. For more information on the ISO 23725 standard, see the [ISO 23725 documentation](https://www.iso.org/standard/76769.html).
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
@@ -16,34 +16,47 @@ The `FleetDefinitionV2` message is used in to inform the FMS of the set of AVs m
 
 ## Message Attributes
 
-As the `FleetDefinitionV2` message is part of the ISO 23725 standard, it follows the structure and requirements outlined in that standard. This includes message headers that differ from the remaining messages in this specification. The message headers include the protocol, version, timestamp, while excluding the `EquipmentId` as it is not applicable for this message.
+As the `FleetDefinitionV2` message is part of the ISO 23725 standard, it follows the structure and requirements outlined in that standard. This includes message headers that differ from the remaining messages in this specification. The message headers include the protocol, version and message timestamp, while excluding the `EquipmentId` as it is not applicable for this message.
 
 ### Message Headers
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"Protocol"` | Protocol | String | True | The protocol of the messages. This value can be either `ISO23725` or `OpenAutonomy`. |
-| `"Version"` | Version | Integer | True | The version of the protocol, which is `1` for this message. |
-| `"Timestamp"` | Timestamp | ISO 8601 UTC | True | The date-time of when the message is sent in ISO 8601 format. |
-| `"FleetDefinitionV2"` | Fleet Definition | Object | True | The fleet definition object containing the fleet information. |
+| `"Protocol"` | Protocol | String | Shall | The protocol of the messages. This value can be either `ISO23725` or `OpenAutonomy`. |
+| `"Version"` | Version | Integer | Shall | The version of the protocol, which is `1` for this message. |
+| `"Timestamp"` | Timestamp | ISO 8601 UTC | Shall | The date-time of when the message is sent in ISO 8601 format. |
+| `"FleetDefinitionV2"` | Fleet Definition | Object | Shall | The fleet definition object containing the fleet information. |
 
 ### Fleet Definition Object
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"AHSId"` | Fleet ID | UUID | True | The unique identifier for the fleet managed by the AHS. |
-| `"Equipment"` | Equipment | Array[Equipment] | True | The complete set of AVs comprising the fleet managed by the AHS. |
+| `"AHSId"` | Fleet ID | UUID | Shall | The unique identifier for the fleet managed by the AHS. |
+| `"Equipment"` | Equipment | Array[Equipment] | Shall | The complete set of AVs comprising the fleet managed by the AHS. |
 
 
 ### Equipment Object
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EquipmentId"` | Equipment ID | UUID | True | The unique identifier for the AV. |
-| `"HID"` | Hardware ID | String | True | The hardware identifier for the AV, which may be used for diagnostics or maintenance purposes. |
-| `"Type"` | Equipment Type | String | True | The type of the AV, e.g., `Hauler`, `Dozer`, etc. |
-| `"OEM"` | OEM | String | True | The original equipment manufacturer of the AV. |
-| `"Model"` | Model | String | True | The model of the AV. |
-| `"Autonomous"` | Autonomous | Boolean | True | Indicates whether the AV is autonomous or not. |
-| `"Length"` | Length | Number | True | The length of the AV in meters. |
-| `"Width"` | Width | Number | True | The width of the AV in meters. |
+| `"EquipmentId"` | Equipment ID | UUID | Shall | The unique identifier for the AV. |
+| `"HID"` | Hardware ID | String | Shall | The hardware identifier for the AV, which may be used for diagnostics or maintenance purposes. |
+| `"StationId"` | Secondary Equipment ID | String | Should |  Unique V2X Station ID (if available)                   |
+| `"Type"` | Equipment Type | String | Shall | The type of the AV, e.g., `Hauler`, `Dozer`, etc. See [type enumerations](#type-enumerations), below. |
+| `"OEM"` | OEM | String | Shall | The original equipment manufacturer of the AV. |
+| `"Model"` | Model | String | Shall | The model of the AV. |
+| `"Autonomous"` | Autonomous | Boolean | Shall | Indicates whether the AV is autonomous or not. |
+| `"Length"` | Length | Number | Shall | The length of the AV in meters. |
+| `"Width"` | Width | Number | Shall | The width of the AV in meters. |
+
+### Type Enumerations
+Only valid enumerations from the list below shall be used as Type:
+```
+{
+  "HaulTruck", "Shovel", "Excavator", "Loader", "LightVehicle", 
+  "WaterCart", "Grader", "FuelTruck", "LubeTruck", "Dozer", 
+  "RubberTireDozer", "Drill", "Crusher", "Scraper", "BellyDumper", 
+  "EmergencyVehicle", "Ambulance", "Dragline", "SurfaceMiner", 
+  "Bus", "Train", "Trailer"
+}
+```
 
 ## Examples
 ### Typical Message

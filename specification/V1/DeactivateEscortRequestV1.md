@@ -4,7 +4,7 @@ This message is sent by the Fleet Management System (FMS) to Autonomous Haulage 
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| `FMS`  | Deletion of escort | AV to internally deactivate the escort, and response with [DeactivateEscortResponseV1](DeactivateEscortResponseV1.md) message |
+| `FMS`  | Deletion of escort | AV to internally deactivate the escort, and response with [DeactivateEscortResponseV1](DeactivateEscortResponseV1.md) message. |
 
 ## Message Attributes
 
@@ -12,7 +12,7 @@ The `DeactivateEscortRequestV1` message consists of the following properties.
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | The escort id to deactivate |
+| `"EscortId"` | UUID | String | Shall | The escort id to deactivate. |
 
 >[!NOTE]
 > The top-level message header SHALL contain `EquipmentId` identifying the single AV this request addresses.

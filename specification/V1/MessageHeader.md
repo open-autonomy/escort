@@ -8,10 +8,10 @@ The header conveys protocol identification, versioning, temporal context, and eq
 ## Message Attributes
 | Key | Value | Format | Required | Description |
 | --- |:---:|:---:|:---:| --- |
-| `"Protocol"` | `"Open-Autonomy"` | string | True | The protocol of the messages. |
-| `"Version"` | 1 | integer | True | The version of the protocol. |
-| `"Timestamp"` | DateTime | ISO 8601 (UTC)  | True | The date-time of when the message is sent in ISO 8601 format. |
-| `"EquipmentId"` | EquipmentId | UUID | True | Target or source equipment identifier. UUID as defined in the ISO 23725 - FleetDefinitionV2. |
+| `"Protocol"` | `"Open-Autonomy"` | string | Shall | The protocol of the messages. |
+| `"Version"` | 1 | integer | Shall | The version of the protocol. |
+| `"Timestamp"` | DateTime | ISO 8601 (UTC)  | Shall | The date-time of when the message is sent in ISO 8601 format. |
+| `"EquipmentId"` | EquipmentId | UUID | Shall | Target or source AV equipment identifier. UUID as defined in the ISO 23725 - FleetDefinitionV2. |
 
 ## Examples
 Example escort activation request (FMS -> AV):

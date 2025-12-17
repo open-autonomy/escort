@@ -4,7 +4,7 @@ This message is sent by the Autonomous Haulage System (AHS) in response to an [A
 
 | Sender | Triggered by | Triggers |
 | --- | --- | --- |
-| AHS | Receipt of valid [ActivateEscortRequestV1](/specification/V1/ActivateEscortRequestV1.md) | |
+| AHS | Receipt of valid [ActivateEscortRequestV1](/specification/V1/ActivateEscortRequestV1.md) | The AV to start accepting and adhering to the escort. |
 
 
 ## Message Attributes
@@ -13,20 +13,20 @@ The `ActivateEscortResponseV1` message consists of the following properties.
 
 | Key | Value | Format | Required | Description |
 | --- | :---: | :---: | :---: | --- |
-| `"EscortId"` | EscortId | UUID | True | Identifier of the escort instance being acknowledged. MUST match the request. |
-| `"Status"` | [`Pending`, `Active`, `Rejected`] | String | True | Activation state for this AV. |
-| `"Reason"` | String Enum | String | False | Present only when `Status` = `Rejected`; provides machine‑readable cause. |
+| `"EscortId"` | UUID | String | Shall | Identifier of the escort instance being acknowledged. MUST match the request. |
+| `"Status"` | String Enum | String | Shall | Activation state for this AV. See [Status Semantics](#status-semantics), below. |
+| `"Reason"` | String Enum | String | May | Present only when `Status` = `Rejected`; provides machine‑readable cause. See [Rejection Reasons](#rejection-reasons), below. |
 
 ### Status Semantics
 | Status | Meaning |
 | --- | --- |
-| `Pending` | AV has accepted escort parameters and is transitioning to `Active` (e.g., internal planning adjustments in progress). |
-| `Active` | AV has applied Protection / Avoidance Zone constraints and is enforcing the escort. |
+| `Pending` | AV has accepted escort parameters and is transitioning to `Activated` (e.g., internal planning adjustments in progress). |
+| `Activated` | AV has applied Protection / Avoidance Zone constraints and is enforcing the escort. |
 | `Rejected` | AV is unable to activate the escort; a `Reason` SHOULD be supplied. |
 
 > [!IMPORTANT]
 > - An AV SHALL send `Rejected` only if an error prevents activation.
-> - An AV MAY send `Active` directly (skipping `Pending`) if activation is immediate.
+> - An AV MAY send `Activated` directly (skipping `Pending`) if activation is immediate.
 > - If activation cannot be immediate, AV SHALL first send `Pending`.
 
 ## Rejection Reasons
@@ -36,7 +36,7 @@ Recommended enumeration (implementations MAY extend):
 - `InvalidPosition` – Position update contains invalid data.
 - `InvalidProtectionZone` – Protection zone parameters wrongly configured.
 
-## Example – Active Response
+## Example – Activated Response
 ```json
 {
   "Protocol": "Open-Autonomy",
@@ -45,7 +45,7 @@ Recommended enumeration (implementations MAY extend):
   "EquipmentId": "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
   "ActivateEscortResponseV1": {
     "EscortId": "123e4567-e89b-12d3-a456-426614174000",
-    "Status": "Active"
+    "Status": "Activated"
   }
 }
 ```
