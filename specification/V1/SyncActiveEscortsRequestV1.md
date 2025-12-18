@@ -1,0 +1,58 @@
+# SyncActiveEscortsRequestV1
+
+This message is sent by the Fleet Management System (FMS) to the Autonomous Haulage System (AHS) to provide an out of sync Autonomous Vehicle (AV) with the current complete set of **active** escorts. The AV must activate all escorts within the request before it is permitted to operate.
+
+> [!IMPORTANT]
+> The `SyncActiveEscortsRequestV1` message shall not contain any escorts that are pending. Pending escorts shall be communicated separately using the [ActivateEscortRequestV1](ActivateEscortRequestV1.md) message.
+---
+
+| Sender | Triggered by | Triggers |
+| --- | --- | --- |
+| `FMS`  | `OutOfSyncV1` | Causes AV to activate all listed escorts; AV answers with [SyncActiveEscortsResponseV1](SyncActiveEscortsResponseV1.md). |
+
+## Message Attributes
+
+The `SyncActiveEscortsRequestV1` payload contains:
+
+| Key | Value | Format | Required | Description |
+| --- | :---: | :---: | :---: | --- |
+| `"RequestId"` | UUID | String | Shall | A unique identifier for the request. This is used to match the request with the response. |
+| `"Escorts"` |  | Array[[ActivateEscortRequestV1](ActivateEscortRequestV1.md)] | Shall | Array of active escort definitions (no Pending escorts). |
+
+>[!NOTE]
+> The top-level message header SHALL contain `EquipmentId` identifying the single AV this synchronization request targets.
+
+
+## Examples
+### Typical Message
+```json
+{
+  "Protocol": "Open-Autonomy",
+  "Version": 1,
+  "Timestamp": "2024-08-23T08:19:56.631Z",
+  "EquipmentId": "f0c3d5ab-2d6e-4a12-b9d9-9eaf1efc0abc",
+  "SyncActiveEscortsRequestV1": {
+    "RequestId": "00000000-0000-0000-0000-000000000001",
+    "Escorts": [
+      {
+        "EscorterId": "11111111-2222-3333-4444-555555555555",
+        "EscortId": "00000000-0000-0000-0000-000000000001",
+        "Length": 100.0,
+        "Width": 6.0,
+        "OnRoadSpeedLimit": 10.0,
+        "OpenAreaSpeedLimit": 6.0,
+        "EscortPositionUpdateV1": {...}
+      },
+      {
+        "EscorterId": "22222222-1111-3333-4444-555555555555",
+        "EscortId": "00000000-0000-0000-0000-000000000002",
+        "Length": 200.0,
+        "Width": 6.0,
+        "OnRoadSpeedLimit": 15.0,
+        "OpenAreaSpeedLimit": 6.0,
+        "EscortPositionUpdateV1": {...}  
+      }
+    ]
+  }
+}
+```
