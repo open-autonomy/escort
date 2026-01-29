@@ -37,6 +37,6 @@ These immutable parameters are specified as part of the creation of the escort i
 * Width
 * Speed limits
 
-Additionally\, it is expected that system-wide implementation specific details should also not be changed whilst an escort is Active, such as:
+Additionally, it is expected that system-wide implementation specific details should also not be changed whilst an escort is Active, such as:
 * the communication modalities
 * any station identifiers (such as described in the [EscortPositionUpdateV1](EscortPositionUpdateV1.md) message)
