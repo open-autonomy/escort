@@ -29,7 +29,7 @@ The following messages are defined in this specification for managing escorts:
 
 ## Immutable Parameters
 
-Each escort contains immutable attributes that shall not be modified while the escort is Active. To change them, create a new escort and retire the existing one.
+Each escort contains immutable attributes that shall not be modified while the escort is Active. To change them, create a new escort and delete the existing one.
 
 These immutable parameters are specified as part of the creation of the escort in the [ActivateEscortRequestV1](ActivateEscortRequestV1.md) and include:
 * Escorter vehicle ID

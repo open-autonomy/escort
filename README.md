@@ -176,7 +176,7 @@ d --> [*] : Escort Removed from AV
 ```
 
 > [!NOTE]
-> [Immutable attributes](/specification/V1/README.md#immutable-parameters) shall not be modified while Active. To change them, create a new escort and retire the existing one.
+> [Immutable attributes](/specification/V1/README.md#immutable-parameters) shall not be modified while Active. To change them, create a new escort and delete the existing one.
 
 ## Sequence Diagrams
 Refer to [sequence diagrams](diagram/SequenceDiagrams.md) for interaction flows covering creation, activation, updates, and retirement.
