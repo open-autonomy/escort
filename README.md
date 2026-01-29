@@ -93,6 +93,10 @@ Escorter and Escortee(s) position at a safe staging location near or within the 
 > [!NOTE]
 > Safe staging location within AOZ requires another layer of protection since it will not be safe by the escort mechanism until the escort is activated.
 
+> [!NOTE]
+> The Escorter should remain stationary until the escort is activated.
+
+
 ### Activation
 Each AV acknowledges activation. When all required AV acknowledgments are received, FMS reports the escort as Active to the Escorter.
 
@@ -171,9 +175,8 @@ a --> d : Incoming DeactivateEscortRequest
 d --> [*] : Escort Removed from AV
 ```
 
-
 > [!NOTE]
-> Immutable attributes (Escorter vehicle ID, Length, Width, communication mode, and any future station identifiers) shall not be modified while Active. To change them, create a new escort and retire the existing one.
+> [Immutable attributes](/specification/V1/README.md#immutable-parameters) shall not be modified while Active. To change them, create a new escort and retire the existing one.
 
 ## Sequence Diagrams
 Refer to [sequence diagrams](diagram/SequenceDiagrams.md) for interaction flows covering creation, activation, updates, and retirement.

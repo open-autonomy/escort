@@ -6,6 +6,8 @@ This message is sent by the Fleet Management System (FMS) to the Autonomous Haul
 | --- | --- | --- |
 | FMS | Successful escort creation (immutable parameters established) | An [ActivateEscortResponseV1](/specification/V1/ActivateEscortResponseV1.md) from each addressed AV |
 
+
+
 ## Message Attributes
 
 The `ActivateEscortRequestV1` message consists of the following properties.
@@ -21,7 +23,7 @@ The `ActivateEscortRequestV1` message consists of the following properties.
 | `"EscortPositionUpdateV1"` | [EscortPositionUpdateV1](/specification/V1/EscortPositionUpdateV1.md) | Object | Shall | Position snapshot used to seed AV prediction and Avoidance Zone calculation. |
 
 >[!IMPORTANT]
-> The AV will reject the request if the escort position is in some way faulty
+> The AV will reject the request if the escort position is in some way faulty, however it should be expected that the positional values may vary between instances of the `ActivateEscortRequestV1` message due to sensor noise, or slight vehicle movement.
 
 >[!IMPORTANT]
 > The AV will use the speed limits when increasing the avoidance zone in accordance to the time delay since last [EscortPositionUpdateV1](/specification/V1/EscortPositionUpdateV1.md).
