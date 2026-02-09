@@ -26,3 +26,17 @@ The following messages are defined in this specification for managing escorts:
 - [OutOfSyncV1](OutOfSyncV1.md)
 - [SyncActiveEscortsRequestV1](SyncActiveEscortsRequestV1.md)
 - [SyncActiveEscortsResponseV1](SyncActiveEscortsResponseV1.md)
+
+## Immutable Parameters
+
+Each escort contains immutable attributes that shall not be modified while the escort is Active. To change them, create a new escort and delete the existing one.
+
+These immutable parameters are specified as part of the creation of the escort in the [ActivateEscortRequestV1](ActivateEscortRequestV1.md) and include:
+* Escorter vehicle ID
+* Length
+* Width
+* Speed limits
+
+Additionally, it is expected that system-wide implementation specific details should also not be changed whilst an escort is Active, such as:
+* the communication modalities
+* any station identifiers (such as described in the [EscortPositionUpdateV1](EscortPositionUpdateV1.md) message)
